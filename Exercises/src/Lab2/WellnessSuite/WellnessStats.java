@@ -8,7 +8,7 @@ public class WellnessStats {
     final String title;
     final int truePositives, falsePositives, trueNegatives, falseNegatives;
     int positives() { return truePositives + falsePositives; }
-    int negatives() { return falsePositives + falseNegatives; }
+    int negatives() { return trueNegatives + falseNegatives; }
 
     public WellnessStats(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
         this.title = title;
@@ -39,14 +39,33 @@ public class WellnessStats {
         return trueNegatives/negatives();
     }
 
+    public double precision()
+    {
+        return truePositives/(truePositives+falsePositives);
+    }
+
+    public double fScore()
+    {
+        return (2*precision()*sensitivity())/(precision()+sensitivity());
+    }
+
     @Override
     public String toString() {
-        return "WellnessStats{" +
-                title + ": \n\t" +
-                "truePositives=" + truePositives +
-                ", falsePositives=" + falsePositives +
-                ", trueNegatives=" + trueNegatives +
-                ", falseNegatives=" + falseNegatives +
-                '}';
+        String properties = "" +
+                "\n\t" + title +
+                "\n\ttruePositives=" + truePositives +
+                "\n\tfalsePositives=" + falsePositives +
+                "\n\ttrueNegatives=" + trueNegatives +
+                "\n\tfalseNegatives=" + falseNegatives;
+
+        String calculations = "" +
+                "\n\taccuracy=" + accuracy() +
+                "\n\terrorRate=" + errorRate() +
+                "\n\tsensitivity=" + sensitivity() +
+                "\n\tspecificity=" + specificity() +
+                "\n\tprecision=" + precision() +
+                "\n\tf-score=" + fScore();
+
+        return "WellnessStats{" + properties + calculations + "\n}";
     }
 }

@@ -23,7 +23,7 @@ public class Main {
 		// First step - Load data and convert to Mushroom objects.
 		ArrayList<Mushroom> mushrooms = DataManager.LoadData();
         System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
-        int k = 10;
+        int k = 5;
 
 
 		List<Mushroom> trainingMushrooms =  mushrooms.subList(0, (int)(0.66*mushrooms.size()));
