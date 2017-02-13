@@ -2,13 +2,11 @@ package Lab2;
 
 import Lab2.Classification.IMushroomClassifier;
 import Lab2.Classification.KNearestNeighboursMushrooms;
-import Lab2.DataManager;
-import Lab2.WellnessSuite.IMushroomWellnessSuite;
-import Lab2.WellnessSuite.MushrromWellnessSuite;
-import Lab2.WellnessSuite.WellnessStats;
+import Lab2.StatisticsSuite.EvaluationStatistics;
+import Lab2.StatisticsSuite.IMushroomEvaluationSuite;
+import Lab2.StatisticsSuite.MushroomEvaluationSuite;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -30,8 +28,8 @@ public class Main {
 		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.66*mushrooms.size()), mushrooms.size());
 
 		IMushroomClassifier classifier = new KNearestNeighboursMushrooms(k, trainingMushrooms);
-        IMushroomWellnessSuite wellnessSuite = new MushrromWellnessSuite();
-        WellnessStats stats = wellnessSuite.testClassifier(classifier, testMushrooms);
+        IMushroomEvaluationSuite wellnessSuite = new MushroomEvaluationSuite();
+        EvaluationStatistics stats = wellnessSuite.testClassifier(classifier, testMushrooms);
         System.out.println(stats);
 
 
