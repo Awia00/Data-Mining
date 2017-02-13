@@ -42,14 +42,20 @@ public class KNearestNeighboursMushrooms implements IMushroomClassifier {
             }
             else
             {
+                Mushroom worstOne = null;
+                int currentDist = Integer.MAX_VALUE;
                 for(Map.Entry<Mushroom, Integer> keyValue: kNearest.entrySet())
                 {
-                    if(distance < keyValue.getValue())
+                    if(distance < keyValue.getValue() && keyValue.getValue()<currentDist)
                     {
-                        kNearest.put(classifiedMushroom, distance);
-                        kNearest.remove(keyValue.getKey());
-                        break;
+                        worstOne = keyValue.getKey();
+                        currentDist = keyValue.getValue();
                     }
+                }
+                if(worstOne != null)
+                {
+                    kNearest.put(classifiedMushroom, distance);
+                    kNearest.remove(worstOne);
                 }
             }
             firstK++;
