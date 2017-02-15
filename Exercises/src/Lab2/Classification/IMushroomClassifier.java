@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IMushroomClassifier extends IClassifier {
 
-    void classifySet(List<Mushroom> mushroomList);
+    void trainWithSet(List<Mushroom> mushroomList);
     //void test(List<Mushroom> mushroomList);
     Class_Label classify(Mushroom mushroom);
 

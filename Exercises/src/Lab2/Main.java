@@ -1,5 +1,6 @@
 package Lab2;
 
+import Lab2.Classification.ID3DecisionTreeMushroomClassifier;
 import Lab2.Classification.IMushroomClassifier;
 import Lab2.Classification.KNearestNeighboursMushrooms;
 import Lab2.StatisticsSuite.EvaluationStatistics;
@@ -23,14 +24,21 @@ public class Main {
         System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
         int k = 5;
 
-
 		List<Mushroom> trainingMushrooms =  mushrooms.subList(0, (int)(0.66*mushrooms.size()));
 		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.66*mushrooms.size()), mushrooms.size());
 
-		IMushroomClassifier classifier = new KNearestNeighboursMushrooms(k, trainingMushrooms);
-        IMushroomEvaluationSuite wellnessSuite = new MushroomEvaluationSuite();
-        EvaluationStatistics stats = wellnessSuite.testClassifier(classifier, testMushrooms);
-        System.out.println(stats);
+		IMushroomEvaluationSuite wellnessSuite = new MushroomEvaluationSuite();
+
+		IMushroomClassifier classifierKNN = new KNearestNeighboursMushrooms(k);
+		IMushroomClassifier classifierID3 = new ID3DecisionTreeMushroomClassifier();
+		classifierKNN.trainWithSet(new ArrayList<>(trainingMushrooms));
+		classifierID3.trainWithSet(new ArrayList<>(trainingMushrooms));
+
+		EvaluationStatistics statsKNN = wellnessSuite.testClassifier(classifierKNN, new ArrayList<>(testMushrooms));
+		EvaluationStatistics statsID3 = wellnessSuite.testClassifier(classifierID3, new ArrayList<>(testMushrooms));
+
+        System.out.println(statsKNN);
+		System.out.println(statsID3);
 
 
 	}

@@ -13,17 +13,14 @@ public class KNearestNeighboursMushrooms implements IMushroomClassifier {
     private List<Mushroom> classifiedMushrooms;
     private int _k;
 
-    public KNearestNeighboursMushrooms(int k, List<Mushroom> trainingSet) {
-        this.classifiedMushrooms = trainingSet;
+    public KNearestNeighboursMushrooms(int k) {
+        this.classifiedMushrooms = new ArrayList<>();
         this._k = k;
     }
 
     @Override
-    public void classifySet(List<Mushroom> mushroomList) {
-        for (Mushroom mushroom :
-                mushroomList) {
-            classify(mushroom);
-        }
+    public void trainWithSet(List<Mushroom> mushroomList) {
+        this.classifiedMushrooms = mushroomList;
     }
 
     @Override
