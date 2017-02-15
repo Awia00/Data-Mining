@@ -1,16 +1,13 @@
 package Lab2.TreeDataStructure;
 
-import Lab2.enums.Class_Label;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by aws on 15-02-2017.
  */
 public class Node {
+    public final static Object defaultObject = new Object();
     public final Object splitOn;
     public final Map<Object, Node> children;
     public final Node parent;
@@ -28,6 +25,10 @@ public class Node {
 
     public Node getChild(Object label)
     {
-        return children.get(label);
+        Node child = children.get(label);
+        if(child == null)
+            return children.get(defaultObject);
+        else
+            return child;
     }
 }

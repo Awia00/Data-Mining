@@ -24,8 +24,9 @@ public class Main {
         System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
         int k = 5;
 
-		List<Mushroom> trainingMushrooms =  mushrooms.subList(0, (int)(0.66*mushrooms.size()));
-		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.66*mushrooms.size()), mushrooms.size());
+		List<Mushroom> trainingMushrooms =  mushrooms.subList(0, (int)(0.5*mushrooms.size()));
+		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.5*mushrooms.size()), mushrooms.size());
+		System.out.println("Training size: " + trainingMushrooms.size() + " test size: " + testMushrooms.size());
 
 		IMushroomEvaluationSuite wellnessSuite = new MushroomEvaluationSuite();
 

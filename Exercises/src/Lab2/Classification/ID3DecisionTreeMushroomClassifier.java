@@ -4,7 +4,6 @@ import Lab2.Mushroom;
 import Lab2.TreeDataStructure.Leaf;
 import Lab2.TreeDataStructure.Node;
 import Lab2.enums.Class_Label;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,7 @@ public class ID3DecisionTreeMushroomClassifier implements IMushroomClassifier {
         newAttributes.remove(bestAttribute);
 
         Node n = new Node(parent, bestAttribute);
+        n.addChild(Node.defaultObject, new Leaf(parent, mostCommon(mushrooms))); // default case.
         for(Map.Entry<Object, List<Mushroom>> entry: split(mushrooms, bestAttribute).entrySet()) {
             if(entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(mushrooms)));
