@@ -6,9 +6,9 @@ package Lab2.WellnessSuite;
 public class WellnessStats {
 
     final String title;
-    final int truePositives, falsePositives, trueNegatives, falseNegatives;
-    int positives() { return truePositives + falsePositives; }
-    int negatives() { return trueNegatives + falseNegatives; }
+    final double truePositives, falsePositives, trueNegatives, falseNegatives;
+    double positives() { return truePositives + falsePositives; }
+    double negatives() { return trueNegatives + falseNegatives; }
 
     public WellnessStats(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
         this.title = title;
@@ -24,7 +24,7 @@ public class WellnessStats {
         return (truePositives+trueNegatives)/(positives()+negatives());
     }
 
-    public double errorRate() // misclassification rate
+    public double errorRate() // mis-classification rate
     {
         return (falsePositives+falseNegatives)/(positives()+negatives());
     }
