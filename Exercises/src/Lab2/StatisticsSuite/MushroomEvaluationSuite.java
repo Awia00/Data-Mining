@@ -1,4 +1,4 @@
-package Lab2.WellnessSuite;
+package Lab2.StatisticsSuite;
 
 import Lab2.Classification.IMushroomClassifier;
 import Lab2.Mushroom;
@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Created by aws on 13-02-2017.
  */
-public class MushrromWellnessSuite implements IMushroomWellnessSuite {
+public class MushroomEvaluationSuite implements IMushroomEvaluationSuite {
     @Override
-    public WellnessStats testClassifier(IMushroomClassifier classifier, List<Mushroom> testSet) {
+    public EvaluationStatistics testClassifier(IMushroomClassifier classifier, List<Mushroom> testSet) {
         int truePositives = 0, falsePositives = 0, trueNegatives = 0, falseNegatives = 0;
         for(Mushroom mushroom: testSet)
         {
@@ -33,6 +33,6 @@ public class MushrromWellnessSuite implements IMushroomWellnessSuite {
                 falsePositives++;
             }
         }
-        return new WellnessStats(classifier.getClass().toString(), truePositives, falsePositives, trueNegatives, falseNegatives);
+        return new EvaluationStatistics(classifier.getClass().toString(), truePositives, falsePositives, trueNegatives, falseNegatives);
     }
 }

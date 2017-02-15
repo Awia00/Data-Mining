@@ -43,10 +43,10 @@ public class KNearestNeighboursMushrooms implements IMushroomClassifier {
             else
             {
                 Mushroom worstOne = null;
-                int currentDist = Integer.MAX_VALUE;
+                int currentDist = -1;
                 for(Map.Entry<Mushroom, Integer> keyValue: kNearest.entrySet())
                 {
-                    if(distance < keyValue.getValue() && keyValue.getValue()<currentDist)
+                    if(distance < keyValue.getValue() && keyValue.getValue()>currentDist)
                     {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();

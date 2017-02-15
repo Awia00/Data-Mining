@@ -1,16 +1,16 @@
-package Lab2.WellnessSuite;
+package Lab2.StatisticsSuite;
 
 /**
  * Created by aws on 13-02-2017.
  */
-public class WellnessStats {
+public class EvaluationStatistics {
 
     final String title;
     final double truePositives, falsePositives, trueNegatives, falseNegatives;
     double positives() { return truePositives + falsePositives; }
     double negatives() { return trueNegatives + falseNegatives; }
 
-    public WellnessStats(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
+    public EvaluationStatistics(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
         this.title = title;
         this.truePositives = truePositives;
         this.falsePositives = falsePositives;
@@ -66,6 +66,6 @@ public class WellnessStats {
                 "\n\tprecision=" + precision() +
                 "\n\tf-score=" + fScore();
 
-        return "WellnessStats{" + properties + calculations + "\n}";
+        return "EvaluationStatistics{" + properties + calculations + "\n}";
     }
 }
