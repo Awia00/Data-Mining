@@ -31,4 +31,25 @@ public class Node {
         else
             return child;
     }
+
+    public void print() {
+        print("","", true);
+    }
+
+    protected void print(String prefix, String key, boolean isTail) {
+        System.out.println(prefix +  (isTail ? "└── " : "├── ") + key +  splitOn);
+        String whiteSpace = "    ";
+        for (int i = 0; i < key.length()-1; i++) {
+            whiteSpace += " ";
+        }
+        for (Map.Entry<Object, Node> child :
+                children.entrySet()) {
+            if(child.getKey()!=defaultObject)
+            {
+                child.getValue().print(prefix + (isTail ? " " + whiteSpace: "│"  + whiteSpace),  child.getKey() + " - ", false);
+            }
+        }
+        children.get(defaultObject)
+                .print(prefix + (isTail ? " " + whiteSpace: "│"  + whiteSpace), "mean -> ", true);
+    }
 }
