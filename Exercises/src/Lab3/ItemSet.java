@@ -12,6 +12,7 @@ public class ItemSet {
 	 */
 	private static final int[] PRIMES = { 2, 3, 5, 7, 11, 13, 17, 23, 27, 31, 37 };
     final int[] set;
+    final int length;
 
     /***
      * Creates a new instance of the ItemSet class.
@@ -19,6 +20,20 @@ public class ItemSet {
      */
     public ItemSet( int[] set ) {
         this.set = set;
+        this.length = set.length;
+    }
+
+    public int get(int index)
+    {
+        return set[index];
+    }
+    public void set(int index, int value)
+    {
+        set[index] = value;
+    }
+    public int getLast()
+    {
+        return set[length-1];
     }
 
     @Override
