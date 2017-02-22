@@ -1,11 +1,11 @@
 package Lab2;
 
-import Lab2.Classification.ID3DecisionTreeMushroomClassifier;
-import Lab2.Classification.IMushroomClassifier;
-import Lab2.Classification.KNearestNeighboursMushrooms;
+import Lab2.Classification.ID3DecisionTreeClassifier;
+import Lab2.Classification.Classifier;
+import Lab2.Classification.KNearestNeighboursClassifier;
 import Lab2.StatisticsSuite.EvaluationStatistics;
-import Lab2.StatisticsSuite.IMushroomEvaluationSuite;
-import Lab2.StatisticsSuite.MushroomEvaluationSuite;
+import Lab2.StatisticsSuite.CanEvaluateClassifier;
+import Lab2.StatisticsSuite.EvaluationSuite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +28,16 @@ public class Main {
 		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.5*mushrooms.size()), mushrooms.size());
 		System.out.println("Training size: " + trainingMushrooms.size() + " test size: " + testMushrooms.size());
 
-		IMushroomEvaluationSuite wellnessSuite = new MushroomEvaluationSuite();
+		CanEvaluateClassifier wellnessSuite = new EvaluationSuite();
 
-		IMushroomClassifier classifierKNN = new KNearestNeighboursMushrooms(k);
-		IMushroomClassifier classifierID3 = new ID3DecisionTreeMushroomClassifier();
-		classifierKNN.trainWithSet(new ArrayList<>(trainingMushrooms));
-		classifierID3.trainWithSet(new ArrayList<>(trainingMushrooms));
+		Classifier classifierKNN = new KNearestNeighboursClassifier(k);
+		Classifier classifierID3 = new ID3DecisionTreeClassifier();
 
-		EvaluationStatistics statsKNN = wellnessSuite.testClassifier(classifierKNN, new ArrayList<>(testMushrooms));
-		EvaluationStatistics statsID3 = wellnessSuite.testClassifier(classifierID3, new ArrayList<>(testMushrooms));
+		classifierKNN.trainWithSet(trainingMushrooms);
+		classifierID3.trainWithSet(trainingMushrooms);
+
+		EvaluationStatistics statsKNN = classifierKNN.testWithSet(new ArrayList<>(trainingMushrooms));
+		EvaluationStatistics statsID3 = classifierID3.testWithSet(new ArrayList<>(trainingMushrooms));
 
         System.out.println(statsKNN);
 		System.out.println(statsID3);

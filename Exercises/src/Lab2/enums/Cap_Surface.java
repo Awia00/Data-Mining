@@ -1,8 +1,15 @@
 package Lab2.enums;
 
-public enum Cap_Surface {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Cap_Surface implements SpaceComparable<Cap_Surface> {
 	fibrous,
 	grooves,
 	scaly,
-	smooth,
+	smooth;
+
+	public double distance(Cap_Surface comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

@@ -1,6 +1,13 @@
 package Lab2.enums;
 
-public enum Veil_Type {
-partial, 
-universal,
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Veil_Type implements SpaceComparable<Veil_Type> {
+    partial,
+    universal;
+
+    public double distance(Veil_Type comparable)
+    {
+        return this==comparable ? 0 : 1;
+    }
 }

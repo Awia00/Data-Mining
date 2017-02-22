@@ -1,6 +1,8 @@
 package Lab2.enums;
 
-public enum Odor {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Odor implements SpaceComparable<Odor> {
 	almond,
 	anise,
 	creosote,
@@ -9,5 +11,10 @@ public enum Odor {
 	musty,
 	none,
 	pungent,
-	spicy,
+	spicy;
+
+	public double distance(Odor comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

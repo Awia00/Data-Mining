@@ -1,6 +1,8 @@
 package Lab2.enums;
 
-public enum Ring_Type {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Ring_Type implements SpaceComparable<Ring_Type> {
 	cobwebby,
 	evanescent,
 	flaring,
@@ -8,5 +10,10 @@ public enum Ring_Type {
 	none,
 	pendant,
 	sheathing,
-	zone,
+	zone;
+
+	public double distance(Ring_Type comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

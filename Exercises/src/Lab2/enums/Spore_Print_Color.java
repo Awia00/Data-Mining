@@ -1,6 +1,8 @@
 package Lab2.enums;
 
-public enum Spore_Print_Color {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Spore_Print_Color implements SpaceComparable<Spore_Print_Color> {
 	black,
 	brown,
 	buff,
@@ -9,5 +11,10 @@ public enum Spore_Print_Color {
 	orange,
 	purple,
 	white,
-	yellow,
+	yellow;
+
+	public double distance(Spore_Print_Color comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

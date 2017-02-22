@@ -47,7 +47,9 @@ public class DataManager {
 				mushroomToAdd.m_spore_color = loadSporePrintColor(data[i][20]);
 				mushroomToAdd.m_population = loadPopulation(data[i][21]);
 				mushroomToAdd.m_habitat = loadHabitat(data[i][22]);
-				
+
+				mushroomToAdd.buildMap();
+
 				datalist.add(mushroomToAdd);
 			}			
 		} catch (IOException e) {

@@ -1,6 +1,8 @@
 package Lab2.enums;
 
-public enum Cap_Color {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Cap_Color implements SpaceComparable<Cap_Color> {
 	brown,
 	buff,
 	cinnamon,
@@ -10,5 +12,10 @@ public enum Cap_Color {
 	purple,
 	red,
 	white,
-	yellow,
+	yellow;
+
+	public double distance(Cap_Color comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

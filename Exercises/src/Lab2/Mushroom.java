@@ -1,8 +1,11 @@
 package Lab2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import Lab2.Interfaces.Attribute;
+import Lab2.Interfaces.Classification;
+import Lab2.Interfaces.SpaceComparable;
+import Lab2.Interfaces.WithAttributes;
 import Lab2.enums.*;
 
 
@@ -11,8 +14,8 @@ import Lab2.enums.*;
  * More info on each attribute in agaricus-lepiotaexplanation.txt.
  *
  */
-public class Mushroom implements IDistanceComparator{
-	
+public class Mushroom implements WithAttributes<SpaceComparable>{
+
 	/**
 	 * Returns a list (as .class objects) of the different attribute types.
 	 * Note that the class label is not added to this list of attributes.
@@ -20,7 +23,7 @@ public class Mushroom implements IDistanceComparator{
 	 */
 	public static ArrayList<Object> getAttributeList()
 	{
-		ArrayList<Object> attributes = new ArrayList<Object>();
+		ArrayList<Object> attributes = new ArrayList<>();
 		attributes.add(Cap_Shape.class);
 		attributes.add(Cap_Surface.class);
 		attributes.add(Cap_Color.class);
@@ -96,7 +99,37 @@ public class Mushroom implements IDistanceComparator{
 	public Population m_population;
 	
 	public Habitat m_habitat;
-	
+
+	private Map<Attribute, SpaceComparable> attributeValues;
+	protected void buildMap()
+    {
+        attributeValues = new Hashtable<Attribute, SpaceComparable>(){{
+            put(new Attribute(Cap_Shape.class), m_cap_shape);
+            put(new Attribute(Cap_Color.class), m_cap_color);
+            put(new Attribute(Cap_Surface.class), m_cap_surface);
+            put(new Attribute(Cap_Color.class), m_cap_color);
+            put(new Attribute(Bruises.class), m_bruises);
+            put(new Attribute(Odor.class), m_odor);
+            put(new Attribute(Gill_Attachment.class), m_gill_attach);
+            put(new Attribute(Gill_Spacing.class), m_gill_spacing);
+            put(new Attribute(Gill_Size.class), m_gill_size);
+            put(new Attribute(Gill_Color.class), m_gill_color);
+            put(new Attribute(Stalk_Shape.class), m_stalk_shape);
+            put(new Attribute(Stalk_Root.class), m_stalk_root);
+            put(new Attribute(Stalk_Surface_Above_Ring.class), m_stalk_surface_above);
+            put(new Attribute(Stalk_Surface_Below_Ring.class),m_stalk_surface_below);
+            put(new Attribute(Stalk_Color_Above_Ring.class), m_stalk_color_above);
+            put(new Attribute(Stalk_Color_Below_Ring.class), m_stalk_color_below);
+            put(new Attribute(Veil_Type.class), m_veil_type);
+            put(new Attribute(Veil_Color.class), m_veil_color);
+            put(new Attribute(Ring_Number.class), m_ring_number);
+            put(new Attribute(Ring_Type.class), m_ring_type);
+            put(new Attribute(Spore_Print_Color.class), m_spore_color);
+            put(new Attribute(Population.class), m_population);
+            put(new Attribute(Habitat.class), m_habitat);
+        }};
+    }
+
 	/***
 	 * Returns the value of an Attribute based on its .class type object.
 	 * @param Attribute .class type object of its type
@@ -202,7 +235,25 @@ public class Mushroom implements IDistanceComparator{
 	}
 
 	@Override
-	public double distance(IDistanceComparator other) {
-		return 0.0;
+	public Collection<Attribute> getAttributes() {
+		return attributeValues.keySet();
 	}
+
+	@Override
+	public SpaceComparable getValueOfAttribute(Attribute attribute) {
+		return attributeValues.get(attribute);
+	}
+
+    @Override
+    public Classification getClassification() {
+        if(m_Class == Class_Label.edible)
+            return Classification.negative;
+        else
+            return Classification.positive;
+    }
+
+    @Override
+    public boolean checkClassification(Classification classification) {
+        return getClassification() == classification;
+    }
 }

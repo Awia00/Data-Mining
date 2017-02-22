@@ -1,5 +1,7 @@
 package Lab2.TreeDataStructure;
 
+import Lab2.Interfaces.Attribute;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +10,16 @@ import java.util.Map;
  */
 public class Node {
     public final static Object defaultObject = new Object();
-    public final Object splitOn;
+    public final Attribute splitOn;
     public final Map<Object, Node> children;
     public final Node parent;
 
-    public Node(Node parent, Object splitOn) {
+    public Node(Node parent) {
+        this.parent = parent;
+        this.splitOn = null;
+        children = new HashMap<>();
+    }
+    public Node(Node parent, Attribute splitOn) {
         this.parent = parent;
         this.splitOn = splitOn;
         children = new HashMap<>();

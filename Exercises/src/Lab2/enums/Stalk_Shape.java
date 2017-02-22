@@ -1,6 +1,13 @@
 package Lab2.enums;
 
-public enum Stalk_Shape {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Stalk_Shape implements SpaceComparable<Stalk_Shape> {
 	enlarging,
-	tapering,
+	tapering;
+
+	public double distance(Stalk_Shape comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

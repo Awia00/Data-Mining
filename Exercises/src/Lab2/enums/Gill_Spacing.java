@@ -1,7 +1,14 @@
 package Lab2.enums;
 
-public enum Gill_Spacing {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Gill_Spacing implements SpaceComparable<Gill_Spacing> {
 	close,
 	crowded,
-	distant,
+	distant;
+
+	public double distance(Gill_Spacing comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }

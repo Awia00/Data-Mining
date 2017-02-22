@@ -1,10 +1,17 @@
 package Lab2.enums;
 
-public enum Population {
+import Lab2.Interfaces.SpaceComparable;
+
+public enum Population implements SpaceComparable<Population> {
 	abundant,
 	clustered,
 	numerous,
 	scattered,
 	several,
-	solitary,
+	solitary;
+
+	public double distance(Population comparable)
+	{
+		return this==comparable ? 0 : 1;
+	}
 }
