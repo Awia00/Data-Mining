@@ -699,31 +699,5 @@ public class DataManager {
 		
 		return null;
 	}
-
-	/**
-	 * Method which might be helpful for calculating information gain. Counts the number of
-	 * a specific Class label (e.g. poison or edible) appears in given data, when a specific Attribute has a specific value.
-	 * The method assumes that the attribute is nominal.
-	 * @param Data
-	 * @param Attribute Attribute we are calculating information gain for
-	 * @param AttributeValue What value of the attribute
-	 * @param Classification
-	 * @return
-	 */
-	public static int CountClassInstancesBasedOnAttributeValue(ArrayList<Mushroom> Data, Object Attribute, Object AttributeValue, Object Classification)
-	{	
-		int count = 0;
-		for(Mushroom mushroom : Data)
-		{
-			if(mushroom.getAttributeValue(Attribute).equals(AttributeValue))
-			{
-				if(mushroom.m_Class.equals(Classification))
-				{
-					count++;
-				}
-			}
-		}
-		return count;
-	}
 	
 }
