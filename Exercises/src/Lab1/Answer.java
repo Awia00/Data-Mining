@@ -1,21 +1,22 @@
 package Lab1;
 
-import java.util.*;
-enum Gender
-{
+import java.util.Arrays;
+import java.util.List;
+
+enum Gender {
     None,
     Male,
     Female
 }
-enum PreferRange
-{
+
+enum PreferRange {
     NotInterested,
     Meh,
     SoundsInteresting,
     VeryInteresting
 }
-public class Answer
-{
+
+public class Answer {
     String timeStamp;
     int age;
     Gender gender;
@@ -62,10 +63,8 @@ public class Answer
         this.seat = seat;
     }
 
-    private PreferRange preferRangeParser(String value)
-    {
-        switch (value.toLowerCase())
-        {
+    private PreferRange preferRangeParser(String value) {
+        switch (value.toLowerCase()) {
             case "not interested":
                 return PreferRange.NotInterested;
             case "meh":
@@ -79,18 +78,17 @@ public class Answer
         }
 
     }
-    public Answer(String[] data)
-    {
+
+    public Answer(String[] data) {
         int index = 0;
         this.timeStamp = data[index++];
         this.age = Integer.parseInt(data[index++]);
         char gender = data[index++].toLowerCase().charAt(0);
-        this.gender = gender == 'm' ? Gender.Male : gender == 'f' ? Gender.Female: Gender.None;
+        this.gender = gender == 'm' ? Gender.Male : gender == 'f' ? Gender.Female : Gender.None;
         this.shoeSize = Float.parseFloat(data[index++].replace(',', '.'));
-        try{
+        try {
             this.height = Float.parseFloat(data[index++]);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -98,27 +96,28 @@ public class Answer
         this.whyCourse = data[index++];
         this.profficientLanguages = Arrays.asList(data[index++].split(",|;"));
         this.phoneOS = data[index++];
-        this.howInterested = new PreferRange[]{ preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]) };
+        this.howInterested = new PreferRange[]{preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++])};
         this.whichGamesPlayed = data[index++].split(";");
         this.commutePossibilities = data[index++].split(",|;");
-        this.traversalOfITU = new String[] { data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++] };
+        this.traversalOfITU = new String[]{data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++]};
         this.therbForttGlag = data[index++];
-        try{
+        try {
             this.fourRandomNumbers = new int[4];
             this.fourRandomNumbers = new int[]{Integer.parseInt(data[index++]), Integer.parseInt(data[index++]), Integer.parseInt(data[index++]), Integer.parseInt(data[index++])};
-        }catch (Exception e) {} // supressed;
+        } catch (Exception e) {
+        } // supressed;
         try {
             this.pickANumber = Integer.parseInt(data[index++]);
-        } catch (Exception e) {} // supressed;
+        } catch (Exception e) {
+        } // supressed;
         this.favoriteFilm = data[index++];
         this.favoriteTV = data[index++];
         this.favoriteGame = data[index++];
         this.row = data[index++].charAt(0);
 
-        try{
+        try {
             Integer.parseInt(data[index++]);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             this.seat = -1;
         }
     }

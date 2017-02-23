@@ -19,44 +19,42 @@ public class Node {
         this.splitOn = null;
         children = new HashMap<>();
     }
+
     public Node(Node parent, Attribute splitOn) {
         this.parent = parent;
         this.splitOn = splitOn;
         children = new HashMap<>();
     }
 
-    public void addChild(Object label, Node node)
-    {
+    public void addChild(Object label, Node node) {
         children.put(label, node);
     }
 
-    public Node getChild(Object label)
-    {
+    public Node getChild(Object label) {
         Node child = children.get(label);
-        if(child == null)
+        if (child == null)
             return children.get(defaultObject);
         else
             return child;
     }
 
     public void print() {
-        print("","", true);
+        print("", "", true);
     }
 
     protected void print(String prefix, String key, boolean isTail) {
-        System.out.println(prefix +  (isTail ? "└── " : "├── ") + key +  splitOn);
+        System.out.println(prefix + (isTail ? "└── " : "├── ") + key + splitOn);
         String whiteSpace = "    ";
-        for (int i = 0; i < key.length()-1; i++) {
+        for (int i = 0; i < key.length() - 1; i++) {
             whiteSpace += " ";
         }
         for (Map.Entry<Object, Node> child :
                 children.entrySet()) {
-            if(child.getKey()!=defaultObject)
-            {
-                child.getValue().print(prefix + (isTail ? " " + whiteSpace: "│"  + whiteSpace),  child.getKey() + " - ", false);
+            if (child.getKey() != defaultObject) {
+                child.getValue().print(prefix + (isTail ? " " + whiteSpace : "│" + whiteSpace), child.getKey() + " - ", false);
             }
         }
         children.get(defaultObject)
-                .print(prefix + (isTail ? " " + whiteSpace: "│"  + whiteSpace), "mean -> ", true);
+                .print(prefix + (isTail ? " " + whiteSpace : "│" + whiteSpace), "mean -> ", true);
     }
 }

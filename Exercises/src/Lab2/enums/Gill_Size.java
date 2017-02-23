@@ -6,8 +6,7 @@ public enum Gill_Size implements SpaceComparable<Gill_Size> {
     broad,
     narrow;
 
-    public double distance(Gill_Size comparable)
-    {
-        return this==comparable ? 0 : 1;
+    public double distance(Gill_Size comparable) {
+        return this == comparable ? 0 : 1;
     }
 }

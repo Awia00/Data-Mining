@@ -7,8 +7,14 @@ public class EvaluationStatistics {
 
     final String title;
     final double truePositives, falsePositives, trueNegatives, falseNegatives;
-    double positives() { return truePositives + falsePositives; }
-    double negatives() { return trueNegatives + falseNegatives; }
+
+    double positives() {
+        return truePositives + falsePositives;
+    }
+
+    double negatives() {
+        return trueNegatives + falseNegatives;
+    }
 
     public EvaluationStatistics(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
         this.title = title;
@@ -21,32 +27,30 @@ public class EvaluationStatistics {
 
     public double accuracy() // recognition rate
     {
-        return (truePositives+trueNegatives)/(positives()+negatives());
+        return (truePositives + trueNegatives) / (positives() + negatives());
     }
 
     public double errorRate() // mis-classification rate
     {
-        return (falsePositives+falseNegatives)/(positives()+negatives());
+        return (falsePositives + falseNegatives) / (positives() + negatives());
     }
 
     public double sensitivity() // true positive rate, recall
     {
-        return truePositives/positives();
+        return truePositives / positives();
     }
 
     public double specificity() // true negative rate
     {
-        return trueNegatives/negatives();
+        return trueNegatives / negatives();
     }
 
-    public double precision()
-    {
-        return truePositives/(truePositives+falsePositives);
+    public double precision() {
+        return truePositives / (truePositives + falsePositives);
     }
 
-    public double fScore()
-    {
-        return (2*precision()*sensitivity())/(precision()+sensitivity());
+    public double fScore() {
+        return (2 * precision() * sensitivity()) / (precision() + sensitivity());
     }
 
     @Override

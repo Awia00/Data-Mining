@@ -2,10 +2,8 @@ package Lab2.StatisticsSuite;
 
 import Lab2.Classification.Classifier;
 import Lab2.Interfaces.WithAttributes;
-import Lab2.Mushroom;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by aws on 13-02-2017.

@@ -6,9 +6,11 @@ import Lab2.Interfaces.SpaceComparable;
 import Lab2.Interfaces.WithAttributes;
 import Lab2.StatisticsSuite.EvaluationStatistics;
 import Lab2.StatisticsSuite.EvaluationSuite;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by aws on 13-02-2017.
@@ -38,29 +40,23 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
     public Classification classify(WithAttributes<SpaceComparable> elementToClassify) {
         Map<WithAttributes<SpaceComparable>, Integer> kNearest = new HashMap<>();
         int firstK = 0;
-        for (WithAttributes classifiedElement: classifiedSet) {
+        for (WithAttributes classifiedElement : classifiedSet) {
             int distance = 0;
-            for (Attribute attribute: elementToClassify.getAttributes()){
-                distance+= elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute));
+            for (Attribute attribute : elementToClassify.getAttributes()) {
+                distance += elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute));
             }
-            if(firstK < _k)
-            {
+            if (firstK < _k) {
                 kNearest.put(classifiedElement, distance);
-            }
-            else
-            {
+            } else {
                 WithAttributes<SpaceComparable> worstOne = null;
                 int currentDist = -1;
-                for(Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue: kNearest.entrySet())
-                {
-                    if(distance < keyValue.getValue() && keyValue.getValue()>currentDist)
-                    {
+                for (Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue : kNearest.entrySet()) {
+                    if (distance < keyValue.getValue() && keyValue.getValue() > currentDist) {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();
                     }
                 }
-                if(worstOne != null)
-                {
+                if (worstOne != null) {
                     kNearest.put(classifiedElement, distance);
                     kNearest.remove(worstOne);
                 }
@@ -68,13 +64,12 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
             firstK++;
         }
         int negatives = 0, positives = 0;
-        for(Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue: kNearest.entrySet())
-        {
-            if(keyValue.getKey().getClassification() == Classification.negative)
+        for (Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue : kNearest.entrySet()) {
+            if (keyValue.getKey().getClassification() == Classification.negative)
                 negatives++;
             else
                 positives++;
         }
-        return negatives >= positives? Classification.negative : Classification.positive;
+        return negatives >= positives ? Classification.negative : Classification.positive;
     }
 }

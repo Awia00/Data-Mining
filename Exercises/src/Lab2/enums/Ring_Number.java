@@ -7,8 +7,7 @@ public enum Ring_Number implements SpaceComparable<Ring_Number> {
     one,
     two;
 
-    public double distance(Ring_Number comparable)
-    {
-        return this==comparable ? 0 : 1;
+    public double distance(Ring_Number comparable) {
+        return this == comparable ? 0 : 1;
     }
 }

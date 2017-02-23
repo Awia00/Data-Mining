@@ -1,10 +1,10 @@
 package Lab2;
 
-import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.Classifier;
+import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.KNearestNeighboursClassifier;
-import Lab2.StatisticsSuite.EvaluationStatistics;
 import Lab2.StatisticsSuite.CanEvaluateClassifier;
+import Lab2.StatisticsSuite.EvaluationStatistics;
 import Lab2.StatisticsSuite.EvaluationSuite;
 
 import java.util.ArrayList;
@@ -15,34 +15,34 @@ import java.util.List;
  */
 public class Main {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// First step - Load data and convert to Mushroom objects.
-		ArrayList<Mushroom> mushrooms = DataManager.LoadData();
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // First step - Load data and convert to Mushroom objects.
+        ArrayList<Mushroom> mushrooms = DataManager.LoadData();
         System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
         int k = 5;
 
-		List<Mushroom> trainingMushrooms =  mushrooms.subList(0, (int)(0.5*mushrooms.size()));
-		List<Mushroom> testMushrooms =  mushrooms.subList((int)(0.5*mushrooms.size()), mushrooms.size());
-		System.out.println("Training size: " + trainingMushrooms.size() + " test size: " + testMushrooms.size());
+        List<Mushroom> trainingMushrooms = mushrooms.subList(0, (int) (0.5 * mushrooms.size()));
+        List<Mushroom> testMushrooms = mushrooms.subList((int) (0.5 * mushrooms.size()), mushrooms.size());
+        System.out.println("Training size: " + trainingMushrooms.size() + " test size: " + testMushrooms.size());
 
-		CanEvaluateClassifier wellnessSuite = new EvaluationSuite();
+        CanEvaluateClassifier wellnessSuite = new EvaluationSuite();
 
-		Classifier classifierKNN = new KNearestNeighboursClassifier(k);
-		Classifier classifierID3 = new ID3DecisionTreeClassifier();
+        Classifier classifierKNN = new KNearestNeighboursClassifier(k);
+        Classifier classifierID3 = new ID3DecisionTreeClassifier();
 
-		classifierKNN.trainWithSet(trainingMushrooms);
-		classifierID3.trainWithSet(trainingMushrooms);
+        classifierKNN.trainWithSet(trainingMushrooms);
+        classifierID3.trainWithSet(trainingMushrooms);
 
-		EvaluationStatistics statsKNN = classifierKNN.testWithSet(new ArrayList<>(trainingMushrooms));
-		EvaluationStatistics statsID3 = classifierID3.testWithSet(new ArrayList<>(trainingMushrooms));
+        EvaluationStatistics statsKNN = classifierKNN.testWithSet(new ArrayList<>(trainingMushrooms));
+        EvaluationStatistics statsID3 = classifierID3.testWithSet(new ArrayList<>(trainingMushrooms));
 
         System.out.println(statsKNN);
-		System.out.println(statsID3);
+        System.out.println(statsID3);
 
 
-	}
+    }
 
 }

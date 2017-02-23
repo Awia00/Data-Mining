@@ -6,11 +6,11 @@ package Lab3;
  *
  */
 public class ItemSet {
-	
-	/***
-	 * The PRIMES array is internally in the ItemSet-class' hashCode method
-	 */
-	private static final int[] PRIMES = { 2, 3, 5, 7, 11, 13, 17, 23, 27, 31, 37 };
+
+    /***
+     * The PRIMES array is internally in the ItemSet-class' hashCode method
+     */
+    private static final int[] PRIMES = {2, 3, 5, 7, 11, 13, 17, 23, 27, 31, 37};
     final int[] set;
     final int length;
 
@@ -18,22 +18,21 @@ public class ItemSet {
      * Creates a new instance of the ItemSet class.
      * @param set Transaction content
      */
-    public ItemSet( int[] set ) {
+    public ItemSet(int[] set) {
         this.set = set;
         this.length = set.length;
     }
 
-    public int get(int index)
-    {
+    public int get(int index) {
         return set[index];
     }
-    public void set(int index, int value)
-    {
+
+    public void set(int index, int value) {
         set[index] = value;
     }
-    public int getLast()
-    {
-        return set[length-1];
+
+    public int getLast() {
+        return set[length - 1];
     }
 
     @Override
@@ -48,12 +47,12 @@ public class ItemSet {
         return code;
     }
 
-    
+
     @Override
     /**
      * Used to determine whether two ItemSet objects are equal
      */
-    public boolean equals( Object o ) {
+    public boolean equals(Object o) {
         if (!(o instanceof ItemSet)) {
             return false;
         }
