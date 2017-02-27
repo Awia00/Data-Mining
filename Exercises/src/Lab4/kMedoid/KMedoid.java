@@ -1,12 +1,12 @@
 package Lab4.kMedoid;
 
-import Common.Interfaces.SpaceComparable;
+import Common.Interfaces.NDimensionalPoint;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 public class KMedoid {
 
-    public static ArrayList<KMedoidCluster> KMedoidPartition(int k, ArrayList<SpaceComparable> data) {
+    public static Collection<KMedoidCluster> KMedoidPartition(int k, Collection<NDimensionalPoint> data) {
         return null;
 
     }

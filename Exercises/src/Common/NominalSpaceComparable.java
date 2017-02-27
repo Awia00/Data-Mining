@@ -17,6 +17,10 @@ public class NominalSpaceComparable<T extends Enum> implements SpaceComparable<N
         return comparable.value.equals(value) ? 0 : 1;
     }
 
+    public T getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return value.toString();

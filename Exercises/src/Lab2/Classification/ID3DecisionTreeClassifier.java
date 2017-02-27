@@ -43,7 +43,7 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         newAttributeKeys.remove(bestAttributeKey);
 
         Node n = new Node(parent, bestAttributeKey);
-        n.addChild(Node.defaultObject, new Leaf(parent, mostCommon(elements))); // default case.
+        n.addChild(null, new Leaf(parent, mostCommon(elements))); // default case.
         for (Map.Entry<Object, List<Classifiable>> entry : split(elements, bestAttributeKey).entrySet()) {
             if (entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(elements)));

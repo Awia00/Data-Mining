@@ -18,6 +18,10 @@ public class EuclideanSpaceComparable<T extends Number> implements SpaceComparab
         return delta*delta;
     }
 
+    public double getDoubleValue() {
+        return value.doubleValue();
+    }
+
     @Override
     public String toString() {
         return value.toString();

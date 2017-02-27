@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by aws on 15-02-2017.
  */
 public class Node {
-    public final static Object defaultObject = new Object();
+    private final static Object defaultObject = new Object();
     public final AttributeKey splitOn;
     public final Map<Object, Node> children;
     public final Node parent;
@@ -29,6 +29,7 @@ public class Node {
     }
 
     public void addChild(Object label, Node node) {
+        if(label == null) label = defaultObject;
         children.put(label, node);
     }
 

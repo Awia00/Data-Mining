@@ -3,15 +3,15 @@ package Lab4.data;
 
 import Common.AttributeKey;
 import Common.EuclideanSpaceComparable;
+import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.SpaceComparable;
-import Common.Interfaces.WithAttributes;
 import Common.NominalSpaceComparable;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Iris implements SpaceComparable<Iris>, WithAttributes<SpaceComparable>{
+public class Iris extends NDimensionalPoint {
 
     Map<AttributeKey, SpaceComparable> attributes;
 
@@ -20,6 +20,15 @@ public class Iris implements SpaceComparable<Iris>, WithAttributes<SpaceComparab
     }
 
     public Iris(float sepal_length, float sepal_width, float petal_length, float petal_width, IrisClass iris_class) {
+        attributes = new LinkedHashMap<>();
+        attributes.put(new AttributeKey<>("sepalLength"), new EuclideanSpaceComparable<>(sepal_length));
+        attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
+        attributes.put(new AttributeKey<>("petalLength"), new EuclideanSpaceComparable<>(petal_length));
+        attributes.put(new AttributeKey<>("petalWidth"), new EuclideanSpaceComparable<>(petal_width));
+        attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
+    }
+
+    public Iris(double sepal_length, double sepal_width, double petal_length, double petal_width, IrisClass iris_class) {
         attributes = new LinkedHashMap<>();
         attributes.put(new AttributeKey<>("sepalLength"), new EuclideanSpaceComparable<>(sepal_length));
         attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
@@ -60,12 +69,4 @@ public class Iris implements SpaceComparable<Iris>, WithAttributes<SpaceComparab
         return attributes.get(attributeKey);
     }
 
-    @Override
-    public double distance(Iris comparable) {
-        double distance = 0;
-        for (Map.Entry<AttributeKey, SpaceComparable> entry : attributes.entrySet()) {
-            distance += entry.getValue().distance(comparable.getValueOfAttribute(entry.getKey()));
-        }
-        return distance;
-    }
 }
