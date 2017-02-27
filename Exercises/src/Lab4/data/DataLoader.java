@@ -1,12 +1,14 @@
 package Lab4.data;
 
+import Common.Interfaces.SpaceComparable;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataLoader {
 
-    public static ArrayList<Iris> LoadAllIrisData() {
-        ArrayList<Iris> data = new ArrayList<>();
+    public static ArrayList<SpaceComparable> LoadAllIrisData() {
+        ArrayList<SpaceComparable> data = new ArrayList<>();
         try {
             String[][] dataOrig = CSVFileReader.readDataFile("Resources/iris.csv", ",", "", true);
 

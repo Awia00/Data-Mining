@@ -1,12 +1,12 @@
 package Lab4.kMedoid;
 
-import Lab4.data.Iris;
+import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
 
 public class KMedoid {
 
-    public static ArrayList<KMedoidCluster> KMedoidPartition(int k, ArrayList<Iris> data) {
+    public static ArrayList<KMedoidCluster> KMedoidPartition(int k, ArrayList<SpaceComparable> data) {
         return null;
 
     }

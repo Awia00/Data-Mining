@@ -1,16 +1,16 @@
 package Lab4.kMedoid;
 
-import Lab4.data.Iris;
+import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
 
 public class KMedoidCluster {
 
-    public ArrayList<Iris> ClusterMembers;
-    public Iris Medoid;
+    public ArrayList<SpaceComparable> ClusterMembers;
+    public SpaceComparable Medoid;
 
-    public KMedoidCluster(Iris medoid) {
-        this.ClusterMembers = new ArrayList<Iris>();
+    public KMedoidCluster(SpaceComparable medoid) {
+        this.ClusterMembers = new ArrayList<SpaceComparable>();
         this.Medoid = medoid;
     }
 
@@ -18,7 +18,7 @@ public class KMedoidCluster {
     public String toString() {
         String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
         toPrintString += "Medoid: " + this.Medoid.toString() + System.getProperty("line.separator");
-        for (Iris i : this.ClusterMembers) {
+        for (SpaceComparable i : this.ClusterMembers) {
             toPrintString += i.toString() + System.getProperty("line.separator");
         }
         toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");

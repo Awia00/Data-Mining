@@ -1,28 +1,28 @@
 package Lab4.kMean;
 
-import Lab4.data.Iris;
+import Common.Interfaces.WithAttributes;
 
 import java.util.ArrayList;
 
 
 //ToDo: Compute cluster mean based on cluster members.
-public class KMeanCluster {
+public class KMeanCluster<SpaceComparable> {
 
-    private ArrayList<Iris> ClusterMembers;
+    private ArrayList<WithAttributes<SpaceComparable>> clusterMembers;
 
     public KMeanCluster() {
-        this.ClusterMembers = new ArrayList<>();
+        this.clusterMembers = new ArrayList<>();
     }
 
-    public KMeanCluster(ArrayList<Iris> clusterMembers) {
-        ClusterMembers = clusterMembers;
+    public KMeanCluster(ArrayList<WithAttributes<SpaceComparable>> clusterMembers) {
+        this.clusterMembers = clusterMembers;
     }
 
     @Override
     public String toString() {
         String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
 
-        for (Iris i : this.ClusterMembers) {
+        for (WithAttributes<SpaceComparable> i : this.clusterMembers) {
             toPrintString += i.toString() + System.getProperty("line.separator");
         }
         toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");

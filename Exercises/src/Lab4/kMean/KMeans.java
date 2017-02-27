@@ -1,13 +1,13 @@
 package Lab4.kMean;
 
-import Lab4.data.Iris;
+import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
 
 
 public class KMeans {
 
-    public ArrayList<KMeanCluster> KMeansPartition(int k, ArrayList<Iris> data) {
+    public ArrayList<KMeanCluster> KMeansPartition(int k, ArrayList<SpaceComparable> data) {
         return null;
 
     }

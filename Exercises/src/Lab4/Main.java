@@ -1,7 +1,7 @@
 package Lab4;
 
+import Common.Interfaces.SpaceComparable;
 import Lab4.data.DataLoader;
-import Lab4.data.Iris;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
 import Lab4.kMedoid.KMedoid;
@@ -16,9 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         //First step load in iris data
-        ArrayList<Iris> irisData = DataLoader.LoadAllIrisData();
+        ArrayList<SpaceComparable> irisData = DataLoader.LoadAllIrisData();
 
-        for (Iris irisDatum : irisData) {
+        for (SpaceComparable irisDatum : irisData) {
             System.out.println(irisDatum);
         }
 

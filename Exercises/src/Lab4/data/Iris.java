@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Iris implements WithAttributes<SpaceComparable>{
+public class Iris implements SpaceComparable<Iris>, WithAttributes<SpaceComparable>{
 
     Map<AttributeKey, SpaceComparable> attributes;
 
@@ -58,5 +58,14 @@ public class Iris implements WithAttributes<SpaceComparable>{
     @Override
     public SpaceComparable getValueOfAttribute(AttributeKey attributeKey) {
         return attributes.get(attributeKey);
+    }
+
+    @Override
+    public double distance(Iris comparable) {
+        double distance = 0;
+        for (Map.Entry<AttributeKey, SpaceComparable> entry : attributes.entrySet()) {
+            distance += entry.getValue().distance(comparable.getValueOfAttribute(entry.getKey()));
+        }
+        return distance;
     }
 }
