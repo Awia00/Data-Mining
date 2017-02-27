@@ -1,7 +1,6 @@
 package Common.Interfaces;
 
-import Common.Attribute;
-import Common.Classification;
+import Common.AttributeKey;
 
 import java.util.Collection;
 
@@ -10,7 +9,7 @@ import java.util.Collection;
  */
 public interface WithAttributes<T> {
 
-    Collection<Attribute> getAttributes();
+    Collection<AttributeKey> getAttributes();
 
-    T getValueOfAttribute(Attribute attribute);
+    T getValueOfAttribute(AttributeKey attributeKey);
 }

@@ -18,6 +18,10 @@ public class Main {
         //First step load in iris data
         ArrayList<Iris> irisData = DataLoader.LoadAllIrisData();
 
+        for (Iris irisDatum : irisData) {
+            System.out.println(irisDatum);
+        }
+
         //Second step --> do the clustering using k-means!
         ArrayList<KMeanCluster> FoundClusters_KMeans = new KMeans().KMeansPartition(3, irisData);
 

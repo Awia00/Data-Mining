@@ -1,6 +1,6 @@
 package Common.DataStructures.Tree;
 
-import Common.Attribute;
+import Common.AttributeKey;
 import Common.Classification;
 import Common.Interfaces.WithAttributes;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Node {
     public final static Object defaultObject = new Object();
-    public final Attribute splitOn;
+    public final AttributeKey splitOn;
     public final Map<Object, Node> children;
     public final Node parent;
 
@@ -22,7 +22,7 @@ public class Node {
         children = new HashMap<>();
     }
 
-    public Node(Node parent, Attribute splitOn) {
+    public Node(Node parent, AttributeKey splitOn) {
         this.parent = parent;
         this.splitOn = splitOn;
         children = new HashMap<>();

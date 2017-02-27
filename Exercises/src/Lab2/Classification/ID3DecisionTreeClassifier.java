@@ -1,6 +1,6 @@
 package Lab2.Classification;
 
-import Common.Attribute;
+import Common.AttributeKey;
 import Common.Classification;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
@@ -31,50 +31,50 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         //tree.print();
     }
 
-    private Node buildTree(Node parent, List<Classifiable> elements, Collection<Attribute> attributes) {
+    private Node buildTree(Node parent, List<Classifiable> elements, Collection<AttributeKey> attributeKeys) {
         if (belongToSameClass(elements)) {
             return new Leaf(parent, elements.get(0).getClassification());
         }
-        if (attributes.isEmpty()) {
+        if (attributeKeys.isEmpty()) {
             return new Leaf(parent, mostCommon(elements));
         }
-        Attribute bestAttribute = findBestAttribute(elements, attributes);
-        List<Attribute> newAttributes = new ArrayList<>(attributes);
-        newAttributes.remove(bestAttribute);
+        AttributeKey bestAttributeKey = findBestAttribute(elements, attributeKeys);
+        List<AttributeKey> newAttributeKeys = new ArrayList<>(attributeKeys);
+        newAttributeKeys.remove(bestAttributeKey);
 
-        Node n = new Node(parent, bestAttribute);
+        Node n = new Node(parent, bestAttributeKey);
         n.addChild(Node.defaultObject, new Leaf(parent, mostCommon(elements))); // default case.
-        for (Map.Entry<Object, List<Classifiable>> entry : split(elements, bestAttribute).entrySet()) {
+        for (Map.Entry<Object, List<Classifiable>> entry : split(elements, bestAttributeKey).entrySet()) {
             if (entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(elements)));
             else
-                n.addChild(entry.getKey(), buildTree(n, entry.getValue(), newAttributes));
+                n.addChild(entry.getKey(), buildTree(n, entry.getValue(), newAttributeKeys));
         }
         return n;
     }
 
-    private Map<Object, List<Classifiable>> split(Collection<Classifiable> elements, Attribute splitAttribute) {
-        return elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(splitAttribute)));
+    private Map<Object, List<Classifiable>> split(Collection<Classifiable> elements, AttributeKey splitAttributeKey) {
+        return elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(splitAttributeKey)));
     }
 
-    private Attribute findBestAttribute(Collection<Classifiable> elements, Collection<Attribute> attributes) {
-        Attribute bestAttribute = null;
+    private AttributeKey findBestAttribute(Collection<Classifiable> elements, Collection<AttributeKey> attributeKeys) {
+        AttributeKey bestAttributeKey = null;
         double infoGain = -1;
-        for (Attribute attribute : attributes) {
-            double newGain = informationGain(elements, attribute);
+        for (AttributeKey attributeKey : attributeKeys) {
+            double newGain = informationGain(elements, attributeKey);
             if (newGain > infoGain) {
-                bestAttribute = attribute;
+                bestAttributeKey = attributeKey;
                 infoGain = newGain;
             }
         }
-        if (bestAttribute == null) {
+        if (bestAttributeKey == null) {
             System.out.println("what?");
         }
-        return bestAttribute;
+        return bestAttributeKey;
     }
 
-    private double informationGain(Collection<Classifiable> elements, Attribute attribute) {
-        Map<Object, List<Classifiable>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(attribute)));
+    private double informationGain(Collection<Classifiable> elements, AttributeKey attributeKey) {
+        Map<Object, List<Classifiable>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(attributeKey)));
         double infoD = entropy(elements), infoDA = 0.0;
         for (Map.Entry<Object, List<Classifiable>> entry : splittingOnAttribute.entrySet()) {
             infoDA += entropy(entry.getValue()) * entry.getValue().size() / elements.size();

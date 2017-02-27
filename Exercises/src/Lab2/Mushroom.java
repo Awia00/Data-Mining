@@ -1,10 +1,9 @@
 package Lab2;
 
-import Common.Attribute;
+import Common.AttributeKey;
 import Common.Classification;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.SpaceComparable;
-import Common.Interfaces.WithAttributes;
 import Lab2.enums.*;
 
 import java.util.Collection;
@@ -69,44 +68,44 @@ public class Mushroom implements Classifiable<SpaceComparable> {
 
     public Habitat m_habitat;
 
-    private Map<Attribute, SpaceComparable> attributeValues;
+    private Map<AttributeKey, SpaceComparable> attributeValues;
 
     protected void buildMap() {
-        attributeValues = new Hashtable<Attribute, SpaceComparable>() {{
-            put(new Attribute(Cap_Shape.class), m_cap_shape);
-            put(new Attribute(Cap_Color.class), m_cap_color);
-            put(new Attribute(Cap_Surface.class), m_cap_surface);
-            put(new Attribute(Cap_Color.class), m_cap_color);
-            put(new Attribute(Bruises.class), m_bruises);
-            put(new Attribute(Odor.class), m_odor);
-            put(new Attribute(Gill_Attachment.class), m_gill_attach);
-            put(new Attribute(Gill_Spacing.class), m_gill_spacing);
-            put(new Attribute(Gill_Size.class), m_gill_size);
-            put(new Attribute(Gill_Color.class), m_gill_color);
-            put(new Attribute(Stalk_Shape.class), m_stalk_shape);
-            put(new Attribute(Stalk_Root.class), m_stalk_root);
-            put(new Attribute(Stalk_Surface_Above_Ring.class), m_stalk_surface_above);
-            put(new Attribute(Stalk_Surface_Below_Ring.class), m_stalk_surface_below);
-            put(new Attribute(Stalk_Color_Above_Ring.class), m_stalk_color_above);
-            put(new Attribute(Stalk_Color_Below_Ring.class), m_stalk_color_below);
-            put(new Attribute(Veil_Type.class), m_veil_type);
-            put(new Attribute(Veil_Color.class), m_veil_color);
-            put(new Attribute(Ring_Number.class), m_ring_number);
-            put(new Attribute(Ring_Type.class), m_ring_type);
-            put(new Attribute(Spore_Print_Color.class), m_spore_color);
-            put(new Attribute(Population.class), m_population);
-            put(new Attribute(Habitat.class), m_habitat);
+        attributeValues = new Hashtable<AttributeKey, SpaceComparable>() {{
+            put(new AttributeKey<>(Cap_Shape.class), m_cap_shape);
+            put(new AttributeKey<>(Cap_Color.class), m_cap_color);
+            put(new AttributeKey<>(Cap_Surface.class), m_cap_surface);
+            put(new AttributeKey<>(Cap_Color.class), m_cap_color);
+            put(new AttributeKey<>(Bruises.class), m_bruises);
+            put(new AttributeKey<>(Odor.class), m_odor);
+            put(new AttributeKey<>(Gill_Attachment.class), m_gill_attach);
+            put(new AttributeKey<>(Gill_Spacing.class), m_gill_spacing);
+            put(new AttributeKey<>(Gill_Size.class), m_gill_size);
+            put(new AttributeKey<>(Gill_Color.class), m_gill_color);
+            put(new AttributeKey<>(Stalk_Shape.class), m_stalk_shape);
+            put(new AttributeKey<>(Stalk_Root.class), m_stalk_root);
+            put(new AttributeKey<>(Stalk_Surface_Above_Ring.class), m_stalk_surface_above);
+            put(new AttributeKey<>(Stalk_Surface_Below_Ring.class), m_stalk_surface_below);
+            put(new AttributeKey<>(Stalk_Color_Above_Ring.class), m_stalk_color_above);
+            put(new AttributeKey<>(Stalk_Color_Below_Ring.class), m_stalk_color_below);
+            put(new AttributeKey<>(Veil_Type.class), m_veil_type);
+            put(new AttributeKey<>(Veil_Color.class), m_veil_color);
+            put(new AttributeKey<>(Ring_Number.class), m_ring_number);
+            put(new AttributeKey<>(Ring_Type.class), m_ring_type);
+            put(new AttributeKey<>(Spore_Print_Color.class), m_spore_color);
+            put(new AttributeKey<>(Population.class), m_population);
+            put(new AttributeKey<>(Habitat.class), m_habitat);
         }};
     }
 
     @Override
-    public Collection<Attribute> getAttributes() {
+    public Collection<AttributeKey> getAttributes() {
         return attributeValues.keySet();
     }
 
     @Override
-    public SpaceComparable getValueOfAttribute(Attribute attribute) {
-        return attributeValues.get(attribute);
+    public SpaceComparable getValueOfAttribute(AttributeKey attributeKey) {
+        return attributeValues.get(attributeKey);
     }
 
     @Override
