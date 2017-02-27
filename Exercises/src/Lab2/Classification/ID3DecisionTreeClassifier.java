@@ -26,7 +26,7 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         List<WithAttributes<Object>> elements = new ArrayList<>(trainSet);
         if (!trainSet.isEmpty())
             tree = buildTree(null, elements, elements.get(0).getAttributes());
-        tree.print();
+        //tree.print();
     }
 
     private Node buildTree(Node parent, List<WithAttributes<Object>> elements, Collection<Attribute> attributes) {
@@ -123,17 +123,9 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         return Math.log(x) / Math.log(2);
     }
 
-    private Classification iterateTree(Node n, WithAttributes element) {
-        if (n instanceof Leaf) {
-            return ((Leaf) n).label;
-        }
-        Object label = element.getValueOfAttribute(n.splitOn);
-        return iterateTree(n.getChild(label), element);
-    }
-
     @Override
     public Classification classify(WithAttributes element) {
-        return iterateTree(tree, element);
+        return tree.find(element);
     }
 
     @Override

@@ -38,19 +38,16 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
 
     @Override
     public Classification classify(WithAttributes<SpaceComparable> elementToClassify) {
-        Map<WithAttributes<SpaceComparable>, Integer> kNearest = new HashMap<>();
+        Map<WithAttributes<SpaceComparable>, Double> kNearest = new HashMap<>();
         int firstK = 0;
         for (WithAttributes classifiedElement : classifiedSet) {
-            int distance = 0;
-            for (Attribute attribute : elementToClassify.getAttributes()) {
-                distance += elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute));
-            }
+            double distance = elementToClassify.getAttributes().stream().mapToDouble(attribute -> elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute))).sum();
             if (firstK < _k) {
                 kNearest.put(classifiedElement, distance);
             } else {
                 WithAttributes<SpaceComparable> worstOne = null;
-                int currentDist = -1;
-                for (Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue : kNearest.entrySet()) {
+                double currentDist = -1;
+                for (Map.Entry<WithAttributes<SpaceComparable>, Double> keyValue : kNearest.entrySet()) {
                     if (distance < keyValue.getValue() && keyValue.getValue() > currentDist) {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();
@@ -64,7 +61,7 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
             firstK++;
         }
         int negatives = 0, positives = 0;
-        for (Map.Entry<WithAttributes<SpaceComparable>, Integer> keyValue : kNearest.entrySet()) {
+        for (Map.Entry<WithAttributes<SpaceComparable>, Double> keyValue : kNearest.entrySet()) {
             if (keyValue.getKey().getClassification() == Classification.negative)
                 negatives++;
             else

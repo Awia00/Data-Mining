@@ -1,6 +1,8 @@
 package Lab2.TreeDataStructure;
 
 import Lab2.Interfaces.Attribute;
+import Lab2.Interfaces.Classification;
+import Lab2.Interfaces.WithAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +38,12 @@ public class Node {
             return children.get(defaultObject);
         else
             return child;
+    }
+
+    public Classification find(WithAttributes element)
+    {
+        Object label = element.getValueOfAttribute(splitOn);
+        return getChild(label).find(element);
     }
 
     public void print() {

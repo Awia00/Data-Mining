@@ -1,6 +1,7 @@
 package Lab2.TreeDataStructure;
 
 import Lab2.Interfaces.Classification;
+import Lab2.Interfaces.WithAttributes;
 
 /**
  * Created by aws on 15-02-2017.
@@ -11,6 +12,12 @@ public class Leaf extends Node {
     public Leaf(Node parent, Classification label) {
         super(parent);
         this.label = label;
+    }
+
+    @Override
+    public Classification find(WithAttributes element)
+    {
+        return label;
     }
 
     @Override
