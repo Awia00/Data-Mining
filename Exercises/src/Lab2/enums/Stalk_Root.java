@@ -1,8 +1,6 @@
 package Lab2.enums;
 
-import Common.Interfaces.SpaceComparable;
-
-public enum Stalk_Root implements SpaceComparable<Stalk_Root> {
+public enum Stalk_Root {
     bulbous,
     club,
     cup,
@@ -10,8 +8,4 @@ public enum Stalk_Root implements SpaceComparable<Stalk_Root> {
     rhizomorphs,
     rooted,
     missing;
-
-    public double distance(Stalk_Root comparable) {
-        return this == comparable ? 0 : 1;
-    }
 }

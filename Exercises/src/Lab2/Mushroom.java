@@ -4,6 +4,7 @@ import Common.AttributeKey;
 import Common.Classification;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.SpaceComparable;
+import Common.NominalSpaceComparable;
 import Lab2.enums.*;
 
 import java.util.Collection;
@@ -72,29 +73,29 @@ public class Mushroom implements Classifiable<SpaceComparable> {
 
     protected void buildMap() {
         attributeValues = new Hashtable<AttributeKey, SpaceComparable>() {{
-            put(new AttributeKey<>(Cap_Shape.class), m_cap_shape);
-            put(new AttributeKey<>(Cap_Color.class), m_cap_color);
-            put(new AttributeKey<>(Cap_Surface.class), m_cap_surface);
-            put(new AttributeKey<>(Cap_Color.class), m_cap_color);
-            put(new AttributeKey<>(Bruises.class), m_bruises);
-            put(new AttributeKey<>(Odor.class), m_odor);
-            put(new AttributeKey<>(Gill_Attachment.class), m_gill_attach);
-            put(new AttributeKey<>(Gill_Spacing.class), m_gill_spacing);
-            put(new AttributeKey<>(Gill_Size.class), m_gill_size);
-            put(new AttributeKey<>(Gill_Color.class), m_gill_color);
-            put(new AttributeKey<>(Stalk_Shape.class), m_stalk_shape);
-            put(new AttributeKey<>(Stalk_Root.class), m_stalk_root);
-            put(new AttributeKey<>(Stalk_Surface_Above_Ring.class), m_stalk_surface_above);
-            put(new AttributeKey<>(Stalk_Surface_Below_Ring.class), m_stalk_surface_below);
-            put(new AttributeKey<>(Stalk_Color_Above_Ring.class), m_stalk_color_above);
-            put(new AttributeKey<>(Stalk_Color_Below_Ring.class), m_stalk_color_below);
-            put(new AttributeKey<>(Veil_Type.class), m_veil_type);
-            put(new AttributeKey<>(Veil_Color.class), m_veil_color);
-            put(new AttributeKey<>(Ring_Number.class), m_ring_number);
-            put(new AttributeKey<>(Ring_Type.class), m_ring_type);
-            put(new AttributeKey<>(Spore_Print_Color.class), m_spore_color);
-            put(new AttributeKey<>(Population.class), m_population);
-            put(new AttributeKey<>(Habitat.class), m_habitat);
+            put(new AttributeKey<>(Cap_Shape.class), new NominalSpaceComparable(m_cap_shape));
+            put(new AttributeKey<>(Cap_Color.class), new NominalSpaceComparable(m_cap_color));
+            put(new AttributeKey<>(Cap_Surface.class), new NominalSpaceComparable(m_cap_surface));
+            put(new AttributeKey<>(Cap_Color.class), new NominalSpaceComparable(m_cap_color));
+            put(new AttributeKey<>(Bruises.class), new NominalSpaceComparable(m_bruises));
+            put(new AttributeKey<>(Odor.class), new NominalSpaceComparable(m_odor));
+            put(new AttributeKey<>(Gill_Attachment.class), new NominalSpaceComparable(m_gill_attach));
+            put(new AttributeKey<>(Gill_Spacing.class), new NominalSpaceComparable(m_gill_spacing));
+            put(new AttributeKey<>(Gill_Size.class), new NominalSpaceComparable(m_gill_size));
+            put(new AttributeKey<>(Gill_Color.class), new NominalSpaceComparable(m_gill_color));
+            put(new AttributeKey<>(Stalk_Shape.class), new NominalSpaceComparable(m_stalk_shape));
+            put(new AttributeKey<>(Stalk_Root.class), new NominalSpaceComparable(m_stalk_root));
+            put(new AttributeKey<>(Stalk_Surface_Above_Ring.class), new NominalSpaceComparable(m_stalk_surface_above));
+            put(new AttributeKey<>(Stalk_Surface_Below_Ring.class), new NominalSpaceComparable(m_stalk_surface_below));
+            put(new AttributeKey<>(Stalk_Color_Above_Ring.class), new NominalSpaceComparable(m_stalk_color_above));
+            put(new AttributeKey<>(Stalk_Color_Below_Ring.class), new NominalSpaceComparable(m_stalk_color_below));
+            put(new AttributeKey<>(Veil_Type.class), new NominalSpaceComparable(m_veil_type));
+            put(new AttributeKey<>(Veil_Color.class), new NominalSpaceComparable(m_veil_color));
+            put(new AttributeKey<>(Ring_Number.class), new NominalSpaceComparable(m_ring_number));
+            put(new AttributeKey<>(Ring_Type.class), new NominalSpaceComparable(m_ring_type));
+            put(new AttributeKey<>(Spore_Print_Color.class), new NominalSpaceComparable(m_spore_color));
+            put(new AttributeKey<>(Population.class), new NominalSpaceComparable(m_population));
+            put(new AttributeKey<>(Habitat.class), new NominalSpaceComparable(m_habitat));
         }};
     }
 

@@ -1,8 +1,6 @@
 package Lab2.enums;
 
-import Common.Interfaces.SpaceComparable;
-
-public enum Gill_Color implements SpaceComparable<Gill_Color> {
+public enum Gill_Color  {
     black,
     brown,
     buff,
@@ -15,8 +13,4 @@ public enum Gill_Color implements SpaceComparable<Gill_Color> {
     red,
     white,
     yellow;
-
-    public double distance(Gill_Color comparable) {
-        return this == comparable ? 0 : 1;
-    }
 }

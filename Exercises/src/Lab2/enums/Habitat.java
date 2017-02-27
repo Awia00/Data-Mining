@@ -1,8 +1,6 @@
 package Lab2.enums;
 
-import Common.Interfaces.SpaceComparable;
-
-public enum Habitat implements SpaceComparable<Habitat> {
+public enum Habitat {
     grasses,
     leaves,
     meadows,
@@ -10,8 +8,4 @@ public enum Habitat implements SpaceComparable<Habitat> {
     urban,
     waste,
     woods;
-
-    public double distance(Habitat comparable) {
-        return this == comparable ? 0 : 1;
-    }
 }

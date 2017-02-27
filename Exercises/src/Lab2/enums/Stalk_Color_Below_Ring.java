@@ -1,8 +1,6 @@
 package Lab2.enums;
 
-import Common.Interfaces.SpaceComparable;
-
-public enum Stalk_Color_Below_Ring implements SpaceComparable<Stalk_Color_Below_Ring> {
+public enum Stalk_Color_Below_Ring {
     brown,
     buff,
     cinnamon,
@@ -12,8 +10,4 @@ public enum Stalk_Color_Below_Ring implements SpaceComparable<Stalk_Color_Below_
     red,
     white,
     yellow;
-
-    public double distance(Stalk_Color_Below_Ring comparable) {
-        return this == comparable ? 0 : 1;
-    }
 }
