@@ -6,10 +6,9 @@ import java.util.ArrayList;
 
 public class KMedoid {
 
-	public static ArrayList<KMedoidCluster> KMedoidPartition(int k, ArrayList<Iris> data)
-	{
-		return null;
-		
-	}
-	
+    public static ArrayList<KMedoidCluster> KMedoidPartition(int k, ArrayList<Iris> data) {
+        return null;
+
+    }
+
 }
