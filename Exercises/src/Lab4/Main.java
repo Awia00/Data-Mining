@@ -1,10 +1,13 @@
-import java.util.ArrayList;
+package Lab4;
 
-import kMean.KMeanCluster;
-import kMean.KMeans;
-import kMedoid.KMedoid;
-import kMedoid.KMedoidCluster;
-import data.*;
+import Lab4.data.DataLoader;
+import Lab4.data.Iris;
+import Lab4.kMean.KMeanCluster;
+import Lab4.kMean.KMeans;
+import Lab4.kMedoid.KMedoid;
+import Lab4.kMedoid.KMedoidCluster;
+
+import java.util.ArrayList;
 
 public class Main {
 
@@ -14,7 +17,7 @@ public class Main {
 	public static void main(String[] args) {
 		//First step load in iris data
 		ArrayList<Iris> irisData = DataLoader.LoadAllIrisData();
-		
+
 		//Second step --> do the clustering using k-means!
 		ArrayList<KMeanCluster> FoundClusters_KMeans = KMeans.KMeansPartition(3, irisData);
 		

@@ -1,4 +1,4 @@
-package data;
+package Lab4.data;
 /**
  * Enum for the different iris classes.
  */

@@ -1,4 +1,4 @@
-package data;
+package Lab4.data;
 
 
 import java.io.BufferedReader;

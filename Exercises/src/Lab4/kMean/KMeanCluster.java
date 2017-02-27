@@ -1,7 +1,8 @@
-package kMean;
+package Lab4.kMean;
+import Lab4.data.Iris;
+
 import java.util.ArrayList;
 
-import data.Iris;
 
 //ToDo: Compute cluster mean based on cluster members.
 public class KMeanCluster {

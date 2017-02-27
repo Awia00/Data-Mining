@@ -1,7 +1,7 @@
-package kMean;
+package Lab4.kMean;
 import java.util.ArrayList;
 
-import data.*;
+import Lab4.data.Iris;
 
 
 public class KMeans {

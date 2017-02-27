@@ -1,6 +1,7 @@
-package kMedoid;
+package Lab4.kMedoid;
+import Lab4.data.Iris;
+
 import java.util.ArrayList;
-import data.Iris;
 
 public class KMedoidCluster {
 
