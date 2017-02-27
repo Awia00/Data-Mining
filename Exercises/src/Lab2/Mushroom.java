@@ -1,9 +1,10 @@
 package Lab2;
 
-import Lab2.Interfaces.Attribute;
-import Lab2.Interfaces.Classification;
-import Lab2.Interfaces.SpaceComparable;
-import Lab2.Interfaces.WithAttributes;
+import Common.Attribute;
+import Common.Classification;
+import Common.Interfaces.Classifiable;
+import Common.Interfaces.SpaceComparable;
+import Common.Interfaces.WithAttributes;
 import Lab2.enums.*;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ import java.util.Map;
  * The Mushroom class is used to contain the data for each mushroom found in the datafile.
  * More info on each attribute in agaricus-lepiotaexplanation.txt.
  */
-public class Mushroom implements WithAttributes<SpaceComparable> {
+public class Mushroom implements Classifiable<SpaceComparable> {
 
 
     /**

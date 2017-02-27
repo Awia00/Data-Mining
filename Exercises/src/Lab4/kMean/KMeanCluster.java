@@ -8,10 +8,14 @@ import java.util.ArrayList;
 //ToDo: Compute cluster mean based on cluster members.
 public class KMeanCluster {
 
-    public ArrayList<Iris> ClusterMembers;
+    private ArrayList<Iris> ClusterMembers;
 
     public KMeanCluster() {
-        this.ClusterMembers = new ArrayList<Iris>();
+        this.ClusterMembers = new ArrayList<>();
+    }
+
+    public KMeanCluster(ArrayList<Iris> clusterMembers) {
+        ClusterMembers = clusterMembers;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package Lab2.TreeDataStructure;
+package Common.DataStructures.Tree;
 
-import Lab2.Interfaces.Classification;
-import Lab2.Interfaces.WithAttributes;
+import Common.Classification;
+import Common.Interfaces.WithAttributes;
 
 /**
  * Created by aws on 15-02-2017.

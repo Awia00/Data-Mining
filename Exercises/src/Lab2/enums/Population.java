@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Population implements SpaceComparable<Population> {
     abundant,

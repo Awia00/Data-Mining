@@ -1,11 +1,11 @@
 package Lab2;
 
-import Lab2.Classification.Classifier;
+import Common.Interfaces.Classifier;
 import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.KNearestNeighboursClassifier;
-import Lab2.StatisticsSuite.CanEvaluateClassifier;
-import Lab2.StatisticsSuite.EvaluationStatistics;
-import Lab2.StatisticsSuite.EvaluationSuite;
+import Common.Statistics.CanEvaluateClassifier;
+import Common.Statistics.EvaluationStatistics;
+import Common.Statistics.EvaluationSuite;
 
 import java.util.ArrayList;
 import java.util.Collections;

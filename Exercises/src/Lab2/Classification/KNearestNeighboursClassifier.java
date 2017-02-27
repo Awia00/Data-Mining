@@ -1,11 +1,12 @@
 package Lab2.Classification;
 
-import Lab2.Interfaces.Attribute;
-import Lab2.Interfaces.Classification;
-import Lab2.Interfaces.SpaceComparable;
-import Lab2.Interfaces.WithAttributes;
-import Lab2.StatisticsSuite.EvaluationStatistics;
-import Lab2.StatisticsSuite.EvaluationSuite;
+import Common.Classification;
+import Common.Interfaces.Classifiable;
+import Common.Interfaces.Classifier;
+import Common.Interfaces.SpaceComparable;
+import Common.Interfaces.WithAttributes;
+import Common.Statistics.EvaluationStatistics;
+import Common.Statistics.EvaluationSuite;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class KNearestNeighboursClassifier implements Classifier<SpaceComparable> {
 
-    private Collection<WithAttributes<SpaceComparable>> classifiedSet;
+    private Collection<Classifiable> classifiedSet;
     private int _k;
 
     public KNearestNeighboursClassifier(int k) {
@@ -26,28 +27,28 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
     }
 
     @Override
-    public void trainWithSet(Collection<WithAttributes<SpaceComparable>> trainSet) {
+    public void trainWithSet(Collection<Classifiable> trainSet) {
 
         this.classifiedSet = trainSet;
     }
 
     @Override
-    public EvaluationStatistics testWithSet(Collection<WithAttributes<SpaceComparable>> testSet) {
+    public EvaluationStatistics testWithSet(Collection<Classifiable> testSet) {
         return new EvaluationSuite().testClassifier(this, testSet);
     }
 
     @Override
     public Classification classify(WithAttributes<SpaceComparable> elementToClassify) {
-        Map<WithAttributes<SpaceComparable>, Double> kNearest = new HashMap<>();
+        Map<Classifiable, Double> kNearest = new HashMap<>();
         int firstK = 0;
-        for (WithAttributes classifiedElement : classifiedSet) {
+        for (Classifiable classifiedElement : classifiedSet) {
             double distance = elementToClassify.getAttributes().stream().mapToDouble(attribute -> elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute))).sum();
             if (firstK < _k) {
                 kNearest.put(classifiedElement, distance);
             } else {
-                WithAttributes<SpaceComparable> worstOne = null;
+                Classifiable worstOne = null;
                 double currentDist = -1;
-                for (Map.Entry<WithAttributes<SpaceComparable>, Double> keyValue : kNearest.entrySet()) {
+                for (Map.Entry<Classifiable, Double> keyValue : kNearest.entrySet()) {
                     if (distance < keyValue.getValue() && keyValue.getValue() > currentDist) {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();
@@ -61,7 +62,7 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable>
             firstK++;
         }
         int negatives = 0, positives = 0;
-        for (Map.Entry<WithAttributes<SpaceComparable>, Double> keyValue : kNearest.entrySet()) {
+        for (Map.Entry<Classifiable, Double> keyValue : kNearest.entrySet()) {
             if (keyValue.getKey().getClassification() == Classification.negative)
                 negatives++;
             else

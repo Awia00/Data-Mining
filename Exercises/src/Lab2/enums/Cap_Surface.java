@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Cap_Surface implements SpaceComparable<Cap_Surface> {
     fibrous,

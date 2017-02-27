@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Ring_Type implements SpaceComparable<Ring_Type> {
     cobwebby,

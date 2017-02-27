@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Stalk_Surface_Below_Ring implements SpaceComparable<Stalk_Surface_Below_Ring> {
     ibrous,

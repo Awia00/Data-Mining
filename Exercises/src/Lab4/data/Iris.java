@@ -1,13 +1,20 @@
 package Lab4.data;
 
 
-public class Iris {
+import Common.Attribute;
+import Common.Classification;
+import Common.Interfaces.SpaceComparable;
+import Common.Interfaces.WithAttributes;
 
-    public float Sepal_Length;
-    public float Sepal_Width;
-    public float Petal_Length;
-    public float Petal_Width;
-    public IrisClass Class;
+import java.util.Collection;
+
+public class Iris implements WithAttributes<SpaceComparable>{
+
+    public final float Sepal_Length;
+    public final float Sepal_Width;
+    public final float Petal_Length;
+    public final float Petal_Width;
+    public final IrisClass Class;
 
     public Iris(float sepal_length, float sepal_width, float petal_length, float petal_width, String iris_class) {
         this(sepal_length, sepal_width, petal_length, petal_width, ResolveIrisClass(iris_class));
@@ -40,5 +47,13 @@ public class Iris {
         return result;
     }
 
+    @Override
+    public Collection<Attribute> getAttributes() {
+        return null;
+    }
 
+    @Override
+    public SpaceComparable getValueOfAttribute(Attribute attribute) {
+        return null;
+    }
 }

@@ -1,4 +1,7 @@
-package Lab2.Interfaces;
+package Common.Interfaces;
+
+import Common.Attribute;
+import Common.Classification;
 
 import java.util.Collection;
 
@@ -10,8 +13,4 @@ public interface WithAttributes<T> {
     Collection<Attribute> getAttributes();
 
     T getValueOfAttribute(Attribute attribute);
-
-    Classification getClassification();
-
-    boolean checkClassification(Classification classification);
 }

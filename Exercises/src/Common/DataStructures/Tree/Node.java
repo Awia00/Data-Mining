@@ -1,8 +1,8 @@
-package Lab2.TreeDataStructure;
+package Common.DataStructures.Tree;
 
-import Lab2.Interfaces.Attribute;
-import Lab2.Interfaces.Classification;
-import Lab2.Interfaces.WithAttributes;
+import Common.Attribute;
+import Common.Classification;
+import Common.Interfaces.WithAttributes;
 
 import java.util.HashMap;
 import java.util.Map;

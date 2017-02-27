@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Cap_Color implements SpaceComparable<Cap_Color> {
     brown,

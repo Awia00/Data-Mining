@@ -1,4 +1,4 @@
-package Lab2.Interfaces;
+package Common.Interfaces;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

@@ -1,8 +1,9 @@
-package Lab2.StatisticsSuite;
+package Common.Statistics;
 
-import Lab2.Classification.Classifier;
-import Lab2.Interfaces.Classification;
-import Lab2.Interfaces.WithAttributes;
+import Common.Interfaces.Classifiable;
+import Common.Interfaces.Classifier;
+import Common.Classification;
+import Common.Interfaces.WithAttributes;
 
 import java.util.Collection;
 
@@ -11,9 +12,9 @@ import java.util.Collection;
  */
 public class EvaluationSuite implements CanEvaluateClassifier {
     @Override
-    public <T> EvaluationStatistics testClassifier(Classifier<T> classifier, Collection<WithAttributes<T>> testSet) {
+    public <T> EvaluationStatistics testClassifier(Classifier<T> classifier, Collection<Classifiable> testSet) {
         int truePositives = 0, falsePositives = 0, trueNegatives = 0, falseNegatives = 0;
-        for (WithAttributes element : testSet) {
+        for (Classifiable element : testSet) {
             Classification result = classifier.classify(element);
             if (result == Classification.negative && element.checkClassification(Classification.negative)) {
                 trueNegatives++;

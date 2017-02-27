@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-import Lab2.Interfaces.SpaceComparable;
+import Common.Interfaces.SpaceComparable;
 
 public enum Spore_Print_Color implements SpaceComparable<Spore_Print_Color> {
     black,

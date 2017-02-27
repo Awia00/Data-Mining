@@ -1,4 +1,4 @@
-package Lab2.StatisticsSuite;
+package Common.Statistics;
 
 /**
  * Created by aws on 13-02-2017.

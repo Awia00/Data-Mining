@@ -5,12 +5,8 @@ import java.util.ArrayList;
 
 public class DataLoader {
 
-    /**
-     * @param args
-     */
     public static ArrayList<Iris> LoadAllIrisData() {
         ArrayList<Iris> data = new ArrayList<>();
-
         try {
             String[][] dataOrig = CSVFileReader.readDataFile("Resources/iris.csv", ",", "", true);
 

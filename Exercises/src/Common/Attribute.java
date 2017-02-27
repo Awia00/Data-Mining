@@ -1,4 +1,4 @@
-package Lab2.Interfaces;
+package Common;
 
 /**
  * Created by aws on 22-02-2017.
