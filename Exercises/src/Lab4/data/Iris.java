@@ -15,6 +15,10 @@ public class Iris extends NDimensionalPoint {
 
     Map<AttributeKey, SpaceComparable> attributes;
 
+    public Iris() {
+        this(0f,0f,0f,0f, "");
+    }
+
     public Iris(float sepal_length, float sepal_width, float petal_length, float petal_width, String iris_class) {
         this(sepal_length, sepal_width, petal_length, petal_width, ResolveIrisClass(iris_class));
     }

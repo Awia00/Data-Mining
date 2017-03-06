@@ -35,13 +35,15 @@ public class KMeans {
             converged = true;
             for (KMeanCluster c : clusters) {
                 NDimensionalPoint mean = c.calculateMean();
-                if (!c.getMean().almostEquals(mean, iterations*iterations))
+                if (!c.getMean().almostEquals(mean))
                     converged = false;
                 if (mean != null)
                     newClusters.add(new KMeanCluster(mean, dataBuilder));
                 else
                     System.out.printf("===> Empty cluster at %s%n", c.getMean());
             }
+            if(!converged)
+                clusters = newClusters;
         }
         System.out.println(iterations);
         return clusters;

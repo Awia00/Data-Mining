@@ -7,12 +7,26 @@ import Common.Interfaces.NDimensionalPointBuilder;
 import Common.Interfaces.SpaceComparable;
 import Common.NominalSpaceComparable;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Created by ander on 27-02-2017.
  */
 public class IrisBuilder implements NDimensionalPointBuilder {
+    Map<AttributeKey, SpaceComparable> map = new LinkedHashMap<>();
+    @Override
+    public void addAttributeValue(AttributeKey key, SpaceComparable value) {
+        map.put(key, value);
+    }
+
+    @Override
+    public NDimensionalPoint buildPoint() {
+        NDimensionalPoint result = buildPoint(map);
+        map.clear();
+        return result;
+    }
+
     @Override
     public NDimensionalPoint buildPoint(Map<AttributeKey, SpaceComparable> attributes) {
         double sepal_length = ((EuclideanSpaceComparable)attributes.get(new AttributeKey<>("sepalLength"))).getDoubleValue();

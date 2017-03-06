@@ -2,7 +2,9 @@ package Lab4;
 
 import Common.Interfaces.NDimensionalPoint;
 import Lab4.data.DataLoader;
+import Lab4.data.Iris;
 import Lab4.data.IrisBuilder;
+import Lab4.data.Normalizer;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
 
@@ -19,6 +21,7 @@ public class Main {
     public static void main(String[] args) {
         //First step load in iris data
         List<NDimensionalPoint> irisData = DataLoader.LoadAllIrisData();
+        irisData = (List<NDimensionalPoint>) new Normalizer().NormilizeData(irisData, new Iris(), new IrisBuilder());
 
         //Second step --> do the clustering using k-means!
         Collections.shuffle(irisData);

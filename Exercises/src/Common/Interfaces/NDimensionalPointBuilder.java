@@ -9,5 +9,7 @@ import java.util.Map;
  */
 public interface NDimensionalPointBuilder {
 
+    void addAttributeValue(AttributeKey key, SpaceComparable value);
+    NDimensionalPoint buildPoint();
     NDimensionalPoint buildPoint(Map<AttributeKey, SpaceComparable> attributes);
 }
