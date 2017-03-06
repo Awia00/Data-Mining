@@ -5,7 +5,6 @@ import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class KMedoidCluster extends Cluster {
 
@@ -18,10 +17,6 @@ public class KMedoidCluster extends Cluster {
 
     public SpaceComparable getMedoid() {
         return medoid;
-    }
-
-    public void add(NDimensionalPoint p) {
-        points.add(p);
     }
 
 
@@ -39,19 +34,9 @@ public class KMedoidCluster extends Cluster {
         return result;
     }
 
-    public double configurationCost(Collection<NDimensionalPoint> points) {
-        return 0.0;
-    }
-
     @Override
     public String toString() {
-        String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
-        toPrintString += "medoid: " + this.medoid.toString() + System.getProperty("line.separator");
-        for (SpaceComparable i : this.points) {
-            toPrintString += i.toString() + System.getProperty("line.separator");
-        }
-        toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");
-
-        return toPrintString;
+        String toPrintString = "medoid: " + this.medoid.toString() + System.getProperty("line.separator");
+        return toPrintString + super.toString();
     }
 }

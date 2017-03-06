@@ -8,7 +8,6 @@ import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,29 +22,6 @@ public class KMeanCluster extends Cluster {
         super(new ArrayList<>());
         this.mean = mean;
         this.meanBuilder = meanBuilder;
-    }
-
-
-    public KMeanCluster(List<NDimensionalPoint> clusterMembers, NDimensionalPoint mean, NDimensionalPointBuilder meanBuilder) {
-        super(clusterMembers);
-        this.mean = mean;
-        this.meanBuilder = meanBuilder;
-    }
-
-    public void add(NDimensionalPoint p) {
-        points.add(p);
-    }
-
-    @Override
-    public String toString() {
-        String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
-
-        for (NDimensionalPoint i : points) {
-            toPrintString += i.toString() + System.getProperty("line.separator");
-        }
-        toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");
-
-        return toPrintString;
     }
 
     public NDimensionalPoint getMean() {
@@ -64,5 +40,11 @@ public class KMeanCluster extends Cluster {
             }
         }
         return meanBuilder.buildPointOnlyFrom(attributes);
+    }
+
+    @Override
+    public String toString() {
+        String toPrintString = "mean: " + this.mean.toString() + System.getProperty("line.separator");
+        return toPrintString + super.toString();
     }
 }

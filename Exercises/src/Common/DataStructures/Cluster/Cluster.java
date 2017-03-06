@@ -13,4 +13,20 @@ public abstract class Cluster {
     public Cluster(List<NDimensionalPoint> points) {
         this.points = points;
     }
+
+    public void add(NDimensionalPoint p) {
+        points.add(p);
+    }
+
+    @Override
+    public String toString() {
+        String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
+
+        for (NDimensionalPoint i : points) {
+            toPrintString += i.toString() + System.getProperty("line.separator");
+        }
+        toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");
+
+        return toPrintString;
+    }
 }
