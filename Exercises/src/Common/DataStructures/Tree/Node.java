@@ -29,7 +29,7 @@ public class Node {
     }
 
     public void addChild(Object label, Node node) {
-        if(label == null) label = defaultObject;
+        if (label == null) label = defaultObject;
         children.put(label, node);
     }
 
@@ -41,8 +41,7 @@ public class Node {
             return child;
     }
 
-    public Classification find(WithAttributes element)
-    {
+    public Classification find(WithAttributes element) {
         Object label = element.getValueOfAttribute(splitOn);
         return getChild(label).find(element);
     }

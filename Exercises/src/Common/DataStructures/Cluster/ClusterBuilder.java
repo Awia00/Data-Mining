@@ -8,5 +8,6 @@ import Common.Interfaces.NDimensionalPoint;
 public interface ClusterBuilder<T extends Cluster> {
 
     void add(NDimensionalPoint point);
+
     T buildCluster();
 }

@@ -1,12 +1,14 @@
 package Lab4;
 
 import Common.Interfaces.NDimensionalPoint;
+import Common.Preprocessing.Normalizer;
 import Lab4.data.DataLoader;
 import Lab4.data.Iris;
 import Lab4.data.IrisBuilder;
-import Common.Preprocessing.Normalizer;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
+import Lab4.kMedoid.KMedoid;
+import Lab4.kMedoid.KMedoidCluster;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,10 +32,10 @@ public class Main {
         }
 
         //Third step --> do the clustering using k-medoids!
-        //Collection<KMedoidCluster> foundClustersKMedoids = KMedoid.KMedoidPartition(3, irisData);
-        //for (KMedoidCluster foundClustersKMedoid : foundClustersKMedoids) {
-        //    System.out.println(foundClustersKMedoid);
-        //}
+        Collection<KMedoidCluster> foundClustersKMedoids = KMedoid.KMedoidPartition(3, irisData);
+        for (KMedoidCluster foundClustersKMedoid : foundClustersKMedoids) {
+            System.out.println(foundClustersKMedoid);
+        }
     }
 
 }

@@ -21,11 +21,6 @@ public class Apriori {
 
     private static Hashtable<ItemSet, Integer> generateFrequentItemSets(int supportThreshold, int[][] transactions,
                                                                         Hashtable<ItemSet, Integer> lowerLevelItemSets) {
-        // TODO: first generate candidate itemsets from the lower level itemsets
-        /*
-         * TODO: now check the support for all candidates and add only those
-         * that have enough support to the set
-         */
         Set<ItemSet> candidates = new HashSet<>();
         Hashtable<ItemSet, Integer> result = new Hashtable<>();
         for (Map.Entry<ItemSet, Integer> entry1 : lowerLevelItemSets.entrySet()) {
@@ -93,8 +88,6 @@ public class Apriori {
 
     private static int countSupport(int[] itemSet, int[][] transactions) {
         // Assumes that items in ItemSets and transactions are both unique
-
-        // TODO: return something useful
         int result = 0;
         for (int i = 0; i < transactions.length; i++) {
             int lastIndex = 0;

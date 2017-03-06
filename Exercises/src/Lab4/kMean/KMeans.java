@@ -19,8 +19,7 @@ public class KMeans {
         }
         boolean converged = false;
         int iterations = 0;
-        while (!converged)
-        {
+        while (!converged) {
             iterations++;
             // assignment
             for (NDimensionalPoint point : data) {
@@ -42,7 +41,7 @@ public class KMeans {
                 else
                     System.out.printf("===> Empty cluster at %s%n", c.getMean());
             }
-            if(!converged)
+            if (!converged)
                 clusters = newClusters;
         }
         System.out.println(iterations);

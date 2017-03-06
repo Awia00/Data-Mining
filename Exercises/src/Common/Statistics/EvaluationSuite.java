@@ -1,9 +1,8 @@
 package Common.Statistics;
 
+import Common.Classification;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
-import Common.Classification;
-import Common.Interfaces.WithAttributes;
 
 import java.util.Collection;
 

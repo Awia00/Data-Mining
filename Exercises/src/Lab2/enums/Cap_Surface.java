@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-public enum Cap_Surface  {
+public enum Cap_Surface {
     fibrous,
     grooves,
     scaly,

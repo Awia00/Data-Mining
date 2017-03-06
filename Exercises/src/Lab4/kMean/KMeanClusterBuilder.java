@@ -32,8 +32,7 @@ public class KMeanClusterBuilder implements ClusterBuilder<KMeanCluster> {
         return new KMeanCluster(clusterMembers, mean, builder);
     }
 
-    public NDimensionalPoint computeMean()
-    {
+    public NDimensionalPoint computeMean() {
         return null;
     }
 }

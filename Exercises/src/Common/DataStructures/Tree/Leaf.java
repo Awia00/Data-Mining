@@ -15,8 +15,7 @@ public class Leaf extends Node {
     }
 
     @Override
-    public Classification find(WithAttributes element)
-    {
+    public Classification find(WithAttributes element) {
         return label;
     }
 

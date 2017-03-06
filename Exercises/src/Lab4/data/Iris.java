@@ -2,11 +2,9 @@ package Lab4.data;
 
 
 import Common.AttributeKey;
-import Common.Classification;
 import Common.EuclideanSpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.SpaceComparable;
-import Common.NominalSpaceComparable;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -18,7 +16,7 @@ public class Iris extends NDimensionalPoint {
     IrisClass irisClass;
 
     public Iris() {
-        this(0f,0f,0f,0f, "");
+        this(0f, 0f, 0f, 0f, "");
     }
 
     public Iris(float sepal_length, float sepal_width, float petal_length, float petal_width, String iris_class) {
@@ -62,7 +60,7 @@ public class Iris extends NDimensionalPoint {
     public String toString() {
         String result = "Iris Object --> | ";
         for (AttributeKey attributeKey : getAttributes()) {
-            result+= attributeKey.toString() + " = " + getValueOfAttribute(attributeKey) + " | ";
+            result += attributeKey.toString() + " = " + getValueOfAttribute(attributeKey) + " | ";
         }
         result += "class: " + irisClass + " | ";
         return result;

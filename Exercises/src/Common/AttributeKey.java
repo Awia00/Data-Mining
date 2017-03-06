@@ -10,7 +10,7 @@ public class AttributeKey<T> {
         this.key = key;
     }
 
-    public T getKey(){
+    public T getKey() {
         return key;
     }
 

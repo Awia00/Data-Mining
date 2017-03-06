@@ -14,8 +14,8 @@ public class EuclideanSpaceComparable<T extends Number> implements SpaceComparab
 
     @Override
     public double distance(EuclideanSpaceComparable<T> comparable) {
-        double delta = (value.doubleValue()-comparable.value.doubleValue());
-        return delta*delta;
+        double delta = (value.doubleValue() - comparable.value.doubleValue());
+        return delta * delta;
     }
 
     public double getDoubleValue() {

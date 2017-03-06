@@ -9,12 +9,12 @@ import java.util.Map;
  */
 public class NominalSpaceToolbox {
 
-    public static <T extends Enum> NominalSpaceComparable<T> mostCommon(Collection<NominalSpaceComparable<T>> nominalElements){
+    public static <T extends Enum> NominalSpaceComparable<T> mostCommon(Collection<NominalSpaceComparable<T>> nominalElements) {
         Map<T, Integer> map = new HashMap<>();
         for (NominalSpaceComparable<T> element : nominalElements) {
             T key = element.getValue();
             Integer current = map.get(key);
-            map.put(key, current==null ? 1: current+1);
+            map.put(key, current == null ? 1 : current + 1);
         }
         Map.Entry<T, Integer> max = null;
 

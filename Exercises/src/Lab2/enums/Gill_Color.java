@@ -1,6 +1,6 @@
 package Lab2.enums;
 
-public enum Gill_Color  {
+public enum Gill_Color {
     black,
     brown,
     buff,

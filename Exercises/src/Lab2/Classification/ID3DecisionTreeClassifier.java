@@ -2,13 +2,13 @@ package Lab2.Classification;
 
 import Common.AttributeKey;
 import Common.Classification;
+import Common.DataStructures.Tree.Leaf;
+import Common.DataStructures.Tree.Node;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
 import Common.Interfaces.WithAttributes;
 import Common.Statistics.EvaluationStatistics;
 import Common.Statistics.EvaluationSuite;
-import Common.DataStructures.Tree.Leaf;
-import Common.DataStructures.Tree.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
