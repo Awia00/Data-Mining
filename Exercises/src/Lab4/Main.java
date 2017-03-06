@@ -2,10 +2,13 @@ package Lab4;
 
 import Common.Interfaces.NDimensionalPoint;
 import Lab4.data.DataLoader;
+import Lab4.data.IrisBuilder;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -18,7 +21,8 @@ public class Main {
         List<NDimensionalPoint> irisData = DataLoader.LoadAllIrisData();
 
         //Second step --> do the clustering using k-means!
-        Collection<KMeanCluster> foundClustersKMeans = new KMeans().KMeansPartition(3, irisData);
+        Collections.shuffle(irisData);
+        Collection<KMeanCluster> foundClustersKMeans = new KMeans().KMeansPartition(3, irisData, new IrisBuilder());
         for (KMeanCluster foundClustersKMean : foundClustersKMeans) {
             System.out.println(foundClustersKMean);
         }

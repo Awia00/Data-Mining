@@ -45,16 +45,4 @@ public class CSVFileReader {
         bufRdr.close();
         return lines;
     }
-
-    public static void main(String args[]) {
-        try {
-            List<Answer> data = readDataFile("Resources/Data Mining - Spring 2017.csv", "\",\"", "-", false);
-            for (Answer answer : data) {
-                System.out.println(answer + "\n");
-            }
-            System.out.println("Number of tuples loaded: " + data.size());
-        } catch (IOException e) {
-            System.err.println(e.getLocalizedMessage());
-        }
-    }
 }

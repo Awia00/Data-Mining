@@ -2,6 +2,7 @@ package Lab4.kMean;
 
 import Common.DataStructures.Cluster.ClusterBuilder;
 import Common.Interfaces.NDimensionalPoint;
+import Common.Interfaces.NDimensionalPointBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,10 @@ import java.util.List;
  */
 public class KMeanClusterBuilder implements ClusterBuilder<KMeanCluster> {
     List<NDimensionalPoint> points;
+    final NDimensionalPointBuilder builder;
 
-    public KMeanClusterBuilder() {
+    public KMeanClusterBuilder(NDimensionalPointBuilder builder) {
+        this.builder = builder;
         this.points = new ArrayList<>();
     }
 
@@ -26,7 +29,7 @@ public class KMeanClusterBuilder implements ClusterBuilder<KMeanCluster> {
         List<NDimensionalPoint> clusterMembers = points;
         NDimensionalPoint mean = computeMean();
         points = new ArrayList<>();
-        return new KMeanCluster(clusterMembers, mean);
+        return new KMeanCluster(clusterMembers, mean, builder);
     }
 
     public NDimensionalPoint computeMean()

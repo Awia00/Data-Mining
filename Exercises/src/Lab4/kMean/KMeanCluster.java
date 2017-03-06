@@ -4,6 +4,7 @@ import Common.AttributeKey;
 import Common.DataStructures.Cluster.Cluster;
 import Common.EuclideanSpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
+import Common.Interfaces.NDimensionalPointBuilder;
 import Common.Interfaces.SpaceComparable;
 import Common.NominalSpaceComparable;
 import Lab4.data.IrisBuilder;
@@ -17,21 +18,20 @@ import java.util.Map;
 //ToDo: Compute cluster mean based on cluster members.
 public class KMeanCluster extends Cluster {
 
-    private NDimensionalPoint mean;
+    private final NDimensionalPoint mean;
+    NDimensionalPointBuilder meanBuilder;
 
-    public KMeanCluster() {
-        super(new ArrayList<>());
-    }
-
-    public KMeanCluster(NDimensionalPoint mean) {
+    public KMeanCluster(NDimensionalPoint mean, NDimensionalPointBuilder meanBuilder) {
         super(new ArrayList<>());
         this.mean = mean;
+        this.meanBuilder = meanBuilder;
     }
 
 
-    public KMeanCluster(List<NDimensionalPoint> clusterMembers, NDimensionalPoint mean) {
+    public KMeanCluster(List<NDimensionalPoint> clusterMembers, NDimensionalPoint mean, NDimensionalPointBuilder meanBuilder) {
         super(clusterMembers);
         this.mean = mean;
+        this.meanBuilder = meanBuilder;
     }
 
     public void add(NDimensionalPoint p){
@@ -51,12 +51,12 @@ public class KMeanCluster extends Cluster {
     }
 
     public NDimensionalPoint getMean() {
-        if(mean == null) mean = calculateMean();
         return mean;
     }
 
-    private NDimensionalPoint calculateMean()
+    public NDimensionalPoint calculateMean()
     {
+        // Todo this should be done in a NdimensionalPoint specific class - maybe builder.
         Map<AttributeKey, SpaceComparable> attributes = new HashMap<>();
         for (AttributeKey attributeKey : mean.getAttributes()) {
             SpaceComparable value = mean.getValueOfAttribute(attributeKey);
@@ -80,7 +80,6 @@ public class KMeanCluster extends Cluster {
                 attributes.put(attributeKey, new NominalSpaceComparable(max.getKey()));
             }
         }
-        // todo abstract that out
-        return new IrisBuilder().buildPoint(attributes);
+        return meanBuilder.buildPoint(attributes);
     }
 }

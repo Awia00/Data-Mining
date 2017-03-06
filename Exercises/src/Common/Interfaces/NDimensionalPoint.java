@@ -17,8 +17,11 @@ public abstract class NDimensionalPoint implements SpaceComparable<NDimensionalP
         return distance;
     }
 
-    private static final double epsilon = 1E-10;
+    private static final double epsilon = 1E-5;
     public boolean almostEquals(NDimensionalPoint comparable){
         return Math.abs(distance(comparable)) <= epsilon;
+    }
+    public boolean almostEquals(NDimensionalPoint comparable, double epsilon){
+        return Math.abs(distance(comparable)) <= epsilon*this.epsilon;
     }
 }
