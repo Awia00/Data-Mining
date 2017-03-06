@@ -1,11 +1,9 @@
 package Lab2;
 
 import Common.Interfaces.Classifier;
+import Common.Statistics.EvaluationStatistics;
 import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.KNearestNeighboursClassifier;
-import Common.Statistics.CanEvaluateClassifier;
-import Common.Statistics.EvaluationStatistics;
-import Common.Statistics.EvaluationSuite;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // First step - Load data and convert to Mushroom objects.
-        ArrayList<Mushroom> mushrooms = DataManager.LoadData();
+        List<Mushroom> mushrooms = DataManager.LoadData();
         System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
         int k = 5;
 
@@ -29,8 +27,6 @@ public class Main {
         List<Mushroom> trainingMushrooms = mushrooms.subList(0, (int) (0.5 * mushrooms.size()));
         List<Mushroom> testMushrooms = mushrooms.subList((int) (0.5 * mushrooms.size()), mushrooms.size());
         System.out.println("Training size: " + trainingMushrooms.size() + " test size: " + testMushrooms.size());
-
-        CanEvaluateClassifier wellnessSuite = new EvaluationSuite();
 
         Classifier classifierKNN = new KNearestNeighboursClassifier(k);
         Classifier classifierID3 = new ID3DecisionTreeClassifier();

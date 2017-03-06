@@ -1,18 +1,16 @@
 package Lab4.kMean;
 
-import Common.AttributeKey;
+import Common.*;
 import Common.DataStructures.Cluster.Cluster;
-import Common.EuclideanSpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
 import Common.Interfaces.SpaceComparable;
-import Common.NominalSpaceComparable;
-import Lab4.data.IrisBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 //ToDo: Compute cluster mean based on cluster members.
@@ -61,23 +59,9 @@ public class KMeanCluster extends Cluster {
         for (AttributeKey attributeKey : mean.getAttributes()) {
             SpaceComparable value = mean.getValueOfAttribute(attributeKey);
             if(value instanceof EuclideanSpaceComparable) {
-                double meanOfAttribute = points.stream().mapToDouble(x -> ((EuclideanSpaceComparable)x.getValueOfAttribute(attributeKey)).getDoubleValue()).sum() / points.size();
-                attributes.put(attributeKey, new EuclideanSpaceComparable(meanOfAttribute));
-            } else if(value instanceof NominalSpaceComparable)
-            {
-                Map<Enum, Integer> map = new HashMap<>();
-                for (NDimensionalPoint point : points) {
-                    Enum key = ((NominalSpaceComparable)point.getValueOfAttribute(attributeKey)).getValue();
-                    Integer current = map.get(key);
-                    map.put(key, current==null ? 1: current+1);
-                }
-                Map.Entry<Enum, Integer> max = null;
-
-                for (Map.Entry<Enum, Integer> e : map.entrySet()) {
-                    if (max == null || e.getValue() > max.getValue())
-                        max = e;
-                }
-                attributes.put(attributeKey, new NominalSpaceComparable(max.getKey()));
+                attributes.put(attributeKey, EuclidianSpaceToolbox.mean(points.stream().map(point -> (EuclideanSpaceComparable)point.getValueOfAttribute(attributeKey)).collect(Collectors.toList())));
+            } else if(value instanceof NominalSpaceComparable) {
+                attributes.put(attributeKey, NominalSpaceToolbox.mostCommon(points.stream().map(point -> (NominalSpaceComparable<Enum>)point.getValueOfAttribute(attributeKey)).collect(Collectors.toList())));
             }
         }
         return meanBuilder.buildPointOnlyFrom(attributes);
