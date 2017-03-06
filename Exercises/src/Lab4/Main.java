@@ -4,11 +4,10 @@ import Common.Interfaces.NDimensionalPoint;
 import Lab4.data.DataLoader;
 import Lab4.data.Iris;
 import Lab4.data.IrisBuilder;
-import Lab4.data.Normalizer;
+import Common.Preprocessing.Normalizer;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
