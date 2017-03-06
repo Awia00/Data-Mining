@@ -41,6 +41,7 @@ public class Normalizer {
             }
         }
         for (NDimensionalPoint point : elements) {
+            builder.baseOnOriginal(point);
             for (AttributeKey attributeKey : attributes.getAttributes()) {
                 Class<? extends SpaceComparable> attributeType = attributes.getValueOfAttribute(attributeKey).getClass();
                 if(attributeType == EuclideanSpaceComparable.class) {

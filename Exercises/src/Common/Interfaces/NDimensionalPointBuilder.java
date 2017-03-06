@@ -10,6 +10,7 @@ import java.util.Map;
 public interface NDimensionalPointBuilder {
 
     void addAttributeValue(AttributeKey key, SpaceComparable value);
+    void baseOnOriginal(NDimensionalPoint point);
     NDimensionalPoint buildPoint();
-    NDimensionalPoint buildPoint(Map<AttributeKey, SpaceComparable> attributes);
+    NDimensionalPoint buildPointOnlyFrom(Map<AttributeKey, SpaceComparable> attributes);
 }

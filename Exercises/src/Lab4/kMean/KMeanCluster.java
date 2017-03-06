@@ -80,6 +80,6 @@ public class KMeanCluster extends Cluster {
                 attributes.put(attributeKey, new NominalSpaceComparable(max.getKey()));
             }
         }
-        return meanBuilder.buildPoint(attributes);
+        return meanBuilder.buildPointOnlyFrom(attributes);
     }
 }

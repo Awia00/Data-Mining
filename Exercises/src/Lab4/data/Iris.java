@@ -2,6 +2,7 @@ package Lab4.data;
 
 
 import Common.AttributeKey;
+import Common.Classification;
 import Common.EuclideanSpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.SpaceComparable;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class Iris extends NDimensionalPoint {
 
     Map<AttributeKey, SpaceComparable> attributes;
+    IrisClass irisClass;
 
     public Iris() {
         this(0f,0f,0f,0f, "");
@@ -29,7 +31,8 @@ public class Iris extends NDimensionalPoint {
         attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
         attributes.put(new AttributeKey<>("petalLength"), new EuclideanSpaceComparable<>(petal_length));
         attributes.put(new AttributeKey<>("petalWidth"), new EuclideanSpaceComparable<>(petal_width));
-        attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
+        //attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
+        irisClass = iris_class;
     }
 
     public Iris(double sepal_length, double sepal_width, double petal_length, double petal_width, IrisClass iris_class) {
@@ -38,7 +41,8 @@ public class Iris extends NDimensionalPoint {
         attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
         attributes.put(new AttributeKey<>("petalLength"), new EuclideanSpaceComparable<>(petal_length));
         attributes.put(new AttributeKey<>("petalWidth"), new EuclideanSpaceComparable<>(petal_width));
-        attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
+        //attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
+        irisClass = iris_class;
     }
 
     private static IrisClass ResolveIrisClass(String iris_class) {
@@ -60,6 +64,7 @@ public class Iris extends NDimensionalPoint {
         for (AttributeKey attributeKey : getAttributes()) {
             result+= attributeKey.toString() + " = " + getValueOfAttribute(attributeKey) + " | ";
         }
+        result += "class: " + irisClass + " | ";
         return result;
     }
 
