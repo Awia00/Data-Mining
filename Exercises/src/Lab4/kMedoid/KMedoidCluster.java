@@ -19,6 +19,8 @@ public class KMedoidCluster extends Cluster {
         return medoid;
     }
 
+    public void clearPoints(){points.clear();}
+
 
     public NDimensionalPoint swapWithMediod(NDimensionalPoint candidate) {
         NDimensionalPoint temp = medoid;
