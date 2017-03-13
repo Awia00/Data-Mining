@@ -16,7 +16,8 @@ public class Main {
 		ArrayList<Iris> irisData = IrisDataLoader.LoadAllIrisData();
 		System.out.println("Successfully loaded "+irisData.size() + " iris flowers");
 		
-		//Second step make perceptron or neural network 
+		//Second step make perceptron or neural network
+
 	}
 
 }
