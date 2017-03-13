@@ -1,4 +1,4 @@
-package Lab6;
+package Lab6.ActivateFunctions;
 
 /**
  * Created by aws on 13-03-2017.

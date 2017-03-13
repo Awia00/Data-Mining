@@ -1,17 +1,17 @@
-package Lab6;
+package Lab6.ActivateFunctions;
 
 /**
  * Created by aws on 13-03-2017.
  */
 public class StepFunction implements IActivationFunction {
 
-    double threshold;
+    private double threshold;
 
     public StepFunction()
     {
         this(0.5);
     }
-    public StepFunction(double threshold)
+    private StepFunction(double threshold)
     {
         this.threshold = threshold;
     }

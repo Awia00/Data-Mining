@@ -6,6 +6,7 @@ import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
 import Common.Interfaces.SpaceComparable;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,6 +16,11 @@ import java.util.Map;
 public class IrisBuilder implements NDimensionalPointBuilder {
     Map<AttributeKey, SpaceComparable> map = new LinkedHashMap<>();
     private IrisClass irisClass;
+
+    @Override
+    public Collection<AttributeKey> getAttributesOfType() {
+        return new Iris().getAttributes();
+    }
 
     @Override
     public void addAttributeValue(AttributeKey key, SpaceComparable value) {

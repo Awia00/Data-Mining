@@ -5,7 +5,6 @@ import Common.EuclideanSpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
 import Common.Interfaces.SpaceComparable;
-import Common.Interfaces.WithAttributes;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,14 +13,14 @@ import java.util.Map;
 
 public class Normalizer {
 
-    public Collection<NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, WithAttributes<SpaceComparable> attributes, NDimensionalPointBuilder builder) {
+    public Collection<NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, NDimensionalPointBuilder builder) {
         Collection<NDimensionalPoint> normalizedElements = new ArrayList<>();
         Map<AttributeKey, Double> maxValues = new HashMap<>();
         Map<AttributeKey, Double> minValues = new HashMap<>();
 
         for (NDimensionalPoint point : elements) {
-            for (AttributeKey attributeKey : attributes.getAttributes()) {
-                Class<? extends SpaceComparable> attributeType = attributes.getValueOfAttribute(attributeKey).getClass();
+            for (AttributeKey attributeKey : builder.getAttributesOfType()) {
+                Class<? extends SpaceComparable> attributeType = point.getValueOfAttribute(attributeKey).getClass();
                 if (attributeType == EuclideanSpaceComparable.class) {
                     double value = ((EuclideanSpaceComparable) point.getValueOfAttribute(attributeKey)).getDoubleValue();
                     if (maxValues.containsKey(attributeKey))
@@ -38,8 +37,8 @@ public class Normalizer {
         }
         for (NDimensionalPoint point : elements) {
             builder.baseOnOriginal(point);
-            for (AttributeKey attributeKey : attributes.getAttributes()) {
-                Class<? extends SpaceComparable> attributeType = attributes.getValueOfAttribute(attributeKey).getClass();
+            for (AttributeKey attributeKey : builder.getAttributesOfType()) {
+                Class<? extends SpaceComparable> attributeType = point.getValueOfAttribute(attributeKey).getClass();
                 if (attributeType == EuclideanSpaceComparable.class) {
                     double value = ((EuclideanSpaceComparable) point.getValueOfAttribute(attributeKey)).getDoubleValue();
                     double min = minValues.get(attributeKey);

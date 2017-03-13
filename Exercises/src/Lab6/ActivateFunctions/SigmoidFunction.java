@@ -1,14 +1,14 @@
-package Lab6;
+package Lab6.ActivateFunctions;
 
 /**
  * Created by aws on 13-03-2017.
  */
 public class SigmoidFunction implements IActivationFunction {
-    double d;
+    private double d;
     public SigmoidFunction(){
         this(1.0);
     }
-    public SigmoidFunction(double d)
+    private SigmoidFunction(double d)
     {
         this.d = d;
     }
