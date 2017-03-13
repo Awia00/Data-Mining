@@ -2,6 +2,8 @@ package Lab2;
 
 import Common.Interfaces.Classifier;
 import Common.Statistics.EvaluationStatistics;
+import Data.Mushroom.Mushroom;
+import Data.Mushroom.MushroomDataLoader;
 import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.KNearestNeighboursClassifier;
 
@@ -19,8 +21,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // First step - Load data and convert to Mushroom objects.
-        List<Mushroom> mushrooms = DataManager.LoadData();
-        System.out.println("DataManager loaded " + mushrooms.size() + " mushrooms");
+        List<Mushroom> mushrooms = MushroomDataLoader.LoadData();
+        System.out.println("MushroomDataLoader loaded " + mushrooms.size() + " mushrooms");
         int k = 5;
 
         Collections.shuffle(mushrooms);
