@@ -1,6 +1,6 @@
 package Lab6.Layers;
 
-import Common.Classification;
+import Common.TwoWayClassification;
 import Lab6.Neurons.Neuron;
 import Lab6.Neurons.OutputNeuron;
 
@@ -12,11 +12,11 @@ import java.util.Map;
  * Created by aws on 13-03-2017.
  */
 public class OutputLayer implements NeuralLayer{
-    Map<Classification, OutputNeuron> neurons;
+    Map<TwoWayClassification, OutputNeuron> neurons;
     public OutputLayer() {
         neurons = new HashMap<>();
-        neurons.put(Classification.negative, new OutputNeuron());
-        neurons.put(Classification.positive, new OutputNeuron());
+        neurons.put(null, new OutputNeuron());
+        neurons.put(null, new OutputNeuron());
     }
 
     @Override

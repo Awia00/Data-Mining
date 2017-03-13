@@ -1,7 +1,7 @@
 package Common.Statistics;
 
-import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
+import Common.Interfaces.TwoWayClassifiable;
 
 import java.util.Collection;
 
@@ -10,5 +10,5 @@ import java.util.Collection;
  */
 public interface CanEvaluateClassifier {
 
-    <T> EvaluationStatistics testClassifier(Classifier<T> classifier, Collection<Classifiable> testSet);
+    <T> EvaluationStatistics testClassifier(Classifier<T, TwoWayClassifiable> classifier, Collection<TwoWayClassifiable> testSet);
 }

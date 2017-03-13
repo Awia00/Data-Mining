@@ -1,14 +1,14 @@
 package Lab2.Classification;
 
 import Common.AttributeKey;
-import Common.Classification;
 import Common.DataStructures.Tree.Leaf;
 import Common.DataStructures.Tree.Node;
-import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
+import Common.Interfaces.TwoWayClassifiable;
 import Common.Interfaces.WithAttributes;
 import Common.Statistics.EvaluationStatistics;
 import Common.Statistics.EvaluationSuite;
+import Common.TwoWayClassification;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,19 +19,19 @@ import java.util.stream.Collectors;
 /**
  * Created by ander on 13-02-2017.
  */
-public class ID3DecisionTreeClassifier implements Classifier<Object> {
+public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClassifiable> {
 
     private Node tree;
 
     @Override
-    public void trainWithSet(Collection<Classifiable> trainSet) {
-        List<Classifiable> elements = new ArrayList<>(trainSet);
+    public void trainWithSet(Collection<TwoWayClassifiable> trainSet) {
+        List<TwoWayClassifiable> elements = new ArrayList<>(trainSet);
         if (!trainSet.isEmpty())
             tree = buildTree(null, elements, elements.get(0).getAttributes());
         //tree.print();
     }
 
-    private Node buildTree(Node parent, List<Classifiable> elements, Collection<AttributeKey> attributeKeys) {
+    private Node buildTree(Node parent, List<TwoWayClassifiable> elements, Collection<AttributeKey> attributeKeys) {
         if (belongToSameClass(elements)) {
             return new Leaf(parent, elements.get(0).getClassification());
         }
@@ -44,7 +44,7 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
 
         Node n = new Node(parent, bestAttributeKey);
         n.addChild(null, new Leaf(parent, mostCommon(elements))); // default case.
-        for (Map.Entry<Object, List<Classifiable>> entry : split(elements, bestAttributeKey).entrySet()) {
+        for (Map.Entry<Object, List<TwoWayClassifiable>> entry : split(elements, bestAttributeKey).entrySet()) {
             if (entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(elements)));
             else
@@ -53,11 +53,11 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         return n;
     }
 
-    private Map<Object, List<Classifiable>> split(Collection<Classifiable> elements, AttributeKey splitAttributeKey) {
+    private Map<Object, List<TwoWayClassifiable>> split(Collection<TwoWayClassifiable> elements, AttributeKey splitAttributeKey) {
         return elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(splitAttributeKey)));
     }
 
-    private AttributeKey findBestAttribute(Collection<Classifiable> elements, Collection<AttributeKey> attributeKeys) {
+    private AttributeKey findBestAttribute(Collection<TwoWayClassifiable> elements, Collection<AttributeKey> attributeKeys) {
         AttributeKey bestAttributeKey = null;
         double infoGain = -1;
         for (AttributeKey attributeKey : attributeKeys) {
@@ -73,26 +73,23 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
         return bestAttributeKey;
     }
 
-    private double informationGain(Collection<Classifiable> elements, AttributeKey attributeKey) {
-        Map<Object, List<Classifiable>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(attributeKey)));
+    private double informationGain(Collection<TwoWayClassifiable> elements, AttributeKey attributeKey) {
+        Map<Object, List<TwoWayClassifiable>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(attributeKey)));
         double infoD = entropy(elements), infoDA = 0.0;
-        for (Map.Entry<Object, List<Classifiable>> entry : splittingOnAttribute.entrySet()) {
+        for (Map.Entry<Object, List<TwoWayClassifiable>> entry : splittingOnAttribute.entrySet()) {
             infoDA += entropy(entry.getValue()) * entry.getValue().size() / elements.size();
         }
         return infoD - infoDA;
     }
 
-    private double entropy(Collection<Classifiable> elements) {
+    private double entropy(Collection<TwoWayClassifiable> elements) {
         double size = elements.size(), positives = 0, negatives = 0;
-        for (Classifiable element : elements) {
-            switch (element.getClassification()) {
-                case negative:
-                    negatives++;
-                    break;
-                case positive:
-                    positives++;
-                    break;
-            }
+        for (TwoWayClassifiable element : elements) {
+            TwoWayClassification classification = element.getClassification();
+            if(classification.equals(TwoWayClassification.negative()))
+                negatives++;
+            else
+                positives++;
         }
         double probPos = positives / size, probNeg = negatives / size;
         if (probPos == 0.0) return -probNeg * log2(probNeg);
@@ -101,24 +98,24 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
             return -probPos * log2(probPos) - probNeg * log2(probNeg);
     }
 
-    private boolean belongToSameClass(Collection<Classifiable> elements) {
-        Classification classification = null;
-        for (Classifiable element : elements) {
-            if (classification == null)
-                classification = element.getClassification();
-            else if (classification != element.getClassification())
+    private boolean belongToSameClass(Collection<TwoWayClassifiable> elements) {
+        TwoWayClassification twoWayClassification = null;
+        for (TwoWayClassifiable element : elements) {
+            if (twoWayClassification == null)
+                twoWayClassification = element.getClassification();
+            else if (!twoWayClassification.equals(element.getClassification()))
                 return false;
         }
         return true;
     }
 
-    private Classification mostCommon(Collection<Classifiable> elements) {
+    private TwoWayClassification mostCommon(Collection<TwoWayClassifiable> elements) {
         int negative = 0;
-        for (Classifiable element : elements) {
-            if (element.getClassification() == Classification.negative)
+        for (TwoWayClassifiable element : elements) {
+            if (element.getClassification().equals(TwoWayClassification.negative()))
                 negative++;
         }
-        return negative >= elements.size() / 2 ? Classification.negative : Classification.positive;
+        return negative >= elements.size() / 2 ? TwoWayClassification.negative() : TwoWayClassification.positive();
     }
 
     private double log2(double x) {
@@ -126,12 +123,12 @@ public class ID3DecisionTreeClassifier implements Classifier<Object> {
     }
 
     @Override
-    public Classification classify(WithAttributes element) {
+    public TwoWayClassification classify(WithAttributes element) {
         return tree.find(element);
     }
 
     @Override
-    public EvaluationStatistics testWithSet(Collection<Classifiable> testSet) {
+    public EvaluationStatistics testWithSet(Collection<TwoWayClassifiable> testSet) {
         return new EvaluationSuite().testClassifier(this, testSet);
     }
 }

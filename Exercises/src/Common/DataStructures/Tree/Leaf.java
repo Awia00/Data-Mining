@@ -1,21 +1,21 @@
 package Common.DataStructures.Tree;
 
-import Common.Classification;
+import Common.TwoWayClassification;
 import Common.Interfaces.WithAttributes;
 
 /**
  * Created by aws on 15-02-2017.
  */
 public class Leaf extends Node {
-    public final Classification label;
+    public final TwoWayClassification label;
 
-    public Leaf(Node parent, Classification label) {
+    public Leaf(Node parent, TwoWayClassification label) {
         super(parent);
         this.label = label;
     }
 
     @Override
-    public Classification find(WithAttributes element) {
+    public TwoWayClassification find(WithAttributes element) {
         return label;
     }
 

@@ -1,6 +1,6 @@
 package Common.Interfaces;
 
-import Common.Classification;
+import Common.TwoWayClassification;
 import Common.Statistics.EvaluationStatistics;
 
 import java.util.Collection;
@@ -8,12 +8,12 @@ import java.util.Collection;
 /**
  * Created by aws on 13-02-2017.
  */
-public interface Classifier<T> {
+public interface Classifier<T, V extends Classifiable> {
 
-    void trainWithSet(Collection<Classifiable> trainSet);
+    void trainWithSet(Collection<V> trainSet);
 
-    EvaluationStatistics testWithSet(Collection<Classifiable> testSet);
+    EvaluationStatistics testWithSet(Collection<V> testSet);
 
-    Classification classify(WithAttributes<T> element);
+    TwoWayClassification classify(WithAttributes<T> element);
 
 }

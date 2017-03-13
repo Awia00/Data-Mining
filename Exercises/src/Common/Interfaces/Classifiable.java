@@ -1,12 +1,12 @@
 package Common.Interfaces;
 
-import Common.Classification;
+import Common.NominalSpaceComparable;
 
 /**
- * Created by aws on 27-02-2017.
+ * Created by ander on 13-03-2017.
  */
-public interface Classifiable<T> extends WithAttributes<T> {
-    Classification getClassification();
+public interface Classifiable<T, V extends NominalSpaceComparable> extends WithAttributes<T> {
+    V getClassification();
 
-    boolean checkClassification(Classification classification);
+    boolean checkClassification(V twoWayClassification);
 }

@@ -1,7 +1,7 @@
 package Common.DataStructures.Tree;
 
 import Common.AttributeKey;
-import Common.Classification;
+import Common.TwoWayClassification;
 import Common.Interfaces.WithAttributes;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class Node {
             return child;
     }
 
-    public Classification find(WithAttributes element) {
+    public TwoWayClassification find(WithAttributes element) {
         Object label = element.getValueOfAttribute(splitOn);
         return getChild(label).find(element);
     }

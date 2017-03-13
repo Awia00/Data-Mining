@@ -1,22 +1,22 @@
 package Data.Mushroom;
 
 import Common.AttributeKey;
-import Common.Classification;
-import Common.Interfaces.Classifiable;
 import Common.Interfaces.SpaceComparable;
+import Common.Interfaces.TwoWayClassifiable;
 import Common.NominalSpaceComparable;
+import Common.TwoWayClassification;
+import Data.Mushroom.Enums.*;
 
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Map;
-import Data.Mushroom.Enums.*;
 
 
 /**
  * The Mushroom class is used to contain the data for each mushroom found in the datafile.
  * More info on each attribute in agaricus-lepiotaexplanation.txt.
  */
-public class Mushroom implements Classifiable<SpaceComparable> {
+public class Mushroom implements TwoWayClassifiable<SpaceComparable> {
 
 
     /**
@@ -110,15 +110,15 @@ public class Mushroom implements Classifiable<SpaceComparable> {
     }
 
     @Override
-    public Classification getClassification() {
+    public TwoWayClassification getClassification() {
         if (m_Class == Class_Label.edible)
-            return Classification.negative;
+            return TwoWayClassification.negative();
         else
-            return Classification.positive;
+            return TwoWayClassification.positive();
     }
 
     @Override
-    public boolean checkClassification(Classification classification) {
-        return getClassification() == classification;
+    public boolean checkClassification(TwoWayClassification twoWayClassification) {
+        return getClassification().equals(twoWayClassification);
     }
 }

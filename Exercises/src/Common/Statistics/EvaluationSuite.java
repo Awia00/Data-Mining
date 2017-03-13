@@ -1,8 +1,8 @@
 package Common.Statistics;
 
-import Common.Classification;
-import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
+import Common.Interfaces.TwoWayClassifiable;
+import Common.TwoWayClassification;
 
 import java.util.Collection;
 
@@ -11,17 +11,17 @@ import java.util.Collection;
  */
 public class EvaluationSuite implements CanEvaluateClassifier {
     @Override
-    public <T> EvaluationStatistics testClassifier(Classifier<T> classifier, Collection<Classifiable> testSet) {
+    public <T> EvaluationStatistics testClassifier(Classifier<T, TwoWayClassifiable> classifier, Collection<TwoWayClassifiable> testSet) {
         int truePositives = 0, falsePositives = 0, trueNegatives = 0, falseNegatives = 0;
-        for (Classifiable element : testSet) {
-            Classification result = classifier.classify(element);
-            if (result == Classification.negative && element.checkClassification(Classification.negative)) {
+        for (TwoWayClassifiable element : testSet) {
+            TwoWayClassification result = classifier.classify(element);
+            if (result.equals(TwoWayClassification.negative()) && element.checkClassification(TwoWayClassification.negative())) {
                 trueNegatives++;
-            } else if (result == Classification.positive && !element.checkClassification(Classification.positive)) {
+            } else if (result.equals(TwoWayClassification.positive()) && !element.checkClassification(TwoWayClassification.positive())) {
                 falseNegatives++;
-            } else if (result == Classification.positive && element.checkClassification(Classification.positive)) {
+            } else if (result.equals(TwoWayClassification.positive()) && element.checkClassification(TwoWayClassification.positive())) {
                 truePositives++;
-            } else if (result == Classification.negative && !element.checkClassification(Classification.negative)) {
+            } else if (result.equals(TwoWayClassification.negative()) && !element.checkClassification(TwoWayClassification.negative())) {
                 falsePositives++;
             }
         }

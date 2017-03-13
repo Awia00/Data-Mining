@@ -21,6 +21,8 @@ public class NominalSpaceComparable<T extends Enum> implements SpaceComparable<N
         return value;
     }
 
+    public int range(){ return value.getClass().getEnumConstants().length; }
+
     @Override
     public String toString() {
         return value.toString();
