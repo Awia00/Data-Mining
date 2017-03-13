@@ -1,6 +1,7 @@
 package Data.Mushroom;
 
 import Data.CSVFileReader;
+import Data.Mushroom.Enums.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,392 +60,392 @@ public class MushroomDataLoader {
 
     }
 
-    private static Lab2.enums.Class_Label loadMushroomClass(String m_class) {
+    private static Class_Label loadMushroomClass(String m_class) {
         if (m_class.equals("e")) {
-            return Lab2.enums.Class_Label.edible;
+            return Class_Label.edible;
         } else if (m_class.equals("p")) {
-            return Lab2.enums.Class_Label.poisonous;
+            return Class_Label.poisonous;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Cap_Shape loadCapShape(String cap_shape) {
+    private static Cap_Shape loadCapShape(String cap_shape) {
         if (cap_shape.equals("b")) {
-            return Lab2.enums.Cap_Shape.bell;
+            return Cap_Shape.bell;
         } else if (cap_shape.equals("c")) {
-            return Lab2.enums.Cap_Shape.conical;
+            return Cap_Shape.conical;
         } else if (cap_shape.equals("x")) {
-            return Lab2.enums.Cap_Shape.convex;
+            return Cap_Shape.convex;
         } else if (cap_shape.equals("f")) {
-            return Lab2.enums.Cap_Shape.flat;
+            return Cap_Shape.flat;
         } else if (cap_shape.equals("k")) {
-            return Lab2.enums.Cap_Shape.knobbed;
+            return Cap_Shape.knobbed;
         } else if (cap_shape.equals("s")) {
-            return Lab2.enums.Cap_Shape.sunken;
+            return Cap_Shape.sunken;
         }
 
         return null; //INtentional, if we get down here something went wrong.
     }
 
-    private static Lab2.enums.Cap_Surface loadCapSurface(String cap_surface) {
+    private static Cap_Surface loadCapSurface(String cap_surface) {
         if (cap_surface.equals("f")) {
-            return Lab2.enums.Cap_Surface.fibrous;
+            return Cap_Surface.fibrous;
         } else if (cap_surface.equals("g")) {
-            return Lab2.enums.Cap_Surface.grooves;
+            return Cap_Surface.grooves;
         } else if (cap_surface.equals("y")) {
-            return Lab2.enums.Cap_Surface.scaly;
+            return Cap_Surface.scaly;
         } else if (cap_surface.equals("s")) {
-            return Lab2.enums.Cap_Surface.smooth;
+            return Cap_Surface.smooth;
         }
         return null;
     }
 
-    private static Lab2.enums.Cap_Color loadCapColor(String cap_color) {
+    private static Cap_Color loadCapColor(String cap_color) {
         if (cap_color.equals("n")) {
-            return Lab2.enums.Cap_Color.brown;
+            return Cap_Color.brown;
         } else if (cap_color.equals("b")) {
-            return Lab2.enums.Cap_Color.buff;
+            return Cap_Color.buff;
         } else if (cap_color.equals("c")) {
-            return Lab2.enums.Cap_Color.cinnamon;
+            return Cap_Color.cinnamon;
         } else if (cap_color.equals("g")) {
-            return Lab2.enums.Cap_Color.gray;
+            return Cap_Color.gray;
         } else if (cap_color.equals("r")) {
-            return Lab2.enums.Cap_Color.green;
+            return Cap_Color.green;
         } else if (cap_color.equals("p")) {
-            return Lab2.enums.Cap_Color.pink;
+            return Cap_Color.pink;
         } else if (cap_color.equals("u")) {
-            return Lab2.enums.Cap_Color.purple;
+            return Cap_Color.purple;
         } else if (cap_color.equals("e")) {
-            return Lab2.enums.Cap_Color.red;
+            return Cap_Color.red;
         } else if (cap_color.equals("w")) {
-            return Lab2.enums.Cap_Color.white;
+            return Cap_Color.white;
         } else if (cap_color.equals("y")) {
-            return Lab2.enums.Cap_Color.yellow;
+            return Cap_Color.yellow;
         }
         return null;
     }
 
-    private static Lab2.enums.Bruises loadBruises(String bruises) {
+    private static Bruises loadBruises(String bruises) {
         if (bruises.equals("t")) {
-            return Lab2.enums.Bruises.bruises;
+            return Bruises.bruises;
         } else if (bruises.equals("f")) {
-            return Lab2.enums.Bruises.no_bruises;
+            return Bruises.no_bruises;
         }
         return null;
 
     }
 
-    private static Lab2.enums.Odor loadOdor(String odor) {
+    private static Odor loadOdor(String odor) {
         if (odor.equals("a")) {
-            return Lab2.enums.Odor.almond;
+            return Odor.almond;
         } else if (odor.equals("l")) {
-            return Lab2.enums.Odor.anise;
+            return Odor.anise;
         } else if (odor.equals("c")) {
-            return Lab2.enums.Odor.creosote;
+            return Odor.creosote;
         } else if (odor.equals("y")) {
-            return Lab2.enums.Odor.fishy;
+            return Odor.fishy;
         } else if (odor.equals("f")) {
-            return Lab2.enums.Odor.foul;
+            return Odor.foul;
         } else if (odor.equals("m")) {
-            return Lab2.enums.Odor.musty;
+            return Odor.musty;
         } else if (odor.equals("n")) {
-            return Lab2.enums.Odor.none;
+            return Odor.none;
         } else if (odor.equals("p")) {
-            return Lab2.enums.Odor.pungent;
+            return Odor.pungent;
         } else if (odor.equals("s")) {
-            return Lab2.enums.Odor.spicy;
+            return Odor.spicy;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Gill_Attachment loadGillAttachment(String gill_att) {
+    private static Gill_Attachment loadGillAttachment(String gill_att) {
         if (gill_att.equals("a")) {
-            return Lab2.enums.Gill_Attachment.attached;
+            return Gill_Attachment.attached;
         } else if (gill_att.equals("d")) {
-            return Lab2.enums.Gill_Attachment.descending;
+            return Gill_Attachment.descending;
         } else if (gill_att.equals("f")) {
-            return Lab2.enums.Gill_Attachment.free;
+            return Gill_Attachment.free;
         } else if (gill_att.equals("n")) {
-            return Lab2.enums.Gill_Attachment.notched;
+            return Gill_Attachment.notched;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Gill_Spacing loadGillSpacing(String gill_space) {
+    private static Gill_Spacing loadGillSpacing(String gill_space) {
         if (gill_space.equals("c")) {
-            return Lab2.enums.Gill_Spacing.close;
+            return Gill_Spacing.close;
         } else if (gill_space.equals("w")) {
-            return Lab2.enums.Gill_Spacing.crowded;
+            return Gill_Spacing.crowded;
         } else if (gill_space.equals("d")) {
-            return Lab2.enums.Gill_Spacing.distant;
+            return Gill_Spacing.distant;
         }
         return null;
     }
 
-    private static Lab2.enums.Gill_Size loadGillSize(String gill_size) {
+    private static Gill_Size loadGillSize(String gill_size) {
         if (gill_size.equals("b")) {
-            return Lab2.enums.Gill_Size.broad;
+            return Gill_Size.broad;
         } else if (gill_size.equals("n")) {
-            return Lab2.enums.Gill_Size.narrow;
+            return Gill_Size.narrow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Gill_Color loadGillColor(String gill_color) {
+    private static Gill_Color loadGillColor(String gill_color) {
         if (gill_color.equals("k")) {
-            return Lab2.enums.Gill_Color.black;
+            return Gill_Color.black;
         } else if (gill_color.equals("n")) {
-            return Lab2.enums.Gill_Color.brown;
+            return Gill_Color.brown;
         } else if (gill_color.equals("b")) {
-            return Lab2.enums.Gill_Color.buff;
+            return Gill_Color.buff;
         } else if (gill_color.equals("h")) {
-            return Lab2.enums.Gill_Color.chocolate;
+            return Gill_Color.chocolate;
         } else if (gill_color.equals("g")) {
-            return Lab2.enums.Gill_Color.gray;
+            return Gill_Color.gray;
         } else if (gill_color.equals("r")) {
-            return Lab2.enums.Gill_Color.green;
+            return Gill_Color.green;
         } else if (gill_color.equals("o")) {
-            return Lab2.enums.Gill_Color.orange;
+            return Gill_Color.orange;
         } else if (gill_color.equals("p")) {
-            return Lab2.enums.Gill_Color.pink;
+            return Gill_Color.pink;
         } else if (gill_color.equals("u")) {
-            return Lab2.enums.Gill_Color.purple;
+            return Gill_Color.purple;
         } else if (gill_color.equals("e")) {
-            return Lab2.enums.Gill_Color.red;
+            return Gill_Color.red;
         } else if (gill_color.equals("w")) {
-            return Lab2.enums.Gill_Color.white;
+            return Gill_Color.white;
         } else if (gill_color.equals("y")) {
-            return Lab2.enums.Gill_Color.yellow;
+            return Gill_Color.yellow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Shape loadStalkShape(String stalk_shape) {
+    private static Stalk_Shape loadStalkShape(String stalk_shape) {
         if (stalk_shape.equals("e")) {
-            return Lab2.enums.Stalk_Shape.enlarging;
+            return Stalk_Shape.enlarging;
         } else if (stalk_shape.equals("t")) {
-            return Lab2.enums.Stalk_Shape.tapering;
+            return Stalk_Shape.tapering;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Root loadStalkRoot(String stalk_root) {
+    private static Stalk_Root loadStalkRoot(String stalk_root) {
         if (stalk_root.equals("b")) {
-            return Lab2.enums.Stalk_Root.bulbous;
+            return Stalk_Root.bulbous;
         } else if (stalk_root.equals("c")) {
-            return Lab2.enums.Stalk_Root.club;
+            return Stalk_Root.club;
         } else if (stalk_root.equals("u")) {
-            return Lab2.enums.Stalk_Root.cup;
+            return Stalk_Root.cup;
         } else if (stalk_root.equals("e")) {
-            return Lab2.enums.Stalk_Root.equal;
+            return Stalk_Root.equal;
         } else if (stalk_root.equals("z")) {
-            return Lab2.enums.Stalk_Root.rhizomorphs;
+            return Stalk_Root.rhizomorphs;
         } else if (stalk_root.equals("r")) {
-            return Lab2.enums.Stalk_Root.rooted;
+            return Stalk_Root.rooted;
         } else if (stalk_root.equals("?")) {
-            return Lab2.enums.Stalk_Root.missing;
+            return Stalk_Root.missing;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Surface_Above_Ring loadStalkSurfaceAbove(String stalk_above) {
+    private static Stalk_Surface_Above_Ring loadStalkSurfaceAbove(String stalk_above) {
         if (stalk_above.equals("f")) {
-            return Lab2.enums.Stalk_Surface_Above_Ring.ibrous;
+            return Stalk_Surface_Above_Ring.ibrous;
         } else if (stalk_above.equals("y")) {
-            return Lab2.enums.Stalk_Surface_Above_Ring.scaly;
+            return Stalk_Surface_Above_Ring.scaly;
         } else if (stalk_above.equals("k")) {
-            return Lab2.enums.Stalk_Surface_Above_Ring.silky;
+            return Stalk_Surface_Above_Ring.silky;
         } else if (stalk_above.equals("s")) {
-            return Lab2.enums.Stalk_Surface_Above_Ring.smooth;
+            return Stalk_Surface_Above_Ring.smooth;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Surface_Below_Ring loadStalkSurfaceBelow(String stalk_below) {
+    private static Stalk_Surface_Below_Ring loadStalkSurfaceBelow(String stalk_below) {
         if (stalk_below.equals("f")) {
-            return Lab2.enums.Stalk_Surface_Below_Ring.ibrous;
+            return Stalk_Surface_Below_Ring.ibrous;
         } else if (stalk_below.equals("y")) {
-            return Lab2.enums.Stalk_Surface_Below_Ring.scaly;
+            return Stalk_Surface_Below_Ring.scaly;
         } else if (stalk_below.equals("k")) {
-            return Lab2.enums.Stalk_Surface_Below_Ring.silky;
+            return Stalk_Surface_Below_Ring.silky;
         } else if (stalk_below.equals("s")) {
-            return Lab2.enums.Stalk_Surface_Below_Ring.smooth;
+            return Stalk_Surface_Below_Ring.smooth;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Color_Above_Ring loadStalkColorAbove(String stalk_color_above) {
+    private static Stalk_Color_Above_Ring loadStalkColorAbove(String stalk_color_above) {
         if (stalk_color_above.equals("n")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.brown;
+            return Stalk_Color_Above_Ring.brown;
         } else if (stalk_color_above.equals("b")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.buff;
+            return Stalk_Color_Above_Ring.buff;
         } else if (stalk_color_above.equals("c")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.cinnamon;
+            return Stalk_Color_Above_Ring.cinnamon;
         } else if (stalk_color_above.equals("g")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.gray;
+            return Stalk_Color_Above_Ring.gray;
         } else if (stalk_color_above.equals("o")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.orange;
+            return Stalk_Color_Above_Ring.orange;
         } else if (stalk_color_above.equals("p")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.pink;
+            return Stalk_Color_Above_Ring.pink;
         } else if (stalk_color_above.equals("e")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.red;
+            return Stalk_Color_Above_Ring.red;
         } else if (stalk_color_above.equals("w")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.white;
+            return Stalk_Color_Above_Ring.white;
         } else if (stalk_color_above.equals("y")) {
-            return Lab2.enums.Stalk_Color_Above_Ring.yellow;
+            return Stalk_Color_Above_Ring.yellow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Stalk_Color_Below_Ring loadStalkColorBelow(String stalk_color_below) {
+    private static Stalk_Color_Below_Ring loadStalkColorBelow(String stalk_color_below) {
         if (stalk_color_below.equals("n")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.brown;
+            return Stalk_Color_Below_Ring.brown;
         } else if (stalk_color_below.equals("b")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.buff;
+            return Stalk_Color_Below_Ring.buff;
         } else if (stalk_color_below.equals("c")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.cinnamon;
+            return Stalk_Color_Below_Ring.cinnamon;
         } else if (stalk_color_below.equals("g")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.gray;
+            return Stalk_Color_Below_Ring.gray;
         } else if (stalk_color_below.equals("o")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.orange;
+            return Stalk_Color_Below_Ring.orange;
         } else if (stalk_color_below.equals("p")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.pink;
+            return Stalk_Color_Below_Ring.pink;
         } else if (stalk_color_below.equals("e")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.red;
+            return Stalk_Color_Below_Ring.red;
         } else if (stalk_color_below.equals("w")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.white;
+            return Stalk_Color_Below_Ring.white;
         } else if (stalk_color_below.equals("y")) {
-            return Lab2.enums.Stalk_Color_Below_Ring.yellow;
+            return Stalk_Color_Below_Ring.yellow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Veil_Type loadVeilType(String veil_type) {
+    private static Veil_Type loadVeilType(String veil_type) {
         if (veil_type.equals("p")) {
-            return Lab2.enums.Veil_Type.partial;
+            return Veil_Type.partial;
         } else if (veil_type.equals("u")) {
-            return Lab2.enums.Veil_Type.universal;
+            return Veil_Type.universal;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Veil_Color loadVeilColor(String veil_color) {
+    private static Veil_Color loadVeilColor(String veil_color) {
         if (veil_color.equals("n")) {
-            return Lab2.enums.Veil_Color.brown;
+            return Veil_Color.brown;
         } else if (veil_color.equals("o")) {
-            return Lab2.enums.Veil_Color.orange;
+            return Veil_Color.orange;
         } else if (veil_color.equals("w")) {
-            return Lab2.enums.Veil_Color.white;
+            return Veil_Color.white;
         } else if (veil_color.equals("y")) {
-            return Lab2.enums.Veil_Color.yellow;
+            return Veil_Color.yellow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Ring_Number loadRingNumber(String ring_number) {
+    private static Ring_Number loadRingNumber(String ring_number) {
         if (ring_number.equals("n")) {
-            return Lab2.enums.Ring_Number.none;
+            return Ring_Number.none;
         } else if (ring_number.equals("o")) {
-            return Lab2.enums.Ring_Number.one;
+            return Ring_Number.one;
         } else if (ring_number.equals("t")) {
-            return Lab2.enums.Ring_Number.two;
+            return Ring_Number.two;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Ring_Type loadRingType(String ring_type) {
+    private static Ring_Type loadRingType(String ring_type) {
         if (ring_type.equals("c")) {
-            return Lab2.enums.Ring_Type.cobwebby;
+            return Ring_Type.cobwebby;
         } else if (ring_type.equals("e")) {
-            return Lab2.enums.Ring_Type.evanescent;
+            return Ring_Type.evanescent;
         } else if (ring_type.equals("f")) {
-            return Lab2.enums.Ring_Type.flaring;
+            return Ring_Type.flaring;
         } else if (ring_type.equals("l")) {
-            return Lab2.enums.Ring_Type.large;
+            return Ring_Type.large;
         } else if (ring_type.equals("n")) {
-            return Lab2.enums.Ring_Type.none;
+            return Ring_Type.none;
         } else if (ring_type.equals("s")) {
-            return Lab2.enums.Ring_Type.sheathing;
+            return Ring_Type.sheathing;
         } else if (ring_type.equals("z")) {
-            return Lab2.enums.Ring_Type.zone;
+            return Ring_Type.zone;
         } else if (ring_type.equals("p")) {
-            return Lab2.enums.Ring_Type.pendant;
+            return Ring_Type.pendant;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Spore_Print_Color loadSporePrintColor(String spore_color) {
+    private static Spore_Print_Color loadSporePrintColor(String spore_color) {
         if (spore_color.equals("k")) {
-            return Lab2.enums.Spore_Print_Color.black;
+            return Spore_Print_Color.black;
         } else if (spore_color.equals("n")) {
-            return Lab2.enums.Spore_Print_Color.brown;
+            return Spore_Print_Color.brown;
         } else if (spore_color.equals("b")) {
-            return Lab2.enums.Spore_Print_Color.buff;
+            return Spore_Print_Color.buff;
         } else if (spore_color.equals("h")) {
-            return Lab2.enums.Spore_Print_Color.chocolate;
+            return Spore_Print_Color.chocolate;
         } else if (spore_color.equals("r")) {
-            return Lab2.enums.Spore_Print_Color.green;
+            return Spore_Print_Color.green;
         } else if (spore_color.equals("o")) {
-            return Lab2.enums.Spore_Print_Color.orange;
+            return Spore_Print_Color.orange;
         } else if (spore_color.equals("u")) {
-            return Lab2.enums.Spore_Print_Color.purple;
+            return Spore_Print_Color.purple;
         } else if (spore_color.equals("w")) {
-            return Lab2.enums.Spore_Print_Color.white;
+            return Spore_Print_Color.white;
         } else if (spore_color.equals("y")) {
-            return Lab2.enums.Spore_Print_Color.yellow;
+            return Spore_Print_Color.yellow;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Population loadPopulation(String population) {
+    private static Population loadPopulation(String population) {
         if (population.equals("a")) {
-            return Lab2.enums.Population.abundant;
+            return Population.abundant;
         } else if (population.equals("c")) {
-            return Lab2.enums.Population.clustered;
+            return Population.clustered;
         } else if (population.equals("n")) {
-            return Lab2.enums.Population.numerous;
+            return Population.numerous;
         } else if (population.equals("s")) {
-            return Lab2.enums.Population.scattered;
+            return Population.scattered;
         } else if (population.equals("v")) {
-            return Lab2.enums.Population.several;
+            return Population.several;
         } else if (population.equals("y")) {
-            return Lab2.enums.Population.solitary;
+            return Population.solitary;
         }
 
         return null;
     }
 
-    private static Lab2.enums.Habitat loadHabitat(String habitat) {
+    private static Habitat loadHabitat(String habitat) {
         if (habitat.equals("g")) {
-            return Lab2.enums.Habitat.grasses;
+            return Habitat.grasses;
         } else if (habitat.equals("l")) {
-            return Lab2.enums.Habitat.leaves;
+            return Habitat.leaves;
         } else if (habitat.equals("m")) {
-            return Lab2.enums.Habitat.meadows;
+            return Habitat.meadows;
         } else if (habitat.equals("p")) {
-            return Lab2.enums.Habitat.paths;
+            return Habitat.paths;
         } else if (habitat.equals("u")) {
-            return Lab2.enums.Habitat.urban;
+            return Habitat.urban;
         } else if (habitat.equals("w")) {
-            return Lab2.enums.Habitat.waste;
+            return Habitat.waste;
         } else if (habitat.equals("d")) {
-            return Lab2.enums.Habitat.woods;
+            return Habitat.woods;
         }
 
         return null;

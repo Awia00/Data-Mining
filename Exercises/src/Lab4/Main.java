@@ -10,6 +10,7 @@ import Lab4.kMean.KMeans;
 import Lab4.kMedoid.KMedoid;
 import Lab4.kMedoid.KMedoidCluster;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Main {
      */
     public static void main(String[] args) {
         //First step load in iris data
-        List<NDimensionalPoint> irisData = IrisDataLoader.LoadAllIrisData();
+        List<? extends NDimensionalPoint> irisData = IrisDataLoader.LoadAllIrisData();
         irisData = (List<NDimensionalPoint>) new Normalizer().NormilizeData(irisData, new Iris(), new IrisBuilder());
 
         //Second step --> do the clustering using k-means!

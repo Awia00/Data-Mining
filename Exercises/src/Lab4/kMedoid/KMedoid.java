@@ -6,18 +6,20 @@ import java.util.*;
 
 public class KMedoid {
 
-    public static Collection<KMedoidCluster> KMedoidPartition(int k, List<NDimensionalPoint> data) {
+    public static Collection<KMedoidCluster> KMedoidPartition(int k, List<? extends NDimensionalPoint> data) {
+
         Collection<KMedoidCluster> clusters = new ArrayList<>();
         // pick random mediods
+        List<NDimensionalPoint> input = new ArrayList<>(data);
         List<NDimensionalPoint> toRemove = new ArrayList<>();
-        List<NDimensionalPoint> toAdd = new ArrayList<>();
+        List<NDimensionalPoint> toAdd;
         Random random = new Random();
         for (int i = 0; i < k; i++) {
-            NDimensionalPoint point = data.get(random.nextInt(data.size()));
+            NDimensionalPoint point = input.get(random.nextInt(input.size()));
             toRemove.add(point);
             clusters.add(new KMedoidCluster(point));
         }
-        data.removeAll(toRemove);
+        input.removeAll(toRemove);
 
         // initial placement
 
@@ -33,7 +35,7 @@ public class KMedoid {
             for (KMedoidCluster cluster : clusters) {
                 cluster.clearPoints();
             }
-            for (NDimensionalPoint datum : data) {
+            for (NDimensionalPoint datum : input) {
                 KMedoidCluster best = null;
                 for (KMedoidCluster cluster : clusters) {
                     if (best == null || cluster.getMedoid().distance(datum) < best.getMedoid().distance(datum))
@@ -44,7 +46,7 @@ public class KMedoid {
             toRemove = new ArrayList<>();
             toAdd = new ArrayList<>();
             outerloop:
-            for (NDimensionalPoint point : data) {
+            for (NDimensionalPoint point : input) {
                 for (KMedoidCluster cluster : clusters) {
                     NDimensionalPoint oldMedoid = cluster.swapWithMediod(point);
                     double sumOfDistances = sumOfDistances(clusters);
@@ -58,8 +60,8 @@ public class KMedoid {
                     }
                 }
             }
-            data.removeAll(toRemove);
-            data.addAll(toAdd);
+            input.removeAll(toRemove);
+            input.addAll(toAdd);
         }
         System.out.println(iterations);
         return clusters;

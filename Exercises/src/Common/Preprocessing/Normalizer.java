@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Normalizer {
 
-    public Collection<NDimensionalPoint> NormilizeData(Collection<NDimensionalPoint> elements, WithAttributes<SpaceComparable> attributes, NDimensionalPointBuilder builder) {
+    public Collection<NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, WithAttributes<SpaceComparable> attributes, NDimensionalPointBuilder builder) {
         Collection<NDimensionalPoint> normalizedElements = new ArrayList<>();
         Map<AttributeKey, Double> maxValues = new HashMap<>();
         Map<AttributeKey, Double> minValues = new HashMap<>();

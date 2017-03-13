@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class IrisDataLoader {
 
-    public static ArrayList<NDimensionalPoint> LoadAllIrisData() {
-        ArrayList<NDimensionalPoint> data = new ArrayList<>();
+    public static ArrayList<Iris> LoadAllIrisData() {
+        ArrayList<Iris> data = new ArrayList<>();
         try {
             String[][] dataOrig = CSVFileReader.readDataFile("Resources/iris.csv", ",", "", true);
 

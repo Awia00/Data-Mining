@@ -1,6 +1,6 @@
-package Data.Mushroom.enums;
+package Data.Mushroom.Enums;
 
-public enum Stalk_Color_Below_Ring {
+public enum Stalk_Color_Above_Ring {
     brown,
     buff,
     cinnamon,

@@ -1,4 +1,4 @@
-package Data.Mushroom.enums;
+package Data.Mushroom.Enums;
 
 public enum Spore_Print_Color {
     black,

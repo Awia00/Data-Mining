@@ -3,6 +3,7 @@ package Lab6;
 import java.util.ArrayList;
 
 import Common.Interfaces.NDimensionalPoint;
+import Data.Iris.Iris;
 import Data.Iris.IrisDataLoader;
 
 public class Main {
@@ -12,8 +13,8 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		//First step load in iris data
-		ArrayList<NDimensionalPoint> irisData = IrisDataLoader.LoadAllIrisData();
-		System.out.println("Successfully loaded "+irisData.size()+" iris flowers");
+		ArrayList<Iris> irisData = IrisDataLoader.LoadAllIrisData();
+		System.out.println("Successfully loaded "+irisData.size() + " iris flowers");
 		
 		//Second step make perceptron or neural network 
 	}

@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class KMeans {
 
-    public Collection<KMeanCluster> KMeansPartition(int k, List<NDimensionalPoint> data, NDimensionalPointBuilder dataBuilder) {
+    public Collection<KMeanCluster> KMeansPartition(int k, List<? extends NDimensionalPoint> data, NDimensionalPointBuilder dataBuilder) {
         Collection<KMeanCluster> clusters = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < k; i++) {
