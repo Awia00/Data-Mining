@@ -1,14 +1,10 @@
 package Lab2.Classification;
 
-import Common.AttributeKey;
 import Common.DataStructures.Tree.Leaf;
 import Common.DataStructures.Tree.Node;
+import Common.DataTypes.BooleanNominal;
+import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.Classifier;
-import Common.Interfaces.TwoWayClassifiable;
-import Common.Interfaces.WithAttributes;
-import Common.Statistics.EvaluationStatistics;
-import Common.Statistics.EvaluationSuite;
-import Common.TwoWayClassification;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,32 +15,32 @@ import java.util.stream.Collectors;
 /**
  * Created by ander on 13-02-2017.
  */
-public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClassifiable> {
+public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<BooleanNominal>, BooleanNominal> {
 
-    private Node tree;
+    private Node<BooleanNominal> tree;
 
     @Override
-    public void trainWithSet(Collection<TwoWayClassifiable> trainSet) {
-        List<TwoWayClassifiable> elements = new ArrayList<>(trainSet);
+    public void trainWithSet(Collection<ClassifiablePoint<BooleanNominal>> trainSet) {
+        List<ClassifiablePoint<BooleanNominal>> elements = new ArrayList<>(trainSet);
         if (!trainSet.isEmpty())
-            tree = buildTree(null, elements, elements.get(0).getAttributes());
+            tree = buildTree(null, elements, elements.get(0).keySet());
         //tree.print();
     }
 
-    private Node buildTree(Node parent, List<TwoWayClassifiable> elements, Collection<AttributeKey> attributeKeys) {
+    private Node buildTree(Node parent, List<ClassifiablePoint<BooleanNominal>> elements, Collection<Integer> attributeKeys) {
         if (belongToSameClass(elements)) {
             return new Leaf(parent, elements.get(0).getClassification());
         }
         if (attributeKeys.isEmpty()) {
             return new Leaf(parent, mostCommon(elements));
         }
-        AttributeKey bestAttributeKey = findBestAttribute(elements, attributeKeys);
-        List<AttributeKey> newAttributeKeys = new ArrayList<>(attributeKeys);
+        Integer bestAttributeKey = findBestAttribute(elements, attributeKeys);
+        List<Integer> newAttributeKeys = new ArrayList<>(attributeKeys);
         newAttributeKeys.remove(bestAttributeKey);
 
         Node n = new Node(parent, bestAttributeKey);
         n.addChild(null, new Leaf(parent, mostCommon(elements))); // default case.
-        for (Map.Entry<Object, List<TwoWayClassifiable>> entry : split(elements, bestAttributeKey).entrySet()) {
+        for (Map.Entry<Object, List<ClassifiablePoint<BooleanNominal>>> entry : split(elements, bestAttributeKey).entrySet()) {
             if (entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(elements)));
             else
@@ -53,14 +49,14 @@ public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClass
         return n;
     }
 
-    private Map<Object, List<TwoWayClassifiable>> split(Collection<TwoWayClassifiable> elements, AttributeKey splitAttributeKey) {
-        return elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(splitAttributeKey)));
+    private Map<Object, List<ClassifiablePoint<BooleanNominal>>> split(Collection<ClassifiablePoint<BooleanNominal>> elements, Integer splitAttributeKey) {
+        return elements.stream().collect(Collectors.groupingBy(m -> m.get(splitAttributeKey)));
     }
 
-    private AttributeKey findBestAttribute(Collection<TwoWayClassifiable> elements, Collection<AttributeKey> attributeKeys) {
-        AttributeKey bestAttributeKey = null;
+    private Integer findBestAttribute(Collection<ClassifiablePoint<BooleanNominal>> elements, Collection<Integer> attributeKeys) {
+        Integer bestAttributeKey = null;
         double infoGain = -1;
-        for (AttributeKey attributeKey : attributeKeys) {
+        for (Integer attributeKey : attributeKeys) {
             double newGain = informationGain(elements, attributeKey);
             if (newGain > infoGain) {
                 bestAttributeKey = attributeKey;
@@ -73,20 +69,20 @@ public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClass
         return bestAttributeKey;
     }
 
-    private double informationGain(Collection<TwoWayClassifiable> elements, AttributeKey attributeKey) {
-        Map<Object, List<TwoWayClassifiable>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.getValueOfAttribute(attributeKey)));
+    private double informationGain(Collection<ClassifiablePoint<BooleanNominal>> elements, Integer attributeKey) {
+        Map<Object, List<ClassifiablePoint<BooleanNominal>>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.get(attributeKey)));
         double infoD = entropy(elements), infoDA = 0.0;
-        for (Map.Entry<Object, List<TwoWayClassifiable>> entry : splittingOnAttribute.entrySet()) {
+        for (Map.Entry<Object, List<ClassifiablePoint<BooleanNominal>>> entry : splittingOnAttribute.entrySet()) {
             infoDA += entropy(entry.getValue()) * entry.getValue().size() / elements.size();
         }
         return infoD - infoDA;
     }
 
-    private double entropy(Collection<TwoWayClassifiable> elements) {
+    private double entropy(Collection<ClassifiablePoint<BooleanNominal>> elements) {
         double size = elements.size(), positives = 0, negatives = 0;
-        for (TwoWayClassifiable element : elements) {
-            TwoWayClassification classification = element.getClassification();
-            if(classification.equals(TwoWayClassification.negative()))
+        for (ClassifiablePoint<BooleanNominal> element : elements) {
+            BooleanNominal classification = element.getClassification();
+            if(classification.equals(BooleanNominal.negative()))
                 negatives++;
             else
                 positives++;
@@ -98,9 +94,9 @@ public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClass
             return -probPos * log2(probPos) - probNeg * log2(probNeg);
     }
 
-    private boolean belongToSameClass(Collection<TwoWayClassifiable> elements) {
-        TwoWayClassification twoWayClassification = null;
-        for (TwoWayClassifiable element : elements) {
+    private boolean belongToSameClass(Collection<ClassifiablePoint<BooleanNominal>> elements) {
+        BooleanNominal twoWayClassification = null;
+        for (ClassifiablePoint<BooleanNominal> element : elements) {
             if (twoWayClassification == null)
                 twoWayClassification = element.getClassification();
             else if (!twoWayClassification.equals(element.getClassification()))
@@ -109,26 +105,22 @@ public class ID3DecisionTreeClassifier implements Classifier<Object, TwoWayClass
         return true;
     }
 
-    private TwoWayClassification mostCommon(Collection<TwoWayClassifiable> elements) {
+    private BooleanNominal mostCommon(Collection<ClassifiablePoint<BooleanNominal>> elements) {
         int negative = 0;
-        for (TwoWayClassifiable element : elements) {
-            if (element.getClassification().equals(TwoWayClassification.negative()))
+        for (ClassifiablePoint<BooleanNominal> element : elements) {
+            if (element.getClassification().equals(BooleanNominal.negative()))
                 negative++;
         }
-        return negative >= elements.size() / 2 ? TwoWayClassification.negative() : TwoWayClassification.positive();
+        return negative >= elements.size() / 2 ? BooleanNominal.negative() : BooleanNominal.positive();
     }
 
     private double log2(double x) {
         return Math.log(x) / Math.log(2);
     }
 
-    @Override
-    public TwoWayClassification classify(WithAttributes element) {
-        return tree.find(element);
-    }
 
     @Override
-    public EvaluationStatistics testWithSet(Collection<TwoWayClassifiable> testSet) {
-        return new EvaluationSuite().testClassifier(this, testSet);
+    public BooleanNominal classify(ClassifiablePoint<BooleanNominal> classifiable) {
+        return tree.find(classifiable);
     }
 }

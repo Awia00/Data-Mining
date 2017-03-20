@@ -1,19 +1,15 @@
 package Common.Interfaces;
 
-import Common.TwoWayClassification;
-import Common.Statistics.EvaluationStatistics;
+import Common.DataTypes.Nominal;
 
 import java.util.Collection;
 
 /**
  * Created by aws on 13-02-2017.
  */
-public interface Classifier<T, V extends Classifiable> {
+public interface Classifier<T extends Classifiable<V>, V extends Nominal> {
 
-    void trainWithSet(Collection<V> trainSet);
-
-    EvaluationStatistics testWithSet(Collection<V> testSet);
-
-    TwoWayClassification classify(WithAttributes<T> element);
+    void trainWithSet(Collection<T> trainSet);
+    V classify(T classifiable);
 
 }

@@ -1,4 +1,4 @@
-package Common.Interfaces;
+package Common.DataTypes;
 
 /**
  * Created by aws on 22-02-2017.

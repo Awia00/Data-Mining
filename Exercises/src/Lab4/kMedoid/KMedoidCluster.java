@@ -2,7 +2,7 @@ package Lab4.kMedoid;
 
 import Common.DataStructures.Cluster.Cluster;
 import Common.Interfaces.NDimensionalPoint;
-import Common.Interfaces.SpaceComparable;
+import Common.DataTypes.SpaceComparable;
 
 import java.util.ArrayList;
 

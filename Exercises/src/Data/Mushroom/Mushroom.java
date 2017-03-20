@@ -1,23 +1,23 @@
 package Data.Mushroom;
 
-import Common.AttributeKey;
-import Common.Interfaces.SpaceComparable;
-import Common.Interfaces.TwoWayClassifiable;
-import Common.NominalSpaceComparable;
-import Common.TwoWayClassification;
+import Common.DataTypes.BooleanNominal;
+import Common.DataTypes.Nominal;
+import Common.DataTypes.SpaceComparable;
+import Common.Interfaces.ClassifiablePoint;
+import Common.Interfaces.NDimensionalPoint;
 import Data.Mushroom.Enums.*;
 
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
  * The Mushroom class is used to contain the data for each mushroom found in the datafile.
  * More info on each attribute in agaricus-lepiotaexplanation.txt.
  */
-public class Mushroom implements TwoWayClassifiable<SpaceComparable> {
-
+public class Mushroom implements ClassifiablePoint<BooleanNominal> {
 
     /**
      * The attribute to built a classifier for.
@@ -69,56 +69,70 @@ public class Mushroom implements TwoWayClassifiable<SpaceComparable> {
 
     public Habitat m_habitat;
 
-    private Map<AttributeKey, SpaceComparable> attributeValues;
+    private Map<Integer, SpaceComparable> attributeValues;
 
     protected void buildMap() {
-        attributeValues = new Hashtable<AttributeKey, SpaceComparable>() {{
-            put(new AttributeKey<>(Cap_Shape.class), new NominalSpaceComparable(m_cap_shape));
-            put(new AttributeKey<>(Cap_Color.class), new NominalSpaceComparable(m_cap_color));
-            put(new AttributeKey<>(Cap_Surface.class), new NominalSpaceComparable(m_cap_surface));
-            put(new AttributeKey<>(Cap_Color.class), new NominalSpaceComparable(m_cap_color));
-            put(new AttributeKey<>(Bruises.class), new NominalSpaceComparable(m_bruises));
-            put(new AttributeKey<>(Odor.class), new NominalSpaceComparable(m_odor));
-            put(new AttributeKey<>(Gill_Attachment.class), new NominalSpaceComparable(m_gill_attach));
-            put(new AttributeKey<>(Gill_Spacing.class), new NominalSpaceComparable(m_gill_spacing));
-            put(new AttributeKey<>(Gill_Size.class), new NominalSpaceComparable(m_gill_size));
-            put(new AttributeKey<>(Gill_Color.class), new NominalSpaceComparable(m_gill_color));
-            put(new AttributeKey<>(Stalk_Shape.class), new NominalSpaceComparable(m_stalk_shape));
-            put(new AttributeKey<>(Stalk_Root.class), new NominalSpaceComparable(m_stalk_root));
-            put(new AttributeKey<>(Stalk_Surface_Above_Ring.class), new NominalSpaceComparable(m_stalk_surface_above));
-            put(new AttributeKey<>(Stalk_Surface_Below_Ring.class), new NominalSpaceComparable(m_stalk_surface_below));
-            put(new AttributeKey<>(Stalk_Color_Above_Ring.class), new NominalSpaceComparable(m_stalk_color_above));
-            put(new AttributeKey<>(Stalk_Color_Below_Ring.class), new NominalSpaceComparable(m_stalk_color_below));
-            put(new AttributeKey<>(Veil_Type.class), new NominalSpaceComparable(m_veil_type));
-            put(new AttributeKey<>(Veil_Color.class), new NominalSpaceComparable(m_veil_color));
-            put(new AttributeKey<>(Ring_Number.class), new NominalSpaceComparable(m_ring_number));
-            put(new AttributeKey<>(Ring_Type.class), new NominalSpaceComparable(m_ring_type));
-            put(new AttributeKey<>(Spore_Print_Color.class), new NominalSpaceComparable(m_spore_color));
-            put(new AttributeKey<>(Population.class), new NominalSpaceComparable(m_population));
-            put(new AttributeKey<>(Habitat.class), new NominalSpaceComparable(m_habitat));
+        attributeValues = new Hashtable<Integer, SpaceComparable>() {{
+            put(0, new Nominal(m_cap_shape));
+            put(1, new Nominal(m_cap_color));
+            put(2, new Nominal(m_cap_surface));
+            put(3, new Nominal(m_cap_color));
+            put(4, new Nominal(m_bruises));
+            put(5, new Nominal(m_odor));
+            put(6, new Nominal(m_gill_attach));
+            put(7, new Nominal(m_gill_spacing));
+            put(8, new Nominal(m_gill_size));
+            put(9, new Nominal(m_gill_color));
+            put(10, new Nominal(m_stalk_shape));
+            put(11, new Nominal(m_stalk_root));
+            put(12, new Nominal(m_stalk_surface_above));
+            put(13, new Nominal(m_stalk_surface_below));
+            put(14, new Nominal(m_stalk_color_above));
+            put(15, new Nominal(m_stalk_color_below));
+            put(16, new Nominal(m_veil_type));
+            put(17, new Nominal(m_veil_color));
+            put(18, new Nominal(m_ring_number));
+            put(19, new Nominal(m_ring_type));
+            put(20, new Nominal(m_spore_color));
+            put(21, new Nominal(m_population));
+            put(22, new Nominal(m_habitat));
         }};
     }
 
     @Override
-    public Collection<AttributeKey> getAttributes() {
+    public SpaceComparable get(Integer key) {
+        return attributeValues.get(key);
+    }
+
+    @Override
+    public Set<Integer> keySet() {
         return attributeValues.keySet();
     }
 
     @Override
-    public SpaceComparable getValueOfAttribute(AttributeKey attributeKey) {
-        return attributeValues.get(attributeKey);
+    public Collection<SpaceComparable> values() {
+        return attributeValues.values();
     }
 
     @Override
-    public TwoWayClassification getClassification() {
-        if (m_Class == Class_Label.edible)
-            return TwoWayClassification.negative();
-        else
-            return TwoWayClassification.positive();
+    public Set<Map.Entry<Integer, SpaceComparable>> entrySet() {
+        return attributeValues.entrySet();
     }
 
     @Override
-    public boolean checkClassification(TwoWayClassification twoWayClassification) {
-        return getClassification().equals(twoWayClassification);
+    public NDimensionalPoint getDefaultPoint() {
+        Mushroom mushroom = new Mushroom();
+        mushroom.buildMap();
+        return mushroom;
+    }
+
+    @Override
+    public BooleanNominal getClassification() {
+        return m_Class.equals(Class_Label.edible) ? BooleanNominal.negative() : BooleanNominal.positive();
+    }
+
+    @Override
+    public boolean checkClassification(BooleanNominal other) {
+        return getClassification().equals(other);
     }
 }

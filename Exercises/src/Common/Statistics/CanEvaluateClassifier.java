@@ -1,14 +1,15 @@
 package Common.Statistics;
 
+import Common.DataTypes.Nominal;
+import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
-import Common.Interfaces.TwoWayClassifiable;
 
 import java.util.Collection;
 
 /**
  * Created by aws on 13-02-2017.
  */
-public interface CanEvaluateClassifier {
+public interface CanEvaluateClassifier<T extends Classifiable<V>, V extends Nominal> {
 
-    <T> EvaluationStatistics testClassifier(Classifier<T, TwoWayClassifiable> classifier, Collection<TwoWayClassifiable> testSet);
+    EvaluationStatistics testClassifier(Classifier<Classifiable<V>, V> classifier, Collection<T> testSet);
 }

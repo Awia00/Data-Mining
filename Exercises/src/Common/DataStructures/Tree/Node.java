@@ -1,8 +1,6 @@
 package Common.DataStructures.Tree;
 
-import Common.AttributeKey;
-import Common.TwoWayClassification;
-import Common.Interfaces.WithAttributes;
+import Common.Interfaces.NDimensionalPoint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +8,9 @@ import java.util.Map;
 /**
  * Created by aws on 15-02-2017.
  */
-public class Node {
+public class Node<T> {
     private final static Object defaultObject = new Object();
-    public final AttributeKey splitOn;
+    public final Integer splitOn;
     public final Map<Object, Node> children;
     public final Node parent;
 
@@ -22,7 +20,7 @@ public class Node {
         children = new HashMap<>();
     }
 
-    public Node(Node parent, AttributeKey splitOn) {
+    public Node(Node parent, Integer splitOn) {
         this.parent = parent;
         this.splitOn = splitOn;
         children = new HashMap<>();
@@ -41,9 +39,9 @@ public class Node {
             return child;
     }
 
-    public TwoWayClassification find(WithAttributes element) {
-        Object label = element.getValueOfAttribute(splitOn);
-        return getChild(label).find(element);
+    public T find(NDimensionalPoint element) {
+        Object label = element.get(splitOn);
+        return (T) getChild(label).find(element);
     }
 
     public void print() {

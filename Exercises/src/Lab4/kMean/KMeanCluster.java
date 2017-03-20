@@ -1,10 +1,9 @@
 package Lab4.kMean;
 
-import Common.*;
 import Common.DataStructures.Cluster.Cluster;
+import Common.DataTypes.*;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
-import Common.Interfaces.SpaceComparable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,14 +28,13 @@ public class KMeanCluster extends Cluster {
     }
 
     public NDimensionalPoint calculateMean() {
-        // Todo this should be done in a NdimensionalPoint specific class - maybe builder.
-        Map<AttributeKey, SpaceComparable> attributes = new HashMap<>();
-        for (AttributeKey attributeKey : mean.getAttributes()) {
-            SpaceComparable value = mean.getValueOfAttribute(attributeKey);
-            if (value instanceof EuclideanSpaceComparable) {
-                attributes.put(attributeKey, EuclidianSpaceToolbox.mean(points.stream().map(point -> (EuclideanSpaceComparable) point.getValueOfAttribute(attributeKey)).collect(Collectors.toList())));
-            } else if (value instanceof NominalSpaceComparable) {
-                attributes.put(attributeKey, NominalSpaceToolbox.mostCommon(points.stream().map(point -> (NominalSpaceComparable<Enum>) point.getValueOfAttribute(attributeKey)).collect(Collectors.toList())));
+        Map<Integer, SpaceComparable> attributes = new HashMap<>();
+        for (Integer attributeKey : mean.keySet()) {
+            SpaceComparable value = mean.get(attributeKey);
+            if (value instanceof Numeric) {
+                attributes.put(attributeKey, EuclidianSpaceToolbox.mean(points.stream().map(point -> (Numeric) point.get(attributeKey)).collect(Collectors.toList())));
+            } else if (value instanceof Nominal) {
+                attributes.put(attributeKey, NominalSpaceToolbox.mostCommon(points.stream().map(point -> (Nominal) point.get(attributeKey)).collect(Collectors.toList())));
             }
         }
         return meanBuilder.buildPointOnlyFrom(attributes);

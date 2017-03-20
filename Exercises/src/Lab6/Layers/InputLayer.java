@@ -1,9 +1,8 @@
 package Lab6.Layers;
 
-import Common.AttributeKey;
-import Common.EuclideanSpaceComparable;
+import Common.DataTypes.Numeric;
 import Common.Interfaces.NDimensionalPoint;
-import Common.Interfaces.SpaceComparable;
+import Common.DataTypes.SpaceComparable;
 import Lab6.ActivateFunctions.SigmoidFunction;
 import Lab6.Neurons.Neuron;
 
@@ -17,11 +16,11 @@ import java.util.Random;
  */
 public class InputLayer implements NeuralLayer{
     private NeuralLayer outputLayer;
-    private Map<AttributeKey, Neuron> neurons;
+    private Map<Integer, Neuron> neurons;
     public InputLayer(NDimensionalPoint attribute) {
         neurons = new HashMap<>();
         Random random = new Random();
-        for (AttributeKey attributeKey : attribute.getAttributes()) {
+        for (Integer attributeKey : attribute.keySet()) {
             neurons.put(attributeKey, new Neuron(new SigmoidFunction(), 0.1*random.nextDouble()));
         }
     }
@@ -38,11 +37,11 @@ public class InputLayer implements NeuralLayer{
 
     public void propogate(NDimensionalPoint point)
     {
-        for (AttributeKey attributeKey : point.getAttributes()) {
-            SpaceComparable value = point.getValueOfAttribute(attributeKey);
-            if(value instanceof EuclideanSpaceComparable)
+        for (Integer attributeKey : point.keySet()) {
+            SpaceComparable value = point.get(attributeKey);
+            if(value instanceof Numeric)
             {
-                neurons.get(attributeKey).activate(((EuclideanSpaceComparable) value).getDoubleValue());
+                neurons.get(attributeKey).activate(((Numeric) value).getValue());
             }
         }
         outputLayer.propogate();

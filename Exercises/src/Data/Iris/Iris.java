@@ -1,19 +1,21 @@
 package Data.Iris;
 
 
-import Common.AttributeKey;
-import Common.EuclideanSpaceComparable;
+import Common.DataTypes.Nominal;
+import Common.DataTypes.Numeric;
+import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.NDimensionalPoint;
-import Common.Interfaces.SpaceComparable;
+import Common.DataTypes.SpaceComparable;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class Iris extends NDimensionalPoint {
+public class Iris implements ClassifiablePoint<Nominal> {
 
-    Map<AttributeKey, SpaceComparable> attributes;
-    IrisClass irisClass;
+    Map<Integer, SpaceComparable> attributes;
+    Nominal irisClass;
 
     public Iris() {
         this(0f, 0f, 0f, 0f, "");
@@ -25,22 +27,22 @@ public class Iris extends NDimensionalPoint {
 
     public Iris(float sepal_length, float sepal_width, float petal_length, float petal_width, IrisClass iris_class) {
         attributes = new LinkedHashMap<>();
-        attributes.put(new AttributeKey<>("sepalLength"), new EuclideanSpaceComparable<>(sepal_length));
-        attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
-        attributes.put(new AttributeKey<>("petalLength"), new EuclideanSpaceComparable<>(petal_length));
-        attributes.put(new AttributeKey<>("petalWidth"), new EuclideanSpaceComparable<>(petal_width));
-        //attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
-        irisClass = iris_class;
+        attributes.put(0, new Numeric(sepal_length));
+        attributes.put(1, new Numeric(sepal_width));
+        attributes.put(2, new Numeric(petal_length));
+        attributes.put(3, new Numeric(petal_width));
+        //attributes.put(new AttributeKey<>(IrisClass.class), new Nominal(iris_class));
+        irisClass = new Nominal(iris_class);
     }
 
     public Iris(double sepal_length, double sepal_width, double petal_length, double petal_width, IrisClass iris_class) {
         attributes = new LinkedHashMap<>();
-        attributes.put(new AttributeKey<>("sepalLength"), new EuclideanSpaceComparable<>(sepal_length));
-        attributes.put(new AttributeKey<>("sepalWidth"), new EuclideanSpaceComparable<>(sepal_width));
-        attributes.put(new AttributeKey<>("petalLength"), new EuclideanSpaceComparable<>(petal_length));
-        attributes.put(new AttributeKey<>("petalWidth"), new EuclideanSpaceComparable<>(petal_width));
-        //attributes.put(new AttributeKey<>(IrisClass.class), new NominalSpaceComparable(iris_class));
-        irisClass = iris_class;
+        attributes.put(0, new Numeric(sepal_length));
+        attributes.put(1, new Numeric(sepal_width));
+        attributes.put(2, new Numeric(petal_length));
+        attributes.put(3, new Numeric(petal_width));
+        //attributes.put(new AttributeKey<>(IrisClass.class), new Nominal(iris_class));
+        irisClass = new Nominal(iris_class);
     }
 
     private static IrisClass ResolveIrisClass(String iris_class) {
@@ -55,25 +57,43 @@ public class Iris extends NDimensionalPoint {
         return null;
     }
 
-
     @Override
     public String toString() {
-        String result = "Iris Object --> | ";
-        for (AttributeKey attributeKey : getAttributes()) {
-            result += attributeKey.toString() + " = " + getValueOfAttribute(attributeKey) + " | ";
-        }
-        result += "class: " + irisClass + " | ";
-        return result;
+        return irisClass.getValue() + "";
     }
 
     @Override
-    public Collection<AttributeKey> getAttributes() {
+    public SpaceComparable get(Integer key) {
+        return attributes.get(key);
+    }
+
+    @Override
+    public Set<Integer> keySet() {
         return attributes.keySet();
     }
 
     @Override
-    public SpaceComparable getValueOfAttribute(AttributeKey attributeKey) {
-        return attributes.get(attributeKey);
+    public Collection<SpaceComparable> values() {
+        return attributes.values();
     }
 
+    @Override
+    public Set<Map.Entry<Integer, SpaceComparable>> entrySet() {
+        return attributes.entrySet();
+    }
+
+    @Override
+    public NDimensionalPoint getDefaultPoint() {
+        return new Iris();
+    }
+
+    @Override
+    public Nominal getClassification() {
+        return irisClass;
+    }
+
+    @Override
+    public boolean checkClassification(Nominal other) {
+        return other.equals(irisClass);
+    }
 }

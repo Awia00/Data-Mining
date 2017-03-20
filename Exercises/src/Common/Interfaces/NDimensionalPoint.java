@@ -1,30 +1,37 @@
 package Common.Interfaces;
 
-import Common.AttributeKey;
+import Common.DataTypes.SpaceComparable;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ander on 27-02-2017.
  */
-public abstract class NDimensionalPoint implements SpaceComparable<NDimensionalPoint>, WithAttributes<SpaceComparable> {
+public interface NDimensionalPoint extends SpaceComparable<NDimensionalPoint> {
 
-    @Override
-    public double distance(NDimensionalPoint comparable) {
-        if (getAttributes().size() != comparable.getAttributes().size())
-            throw new RuntimeException("dimensionality does not uphold");
+    SpaceComparable get(Integer key);
+    Set<Integer> keySet();
+    Collection<SpaceComparable> values();
+    Set<Map.Entry<Integer, SpaceComparable>> entrySet();
+
+    NDimensionalPoint getDefaultPoint();
+    default double distance(NDimensionalPoint other){
         double distance = 0.0;
-        for (AttributeKey attributeKey : getAttributes()) {
-            distance += getValueOfAttribute(attributeKey).distance(comparable.getValueOfAttribute(attributeKey));
+        for (Integer integer : keySet()) {
+            distance += other.get(integer).distance(this.get(integer));
         }
         return distance;
     }
 
-    private static final double epsilon = 1E-10;
+    double epsilon = 1E-10;
 
-    public boolean almostEquals(NDimensionalPoint comparable) {
+    default boolean almostEquals(NDimensionalPoint comparable) {
         return Math.abs(distance(comparable)) <= epsilon;
     }
 
-    public boolean almostEquals(NDimensionalPoint comparable, double epsilonFactor) {
+    default boolean almostEquals(NDimensionalPoint comparable, double epsilonFactor) {
         return Math.abs(distance(comparable)) <= epsilonFactor * epsilon;
     }
 }

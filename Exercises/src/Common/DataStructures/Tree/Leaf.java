@@ -1,21 +1,20 @@
 package Common.DataStructures.Tree;
 
-import Common.TwoWayClassification;
-import Common.Interfaces.WithAttributes;
+import Common.Interfaces.NDimensionalPoint;
 
 /**
  * Created by aws on 15-02-2017.
  */
-public class Leaf extends Node {
-    public final TwoWayClassification label;
+public class Leaf<T> extends Node {
+    public final T label;
 
-    public Leaf(Node parent, TwoWayClassification label) {
+    public Leaf(Node parent, T label) {
         super(parent);
         this.label = label;
     }
 
     @Override
-    public TwoWayClassification find(WithAttributes element) {
+    public T find(NDimensionalPoint element) {
         return label;
     }
 

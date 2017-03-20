@@ -1,10 +1,10 @@
 package Data.Iris;
 
-import Common.AttributeKey;
-import Common.EuclideanSpaceComparable;
+import Common.DataTypes.Nominal;
+import Common.DataTypes.Numeric;
+import Common.DataTypes.SpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
-import Common.Interfaces.SpaceComparable;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -14,16 +14,16 @@ import java.util.Map;
  * Created by ander on 27-02-2017.
  */
 public class IrisBuilder implements NDimensionalPointBuilder {
-    Map<AttributeKey, SpaceComparable> map = new LinkedHashMap<>();
-    private IrisClass irisClass;
+    Map<Integer, SpaceComparable> map = new LinkedHashMap<>();
+    private Nominal irisClass;
 
     @Override
-    public Collection<AttributeKey> getAttributesOfType() {
-        return new Iris().getAttributes();
+    public Collection<Integer> getAttributesOfType() {
+        return new Iris().keySet();
     }
 
     @Override
-    public void addAttributeValue(AttributeKey key, SpaceComparable value) {
+    public void addAttributeValue(Integer key, SpaceComparable value) {
         map.put(key, value);
     }
 
@@ -43,12 +43,12 @@ public class IrisBuilder implements NDimensionalPointBuilder {
     }
 
     @Override
-    public NDimensionalPoint buildPointOnlyFrom(Map<AttributeKey, SpaceComparable> attributes) {
-        double sepal_length = ((EuclideanSpaceComparable) attributes.get(new AttributeKey<>("sepalLength"))).getDoubleValue();
-        double sepal_width = ((EuclideanSpaceComparable) attributes.get(new AttributeKey<>("sepalWidth"))).getDoubleValue();
-        double petal_length = ((EuclideanSpaceComparable) attributes.get(new AttributeKey<>("petalLength"))).getDoubleValue();
-        double petal_width = ((EuclideanSpaceComparable) attributes.get(new AttributeKey<>("petalWidth"))).getDoubleValue();
-        //IrisClass iris_class = (IrisClass) ((NominalSpaceComparable)attributes.get(new AttributeKey<>(IrisClass.class))).getValue();
+    public NDimensionalPoint buildPointOnlyFrom(Map<Integer, SpaceComparable> attributes) {
+        double sepal_length = ((Numeric) attributes.get(0)).getValue();
+        double sepal_width = ((Numeric) attributes.get(1)).getValue();
+        double petal_length = ((Numeric) attributes.get(2)).getValue();
+        double petal_width = ((Numeric) attributes.get(3)).getValue();
+        //IrisClass iris_class = (IrisClass) ((Nominal)attributes.get(new AttributeKey<>(IrisClass.class))).getValue();
         return new Iris(sepal_length, sepal_width, petal_length, petal_width, null);
     }
 }

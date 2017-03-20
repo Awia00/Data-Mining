@@ -1,6 +1,6 @@
 package Common.Interfaces;
 
-import Common.AttributeKey;
+import Common.DataTypes.SpaceComparable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,13 +10,13 @@ import java.util.Map;
  */
 public interface NDimensionalPointBuilder {
 
-    Collection<AttributeKey> getAttributesOfType();
+    Collection<Integer> getAttributesOfType();
 
-    void addAttributeValue(AttributeKey key, SpaceComparable value);
+    void addAttributeValue(Integer dimension, SpaceComparable value);
 
     void baseOnOriginal(NDimensionalPoint point);
 
     NDimensionalPoint buildPoint();
 
-    NDimensionalPoint buildPointOnlyFrom(Map<AttributeKey, SpaceComparable> attributes);
+    NDimensionalPoint buildPointOnlyFrom(Map<Integer, SpaceComparable> attributes);
 }

@@ -1,10 +1,9 @@
 package Common.Preprocessing;
 
-import Common.AttributeKey;
-import Common.EuclideanSpaceComparable;
+import Common.DataTypes.Numeric;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
-import Common.Interfaces.SpaceComparable;
+import Common.DataTypes.SpaceComparable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,14 +14,14 @@ public class Normalizer {
 
     public Collection<NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, NDimensionalPointBuilder builder) {
         Collection<NDimensionalPoint> normalizedElements = new ArrayList<>();
-        Map<AttributeKey, Double> maxValues = new HashMap<>();
-        Map<AttributeKey, Double> minValues = new HashMap<>();
+        Map<Integer, Double> maxValues = new HashMap<>();
+        Map<Integer, Double> minValues = new HashMap<>();
 
         for (NDimensionalPoint point : elements) {
-            for (AttributeKey attributeKey : builder.getAttributesOfType()) {
-                Class<? extends SpaceComparable> attributeType = point.getValueOfAttribute(attributeKey).getClass();
-                if (attributeType == EuclideanSpaceComparable.class) {
-                    double value = ((EuclideanSpaceComparable) point.getValueOfAttribute(attributeKey)).getDoubleValue();
+            for (Integer attributeKey : builder.getAttributesOfType()) {
+                Class<? extends SpaceComparable> attributeType = point.get(attributeKey).getClass();
+                if (attributeType == Numeric.class) {
+                    double value = ((Numeric) point.get(attributeKey)).getValue();
                     if (maxValues.containsKey(attributeKey))
                         maxValues.put(attributeKey, Math.max(value, maxValues.get(attributeKey)));
                     else
@@ -37,16 +36,16 @@ public class Normalizer {
         }
         for (NDimensionalPoint point : elements) {
             builder.baseOnOriginal(point);
-            for (AttributeKey attributeKey : builder.getAttributesOfType()) {
-                Class<? extends SpaceComparable> attributeType = point.getValueOfAttribute(attributeKey).getClass();
-                if (attributeType == EuclideanSpaceComparable.class) {
-                    double value = ((EuclideanSpaceComparable) point.getValueOfAttribute(attributeKey)).getDoubleValue();
+            for (Integer attributeKey : builder.getAttributesOfType()) {
+                Class<? extends SpaceComparable> attributeType = point.get(attributeKey).getClass();
+                if (attributeType == Numeric.class) {
+                    double value = ((Numeric) point.get(attributeKey)).getValue();
                     double min = minValues.get(attributeKey);
                     double max = maxValues.get(attributeKey);
                     value = (value - min) / (max - min);
-                    builder.addAttributeValue(attributeKey, new EuclideanSpaceComparable(value));
+                    builder.addAttributeValue(attributeKey, new Numeric(value));
                 } else {
-                    builder.addAttributeValue(attributeKey, point.getValueOfAttribute(attributeKey));
+                    builder.addAttributeValue(attributeKey, point.get(attributeKey));
                 }
             }
             normalizedElements.add(builder.buildPoint());

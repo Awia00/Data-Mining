@@ -1,9 +1,8 @@
 package Lab2.Classification;
 
-import Common.Interfaces.*;
-import Common.TwoWayClassification;
-import Common.Statistics.EvaluationStatistics;
-import Common.Statistics.EvaluationSuite;
+import Common.DataTypes.BooleanNominal;
+import Common.Interfaces.ClassifiablePoint;
+import Common.Interfaces.Classifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,9 +12,9 @@ import java.util.Map;
 /**
  * Created by aws on 13-02-2017.
  */
-public class KNearestNeighboursClassifier implements Classifier<SpaceComparable, TwoWayClassifiable> {
+public class KNearestNeighboursClassifier implements Classifier<ClassifiablePoint<BooleanNominal>, BooleanNominal>  {
 
-    private Collection<TwoWayClassifiable> classifiedSet;
+    private Collection<ClassifiablePoint<BooleanNominal>> classifiedSet;
     private int _k;
 
     public KNearestNeighboursClassifier(int k) {
@@ -24,28 +23,23 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable,
     }
 
     @Override
-    public void trainWithSet(Collection<TwoWayClassifiable> trainSet) {
+    public void trainWithSet(Collection<ClassifiablePoint<BooleanNominal>> trainSet) {
 
         this.classifiedSet = trainSet;
     }
 
     @Override
-    public EvaluationStatistics testWithSet(Collection<TwoWayClassifiable> testSet) {
-        return new EvaluationSuite().testClassifier(this, testSet);
-    }
-
-    @Override
-    public TwoWayClassification classify(WithAttributes<SpaceComparable> elementToClassify) {
-        Map<TwoWayClassifiable, Double> kNearest = new HashMap<>();
+    public BooleanNominal classify(ClassifiablePoint<BooleanNominal> elementToClassify) {
+        Map<ClassifiablePoint<BooleanNominal>, Double> kNearest = new HashMap<>();
         int firstK = 0;
-        for (TwoWayClassifiable classifiedElement : classifiedSet) {
-            double distance = elementToClassify.getAttributes().stream().mapToDouble(attribute -> elementToClassify.getValueOfAttribute(attribute).distance(classifiedElement.getValueOfAttribute(attribute))).sum();
+        for (ClassifiablePoint<BooleanNominal> classifiedElement : classifiedSet) {
+            double distance = elementToClassify.keySet().stream().mapToDouble(attribute -> elementToClassify.get(attribute).distance(classifiedElement.get(attribute))).sum();
             if (firstK < _k) {
                 kNearest.put(classifiedElement, distance);
             } else {
-                TwoWayClassifiable worstOne = null;
+                ClassifiablePoint<BooleanNominal> worstOne = null;
                 double currentDist = -1;
-                for (Map.Entry<TwoWayClassifiable, Double> keyValue : kNearest.entrySet()) {
+                for (Map.Entry<ClassifiablePoint<BooleanNominal>, Double> keyValue : kNearest.entrySet()) {
                     if (distance < keyValue.getValue() && keyValue.getValue() > currentDist) {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();
@@ -59,12 +53,12 @@ public class KNearestNeighboursClassifier implements Classifier<SpaceComparable,
             firstK++;
         }
         int negatives = 0, positives = 0;
-        for (Map.Entry<TwoWayClassifiable, Double> keyValue : kNearest.entrySet()) {
-            if (keyValue.getKey().getClassification().equals(TwoWayClassification.negative()))
+        for (Map.Entry<ClassifiablePoint<BooleanNominal>, Double> keyValue : kNearest.entrySet()) {
+            if (keyValue.getKey().getClassification().equals(BooleanNominal.negative()))
                 negatives++;
             else
                 positives++;
         }
-        return negatives >= positives ? TwoWayClassification.negative() : TwoWayClassification.positive();
+        return negatives >= positives ? BooleanNominal.negative() : BooleanNominal.positive();
     }
 }
