@@ -34,6 +34,8 @@ public class SOMTrainer implements Runnable {
 		lattice = latToTrain;
 		inputs = in;
 		renderer = latticeRenderer;
+        LATTICE_RADIUS = Math.max(lattice.getHeight(), lattice.getWidth())/2;
+        TIME_CONSTANT = NUM_ITERATIONS/Math.log(LATTICE_RADIUS);
 	}
 	
 	public void start() {
@@ -50,17 +52,30 @@ public class SOMTrainer implements Runnable {
 	 */
 	public void run() {
 		//Initialize constants (e.g. t etc. you will need for calculations
+
+        double learningRate = START_LEARNING_RATE;
+        double neighbourhoodDistance = LATTICE_RADIUS;
 		
 		for(int iteration = 0;iteration < NUM_ITERATIONS && running;iteration++)
 		{
+            neighbourhoodDistance = LATTICE_RADIUS*Math.exp(-(double)iteration/TIME_CONSTANT);
 			for (int i=0; i<inputs.size(); i++) {
 				SOMVector currentInput = (SOMVector)inputs.elementAt(i);
 				SOMNode bmu = lattice.getBMU(currentInput);
-				// We have the BMU for this input now, so adjust everything in
-				// it's neighborhood
-				
-				
-			}
+
+                for (int i1 = 0; i1 < lattice.getHeight(); i1++) {
+                    for (int i2 = 0; i2 < lattice.getWidth(); i2++) {
+                        SOMNode neighbour = lattice.getNode(i2,i1);
+                        double distance = neighbour.distanceTo(bmu);
+                        double widthSquare = neighbourhoodDistance * neighbourhoodDistance;
+                        if(distance<widthSquare){
+                            double distanceInfluence = Math.exp(-distance/(2*widthSquare));
+                            neighbour.adjustWeights(currentInput, learningRate, distanceInfluence);
+                        }
+                    }
+                }
+            }
+            learningRate = START_LEARNING_RATE*Math.exp(-(double)iteration/NUM_ITERATIONS);
 			
 			
 			//Last thing to do, pass the updated lattice to the GUI to visualize it

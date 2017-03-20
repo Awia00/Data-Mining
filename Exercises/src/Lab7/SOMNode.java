@@ -64,6 +64,16 @@ public class SOMNode {
 	public void adjustWeights(SOMVector input, double learningRate,
 							  double distanceInfluence)
 	{
-		
+		for (int i = 0; i < weights.size(); i++) {
+			double value = getWeight(i);
+			value = value+theta(input, distanceInfluence)*learningRate*((double)input.get(i)-value);
+			setWeight(i, value);
+		}
+	}
+
+	private double theta(SOMVector input, double distanceInfluence)
+	{
+		double distance = input.euclideanDist(this.getVector());
+		return Math.exp(-(distance)/(2*distanceInfluence));
 	}
 }
