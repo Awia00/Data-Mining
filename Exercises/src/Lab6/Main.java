@@ -21,7 +21,8 @@ public class Main {
 		System.out.println("Successfully loaded "+irisData.size() + " iris flowers");
 		
 		//Second step make perceptron or neural network
-		NeuralNetwork neuralNetwork = new NeuralNetwork(irisData.get(0), 1.0, 1);
+		NeuralNetwork neuralNetwork = new NeuralNetwork(1, 1.0, 1);
+		neuralNetwork.trainWithSet(irisData);
 	}
 
 }
