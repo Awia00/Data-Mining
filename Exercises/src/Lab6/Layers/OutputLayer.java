@@ -1,6 +1,6 @@
 package Lab6.Layers;
 
-import Common.DataTypes.BooleanNominal;
+import Common.DataTypes.Nominal;
 import Lab6.Neurons.Neuron;
 import Lab6.Neurons.OutputNeuron;
 
@@ -12,11 +12,12 @@ import java.util.Map;
  * Created by aws on 13-03-2017.
  */
 public class OutputLayer implements NeuralLayer{
-    Map<BooleanNominal, OutputNeuron> neurons;
-    public OutputLayer() {
+    Map<Enum, OutputNeuron> neurons;
+    public OutputLayer(Nominal classification) {
         neurons = new HashMap<>();
-        neurons.put(null, new OutputNeuron());
-        neurons.put(null, new OutputNeuron());
+        for (Enum anEnum : classification.getPossibleValues()) {
+            neurons.put(anEnum, new OutputNeuron());
+        }
     }
 
     @Override

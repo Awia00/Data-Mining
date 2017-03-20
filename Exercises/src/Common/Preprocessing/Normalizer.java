@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Normalizer {
 
-    public Collection<NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, NDimensionalPointBuilder builder) {
+    public Collection<? extends NDimensionalPoint> NormilizeData(Collection<? extends NDimensionalPoint> elements, NDimensionalPointBuilder builder) {
         Collection<NDimensionalPoint> normalizedElements = new ArrayList<>();
         Map<Integer, Double> maxValues = new HashMap<>();
         Map<Integer, Double> minValues = new HashMap<>();
