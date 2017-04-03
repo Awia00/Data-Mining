@@ -3,9 +3,7 @@ package Lab6.Layers;
 import Lab6.ActivateFunctions.SigmoidFunction;
 import Lab6.Neurons.Neuron;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -13,6 +11,7 @@ import java.util.stream.Collectors;
  */
 public class HiddenLayer implements NeuralLayer {
     private NeuralLayer outputLayer;
+    private NeuralLayer previousLayer;
     protected Neuron[] neurons;
 
     public HiddenLayer(int topology) {
@@ -44,5 +43,19 @@ public class HiddenLayer implements NeuralLayer {
             neurons[i].output();
         }
         outputLayer.propogate();
+    }
+
+    @Override
+    public void backPropogate(Map<Neuron, Double> errors, double learningRate) {
+        Map<Neuron, Double> layerErrors = new HashMap<>();
+        for (Neuron neuron : neurons) {
+            double error = neuron.correctAndCalcError(errors, learningRate);
+            layerErrors.put(neuron, error);
+        }
+        previousLayer.backPropogate(layerErrors, learningRate);
+    }
+
+    public void setPreviousLayer(NeuralLayer previousLayer) {
+        this.previousLayer = previousLayer;
     }
 }

@@ -3,7 +3,9 @@ package Lab6.Neurons;
 import Lab6.ActivateFunctions.IActivationFunction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by aws on 13-03-2017.
@@ -29,6 +31,9 @@ public class Neuron {
     public void activate(double input){
         value+=input;
     }
+    public double lastOutput(){
+        return output;
+    }
 
     public void output()
     {
@@ -37,5 +42,35 @@ public class Neuron {
             neuronAndWeight.getKey().activate(neuronAndWeight.getValue()*output);
         }
         value = 0.0;
+    }
+
+    public double correctAndCalcError(Map<Neuron, Double> corrections, double learningRate) {
+
+        neuronConnections = corrections;
+        Double sumError = 0.0;
+        Double derivative = activationFunction.derivative(output);
+        for (Map.Entry<Neuron, Double> correctionEntry : corrections.entrySet()) {
+            Double currentWeight = neuronConnections.get(correctionEntry.getKey());
+            sumError += correctionEntry.getValue()*currentWeight;
+        }
+        double error = derivative*sumError;
+        for (Map.Entry<Neuron, Double> neuronDoubleEntry : corrections.entrySet()) {
+            Neuron outputNeuron = neuronDoubleEntry.getKey();
+            double deltaWeight = learningRate*outputNeuron.lastOutput()*error;
+            neuronConnections.put(outputNeuron, neuronConnections.get(outputNeuron)+deltaWeight);
+        }
+
+        double deltaBias = learningRate*error;
+        bias = bias + deltaBias;
+
+        return error;
+    }
+
+    @Override
+    public String toString() {
+        return "Neuron" +
+                "output=" + output +
+                ", bias=" + bias +
+                "";
     }
 }

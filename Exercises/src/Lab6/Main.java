@@ -23,6 +23,10 @@ public class Main {
 		//Second step make perceptron or neural network
 		NeuralNetwork neuralNetwork = new NeuralNetwork(1, 1.0, 1);
 		neuralNetwork.trainWithSet(irisData);
+
+		for (ClassifiablePoint<Nominal> irisDatum : irisData) {
+			neuralNetwork.classify(irisDatum);
+		}
 	}
 
 }
