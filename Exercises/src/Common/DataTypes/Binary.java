@@ -14,4 +14,9 @@ public class Binary extends Nominal {
     private static Binary positive =  new Binary(PosNeg.positive);
     public static Binary negative(){return negative;}
     public static Binary positive(){return positive;}
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }

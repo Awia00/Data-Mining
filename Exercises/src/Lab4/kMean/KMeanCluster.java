@@ -35,6 +35,8 @@ public class KMeanCluster extends Cluster {
                 attributes.put(attributeKey, EuclidianSpaceToolbox.mean(points.stream().map(point -> (Numeric) point.get(attributeKey)).collect(Collectors.toList())));
             } else if (value instanceof Nominal) {
                 attributes.put(attributeKey, NominalSpaceToolbox.mostCommon(points.stream().map(point -> (Nominal) point.get(attributeKey)).collect(Collectors.toList())));
+            } else if (value instanceof Multiple) {
+                throw new RuntimeException("not implemented");
             }
         }
         return meanBuilder.buildPointOnlyFrom(attributes);

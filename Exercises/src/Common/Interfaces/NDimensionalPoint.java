@@ -20,7 +20,9 @@ public interface NDimensionalPoint extends SpaceComparable<NDimensionalPoint> {
     default double distance(NDimensionalPoint other){
         double distance = 0.0;
         for (Integer integer : keySet()) {
-            distance += other.get(integer).distance(this.get(integer));
+            if(other.get(integer) == null || get(integer) == null)
+                System.out.println("test");
+            distance += other.get(integer).distance(get(integer));
         }
         return distance;
     }

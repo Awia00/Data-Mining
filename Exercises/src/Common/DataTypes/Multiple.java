@@ -5,16 +5,20 @@ import java.util.List;
 /**
  * Created by ander on 15-04-2017.
  */
-public class Multiple implements SpaceComparable<Multiple> {
+public class Multiple<T extends SpaceComparable> implements SpaceComparable<Multiple<T>> {
 
-    List<SpaceComparable> elements;
-    public Multiple(List<SpaceComparable> elements){
+    public List<T> getElements() {
+        return elements;
+    }
+
+    private List<T> elements;
+    public Multiple(List<T> elements){
         this.elements = elements;
     }
 
     @Override
-    public double distance(Multiple comparable) {
-        if(comparable.elements.size()<elements.size()) {
+    public double distance(Multiple<T> comparable) {
+        if(comparable.elements.size()>elements.size()) {
             return comparable.distance(this);
         }
         else{
@@ -25,5 +29,10 @@ public class Multiple implements SpaceComparable<Multiple> {
             result += elements.size() - comparable.elements.size();
             return result/elements.size();
         }
+    }
+
+    @Override
+    public String toString() {
+        return elements.toString();
     }
 }

@@ -9,19 +9,18 @@ import java.util.Map;
  */
 public class NominalSpaceToolbox {
 
-    public static Nominal mostCommon(Collection<Nominal> nominalElements) {
-        Map<Enum, Integer> map = new HashMap<>();
-        for (Nominal element : nominalElements) {
-            Enum key = element.getValue();
-            Integer current = map.get(key);
-            map.put(key, current == null ? 1 : current + 1);
+    public static <T extends Nominal> T mostCommon(Collection<T> nominalElements) {
+        Map<T, Integer> map = new HashMap<>();
+        for (T element : nominalElements) {
+            Integer current = map.get(element);
+            map.put(element, current == null ? 1 : current + 1);
         }
-        Map.Entry<Enum, Integer> max = null;
+        Map.Entry<T, Integer> max = null;
 
-        for (Map.Entry<Enum, Integer> e : map.entrySet()) {
+        for (Map.Entry<T, Integer> e : map.entrySet()) {
             if (max == null || e.getValue() > max.getValue())
                 max = e;
         }
-        return new Nominal(max.getKey());
+        return max.getKey();
     }
 }

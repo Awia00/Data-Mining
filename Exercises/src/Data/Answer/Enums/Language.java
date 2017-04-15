@@ -14,5 +14,5 @@ public enum Language {
     PHP,
     Swift,
     Ruby,
-    Other
+    R, HTML, CSS, FSharp, Scala, VisualBasic, Lua, Pascal, Haskell, Other
 }

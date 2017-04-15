@@ -1,14 +1,12 @@
 package Common.Preprocessing;
 
+import Common.DataTypes.Multiple;
 import Common.DataTypes.Numeric;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
 import Common.DataTypes.SpaceComparable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Normalizer {
 
@@ -16,6 +14,7 @@ public class Normalizer {
         Collection<NDimensionalPoint> normalizedElements = new ArrayList<>();
         Map<Integer, Double> maxValues = new HashMap<>();
         Map<Integer, Double> minValues = new HashMap<>();
+
 
         for (NDimensionalPoint point : elements) {
             for (Integer attributeKey : builder.getAttributesOfType()) {

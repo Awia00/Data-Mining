@@ -23,6 +23,7 @@ public class Nominal implements SpaceComparable<Nominal> {
     }
 
     public double distance(Nominal other){
+        if(other.value.getClass() != value.getClass()) throw new RuntimeException("");
         return other.equals(this) ? 0 : 1;
     }
 
@@ -62,8 +63,6 @@ public class Nominal implements SpaceComparable<Nominal> {
 
     @Override
     public String toString() {
-        return "Nominal{" +
-                "value=" + value +
-                '}';
+        return value.toString();
     }
 }

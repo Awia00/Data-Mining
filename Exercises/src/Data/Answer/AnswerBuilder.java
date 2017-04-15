@@ -1,9 +1,9 @@
 package Data.Answer;
 
-import Common.DataTypes.Numeric;
 import Common.DataTypes.SpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
+import Data.Answer.SubAnswers.AnswerCanCalcMean;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,9 +16,13 @@ import java.util.Map;
 public class AnswerBuilder implements NDimensionalPointBuilder {
 
     Map<Integer, SpaceComparable> map = new LinkedHashMap<>();
+    Answer defaultAnswer;
+    public AnswerBuilder(Answer defaultAnswer){
+        this.defaultAnswer = defaultAnswer;
+    }
     @Override
     public Collection<Integer> getAttributesOfType() {
-        return new Answer().keySet();
+        return defaultAnswer.keySet();
     }
 
     @Override
@@ -43,6 +47,10 @@ public class AnswerBuilder implements NDimensionalPointBuilder {
 
     @Override
     public NDimensionalPoint buildPointOnlyFrom(Map<Integer, SpaceComparable> attributes) {
-        return new Answer(map);
+        if(defaultAnswer instanceof AnswerCanCalcMean) {
+            return new AnswerCanCalcMean(new HashMap<>(attributes));
+        } else{
+            return new Answer(new HashMap<>(attributes));
+        }
     }
 }

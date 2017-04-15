@@ -1,6 +1,9 @@
 package Lab2.Classification;
 
 import Common.DataTypes.Binary;
+import Common.DataTypes.Nominal;
+import Common.DataTypes.NominalSpaceToolbox;
+import Common.Interfaces.Classifiable;
 import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.Classifier;
 
@@ -8,13 +11,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by aws on 13-02-2017.
  */
-public class KNearestNeighboursClassifier implements Classifier<ClassifiablePoint<Binary>, Binary>  {
+public class KNearestNeighboursClassifier<T extends Nominal> implements Classifier<ClassifiablePoint<T>, T>  {
 
-    private Collection<ClassifiablePoint<Binary>> classifiedSet;
+    private Collection<ClassifiablePoint<T>> classifiedSet;
     private int _k;
 
     public KNearestNeighboursClassifier(int k) {
@@ -23,23 +29,23 @@ public class KNearestNeighboursClassifier implements Classifier<ClassifiablePoin
     }
 
     @Override
-    public void trainWithSet(Collection<ClassifiablePoint<Binary>> trainSet) {
+    public void trainWithSet(Collection<ClassifiablePoint<T>> trainSet) {
 
         this.classifiedSet = trainSet;
     }
 
     @Override
-    public Binary classify(ClassifiablePoint<Binary> elementToClassify) {
-        Map<ClassifiablePoint<Binary>, Double> kNearest = new HashMap<>();
+    public T classify(ClassifiablePoint<T> elementToClassify) {
+        Map<ClassifiablePoint<T>, Double> kNearest = new HashMap<>();
         int firstK = 0;
-        for (ClassifiablePoint<Binary> classifiedElement : classifiedSet) {
+        for (ClassifiablePoint<T> classifiedElement : classifiedSet) {
             double distance = elementToClassify.keySet().stream().mapToDouble(attribute -> elementToClassify.get(attribute).distance(classifiedElement.get(attribute))).sum();
             if (firstK < _k) {
                 kNearest.put(classifiedElement, distance);
             } else {
-                ClassifiablePoint<Binary> worstOne = null;
+                ClassifiablePoint<T> worstOne = null;
                 double currentDist = -1;
-                for (Map.Entry<ClassifiablePoint<Binary>, Double> keyValue : kNearest.entrySet()) {
+                for (Map.Entry<ClassifiablePoint<T>, Double> keyValue : kNearest.entrySet()) {
                     if (distance < keyValue.getValue() && keyValue.getValue() > currentDist) {
                         worstOne = keyValue.getKey();
                         currentDist = keyValue.getValue();
@@ -52,13 +58,6 @@ public class KNearestNeighboursClassifier implements Classifier<ClassifiablePoin
             }
             firstK++;
         }
-        int negatives = 0, positives = 0;
-        for (Map.Entry<ClassifiablePoint<Binary>, Double> keyValue : kNearest.entrySet()) {
-            if (keyValue.getKey().getClassification().equals(Binary.negative()))
-                negatives++;
-            else
-                positives++;
-        }
-        return negatives >= positives ? Binary.negative() : Binary.positive();
+        return (T) NominalSpaceToolbox.mostCommon(kNearest.keySet().stream().map(Classifiable::getClassification).collect(Collectors.toList()));
     }
 }

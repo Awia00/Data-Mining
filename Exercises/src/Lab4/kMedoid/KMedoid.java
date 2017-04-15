@@ -6,7 +6,7 @@ import java.util.*;
 
 public class KMedoid {
 
-    public static Collection<KMedoidCluster> KMedoidPartition(int k, List<? extends NDimensionalPoint> data) {
+    public Collection<KMedoidCluster> KMedoidPartition(int k, List<? extends NDimensionalPoint> data) {
 
         Collection<KMedoidCluster> clusters = new ArrayList<>();
         // pick random mediods
