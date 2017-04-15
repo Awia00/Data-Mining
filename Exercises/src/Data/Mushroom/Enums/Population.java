@@ -6,5 +6,5 @@ public enum Population {
     numerous,
     scattered,
     several,
-    solitary;
+    solitary
 }

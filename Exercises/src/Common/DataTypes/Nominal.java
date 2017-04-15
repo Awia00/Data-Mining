@@ -36,21 +36,21 @@ public class Nominal implements SpaceComparable<Nominal> {
         return value != null ? value.equals(nominal.value) : nominal.value == null;
     }
 
-    public BooleanNominal getBooleanNominalWithRespectTo(Enum other){
+    public Binary getBooleanNominalWithRespectTo(Enum other){
         if(other.getClass() != value.getClass()) throw new RuntimeException("non comparable types");
         if(other.equals(value))
-            return new BooleanNominal(PosNeg.positive);
+            return new Binary(PosNeg.positive);
 
-        return new BooleanNominal(PosNeg.negative);
+        return new Binary(PosNeg.negative);
     }
 
-    public Collection<BooleanNominal> getBooleanNominalVersion(){
-        Collection<BooleanNominal> result = new ArrayList<>();
+    public Collection<Binary> getBooleanNominalVersion(){
+        Collection<Binary> result = new ArrayList<>();
         for (Enum anEnum : value.getClass().getEnumConstants()) {
             if(anEnum == value)
-                result.add(new BooleanNominal(PosNeg.positive));
+                result.add(new Binary(PosNeg.positive));
             else
-                result.add(new BooleanNominal(PosNeg.negative));
+                result.add(new Binary(PosNeg.negative));
         }
         return result;
     }

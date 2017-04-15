@@ -89,7 +89,7 @@ public class SOMTrainer implements Runnable {
 	public void stop() {
 		if (runner != null) {
 			running = false;
-			while (runner.isAlive()) {};
-		}
+			while (runner.isAlive()) {}
+        }
 	}
 }

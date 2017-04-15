@@ -6,5 +6,5 @@ public enum Cap_Shape {
     convex,
     flat,
     knobbed,
-    sunken;
+    sunken
 }

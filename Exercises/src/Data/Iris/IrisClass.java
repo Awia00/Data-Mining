@@ -6,5 +6,5 @@ package Data.Iris;
 public enum IrisClass {
     Iris_setosa,
     Iris_versicolor,
-    Iris_virginica;
+    Iris_virginica
 }

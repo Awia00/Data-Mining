@@ -2,7 +2,7 @@ package Lab2.Classification;
 
 import Common.DataStructures.Tree.Leaf;
 import Common.DataStructures.Tree.Node;
-import Common.DataTypes.BooleanNominal;
+import Common.DataTypes.Binary;
 import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.Classifier;
 
@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 /**
  * Created by ander on 13-02-2017.
  */
-public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<BooleanNominal>, BooleanNominal> {
+public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<Binary>, Binary> {
 
-    private Node<BooleanNominal> tree;
+    private Node<Binary> tree;
 
     @Override
-    public void trainWithSet(Collection<ClassifiablePoint<BooleanNominal>> trainSet) {
-        List<ClassifiablePoint<BooleanNominal>> elements = new ArrayList<>(trainSet);
+    public void trainWithSet(Collection<ClassifiablePoint<Binary>> trainSet) {
+        List<ClassifiablePoint<Binary>> elements = new ArrayList<>(trainSet);
         if (!trainSet.isEmpty())
             tree = buildTree(null, elements, elements.get(0).keySet());
         //tree.print();
     }
 
-    private Node buildTree(Node parent, List<ClassifiablePoint<BooleanNominal>> elements, Collection<Integer> attributeKeys) {
+    private Node buildTree(Node parent, List<ClassifiablePoint<Binary>> elements, Collection<Integer> attributeKeys) {
         if (belongToSameClass(elements)) {
             return new Leaf(parent, elements.get(0).getClassification());
         }
@@ -40,7 +40,7 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
 
         Node n = new Node(parent, bestAttributeKey);
         n.addChild(null, new Leaf(parent, mostCommon(elements))); // default case.
-        for (Map.Entry<Object, List<ClassifiablePoint<BooleanNominal>>> entry : split(elements, bestAttributeKey).entrySet()) {
+        for (Map.Entry<Object, List<ClassifiablePoint<Binary>>> entry : split(elements, bestAttributeKey).entrySet()) {
             if (entry.getValue().isEmpty())
                 n.addChild(entry.getKey(), new Leaf(parent, mostCommon(elements)));
             else
@@ -49,11 +49,11 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
         return n;
     }
 
-    private Map<Object, List<ClassifiablePoint<BooleanNominal>>> split(Collection<ClassifiablePoint<BooleanNominal>> elements, Integer splitAttributeKey) {
+    private Map<Object, List<ClassifiablePoint<Binary>>> split(Collection<ClassifiablePoint<Binary>> elements, Integer splitAttributeKey) {
         return elements.stream().collect(Collectors.groupingBy(m -> m.get(splitAttributeKey)));
     }
 
-    private Integer findBestAttribute(Collection<ClassifiablePoint<BooleanNominal>> elements, Collection<Integer> attributeKeys) {
+    private Integer findBestAttribute(Collection<ClassifiablePoint<Binary>> elements, Collection<Integer> attributeKeys) {
         Integer bestAttributeKey = null;
         double infoGain = -1;
         for (Integer attributeKey : attributeKeys) {
@@ -69,20 +69,20 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
         return bestAttributeKey;
     }
 
-    private double informationGain(Collection<ClassifiablePoint<BooleanNominal>> elements, Integer attributeKey) {
-        Map<Object, List<ClassifiablePoint<BooleanNominal>>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.get(attributeKey)));
+    private double informationGain(Collection<ClassifiablePoint<Binary>> elements, Integer attributeKey) {
+        Map<Object, List<ClassifiablePoint<Binary>>> splittingOnAttribute = elements.stream().collect(Collectors.groupingBy(m -> m.get(attributeKey)));
         double infoD = entropy(elements), infoDA = 0.0;
-        for (Map.Entry<Object, List<ClassifiablePoint<BooleanNominal>>> entry : splittingOnAttribute.entrySet()) {
+        for (Map.Entry<Object, List<ClassifiablePoint<Binary>>> entry : splittingOnAttribute.entrySet()) {
             infoDA += entropy(entry.getValue()) * entry.getValue().size() / elements.size();
         }
         return infoD - infoDA;
     }
 
-    private double entropy(Collection<ClassifiablePoint<BooleanNominal>> elements) {
+    private double entropy(Collection<ClassifiablePoint<Binary>> elements) {
         double size = elements.size(), positives = 0, negatives = 0;
-        for (ClassifiablePoint<BooleanNominal> element : elements) {
-            BooleanNominal classification = element.getClassification();
-            if(classification.equals(BooleanNominal.negative()))
+        for (ClassifiablePoint<Binary> element : elements) {
+            Binary classification = element.getClassification();
+            if(classification.equals(Binary.negative()))
                 negatives++;
             else
                 positives++;
@@ -94,9 +94,9 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
             return -probPos * log2(probPos) - probNeg * log2(probNeg);
     }
 
-    private boolean belongToSameClass(Collection<ClassifiablePoint<BooleanNominal>> elements) {
-        BooleanNominal twoWayClassification = null;
-        for (ClassifiablePoint<BooleanNominal> element : elements) {
+    private boolean belongToSameClass(Collection<ClassifiablePoint<Binary>> elements) {
+        Binary twoWayClassification = null;
+        for (ClassifiablePoint<Binary> element : elements) {
             if (twoWayClassification == null)
                 twoWayClassification = element.getClassification();
             else if (!twoWayClassification.equals(element.getClassification()))
@@ -105,13 +105,13 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
         return true;
     }
 
-    private BooleanNominal mostCommon(Collection<ClassifiablePoint<BooleanNominal>> elements) {
+    private Binary mostCommon(Collection<ClassifiablePoint<Binary>> elements) {
         int negative = 0;
-        for (ClassifiablePoint<BooleanNominal> element : elements) {
-            if (element.getClassification().equals(BooleanNominal.negative()))
+        for (ClassifiablePoint<Binary> element : elements) {
+            if (element.getClassification().equals(Binary.negative()))
                 negative++;
         }
-        return negative >= elements.size() / 2 ? BooleanNominal.negative() : BooleanNominal.positive();
+        return negative >= elements.size() / 2 ? Binary.negative() : Binary.positive();
     }
 
     private double log2(double x) {
@@ -120,7 +120,7 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
 
 
     @Override
-    public BooleanNominal classify(ClassifiablePoint<BooleanNominal> classifiable) {
+    public Binary classify(ClassifiablePoint<Binary> classifiable) {
         return tree.find(classifiable);
     }
 }

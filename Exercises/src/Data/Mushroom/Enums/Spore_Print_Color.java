@@ -9,5 +9,5 @@ public enum Spore_Print_Color {
     orange,
     purple,
     white,
-    yellow;
+    yellow
 }

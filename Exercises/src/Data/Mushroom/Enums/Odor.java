@@ -9,5 +9,5 @@ public enum Odor {
     musty,
     none,
     pungent,
-    spicy;
+    spicy
 }

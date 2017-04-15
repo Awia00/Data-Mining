@@ -10,5 +10,5 @@ public enum Cap_Color {
     purple,
     red,
     white,
-    yellow;
+    yellow
 }

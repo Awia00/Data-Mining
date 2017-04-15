@@ -1,6 +1,6 @@
 package Data.Mushroom;
 
-import Common.DataTypes.BooleanNominal;
+import Common.DataTypes.Binary;
 import Common.DataTypes.Nominal;
 import Common.DataTypes.SpaceComparable;
 import Common.Interfaces.ClassifiablePoint;
@@ -17,7 +17,7 @@ import java.util.Set;
  * The Mushroom class is used to contain the data for each mushroom found in the datafile.
  * More info on each attribute in agaricus-lepiotaexplanation.txt.
  */
-public class Mushroom implements ClassifiablePoint<BooleanNominal> {
+public class Mushroom implements ClassifiablePoint<Binary> {
 
     /**
      * The attribute to built a classifier for.
@@ -127,12 +127,12 @@ public class Mushroom implements ClassifiablePoint<BooleanNominal> {
     }
 
     @Override
-    public BooleanNominal getClassification() {
-        return m_Class.equals(Class_Label.edible) ? BooleanNominal.negative() : BooleanNominal.positive();
+    public Binary getClassification() {
+        return m_Class.equals(Class_Label.edible) ? Binary.negative() : Binary.positive();
     }
 
     @Override
-    public boolean checkClassification(BooleanNominal other) {
+    public boolean checkClassification(Binary other) {
         return getClassification().equals(other);
     }
 }

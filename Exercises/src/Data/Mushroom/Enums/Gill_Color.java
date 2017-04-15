@@ -12,5 +12,5 @@ public enum Gill_Color {
     purple,
     red,
     white,
-    yellow;
+    yellow
 }

@@ -9,5 +9,5 @@ public enum Stalk_Color_Above_Ring {
     pink,
     red,
     white,
-    yellow;
+    yellow
 }

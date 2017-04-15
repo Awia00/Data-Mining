@@ -1,151 +1,101 @@
 package Data.Answer;
 
-import java.util.Arrays;
-import java.util.List;
+import Common.DataTypes.Nominal;
+import Common.DataTypes.Numeric;
+import Common.DataTypes.Multiple;
+import Common.DataTypes.SpaceComparable;
+import Common.Interfaces.NDimensionalPoint;
+import Data.Answer.Enums.*;
 
-enum Gender {
-    None,
-    Male,
-    Female
-}
+import java.util.*;
 
-enum PreferRange {
-    NotInterested,
-    Meh,
-    SoundsInteresting,
-    VeryInteresting
-}
+public class Answer implements NDimensionalPoint {
 
-public class Answer {
-    String timeStamp;
-    int age;
-    Gender gender;
-    float shoeSize;
-    float height;
-    String degree;
-    String whyCourse;
-    List<String> profficientLanguages;
-    String phoneOS;
-    PreferRange[] howInterested;
-    String[] whichGamesPlayed;
-    String[] commutePossibilities;
-    String[] traversalOfITU;
-    String therbForttGlag;
-    int[] fourRandomNumbers;
-    int pickANumber;
-    String favoriteFilm;
-    String favoriteTV;
-    String favoriteGame;
-    char row;
-    int seat;
+    private Map<Integer, SpaceComparable> map = new LinkedHashMap<>();
 
-    public Answer(String timeStamp, int age, Gender gender, float shoeSize, float height, String degree, String whyCourse, List<String> profficientLanguages, String phoneOS, PreferRange[] howInterested, String[] whichGamesPlayed, String[] commutePossibilities, String[] traversalOfITU, String therbForttGlag, int[] fourRandomNumbers, int pickANumber, String favoriteFilm, String favoriteTV, String favoriteGame, char row, int seat) {
-        this.timeStamp = timeStamp;
-        this.age = age;
-        this.gender = gender;
-        this.shoeSize = shoeSize;
-        this.height = height;
-        this.degree = degree;
-        this.whyCourse = whyCourse;
-        this.profficientLanguages = profficientLanguages;
-        this.phoneOS = phoneOS;
-        this.howInterested = howInterested;
-        this.whichGamesPlayed = whichGamesPlayed;
-        this.commutePossibilities = commutePossibilities;
-        this.traversalOfITU = traversalOfITU;
-        this.therbForttGlag = therbForttGlag;
-        this.fourRandomNumbers = fourRandomNumbers;
-        this.pickANumber = pickANumber;
-        this.favoriteFilm = favoriteFilm;
-        this.favoriteTV = favoriteTV;
-        this.favoriteGame = favoriteGame;
-        this.row = row;
-        this.seat = seat;
+    static final int AGE_INDEX              = 1;
+    static final int GENDER_INDEX           = 2;
+    static final int SHOE_INDEX             = 3;
+    static final int HEIGHT_INDEX           = 4;
+    static final int DEGREE_INDEX           = 5;
+    static final int WHYCOURSE_INDEX        = 6;
+    static final int PROLANGUAGE_INDEX      = 7;
+    static final int PHONEOS_INDEX          = 8;
+    static final int HOWINTERESTED_DATABASE_INDEX        = 9;
+    static final int HOWINTERESTED_PREDICTIVE_INDEX      = 10;
+    static final int HOWINTERESTED_SIMILAR_INDEX         = 11;
+    static final int HOWINTERESTED_VISUALIZATION_INDEX   = 12;
+    static final int HOWINTERESTED_PATTERNSET_INDEX      = 13;
+    static final int HOWINTERESTED_PATTERNSEQ_INDEX      = 14;
+    static final int HOWINTERESTED_PATTERNGRAPHS_INDEX   = 15;
+    static final int HOWINTERESTED_PATTERNTEXT_INDEX     = 16;
+    static final int HOWINTERESTED_PATTERNIMAGES_INDEX   = 17;
+    static final int HOWINTERESTED_CODE_INDEX            = 18;
+    static final int HOWINTERESTED_OFFSHELF_INDEX        = 19;
+    static final int WHICHGAMES_INDEX       = 20;
+    static final int COMMUTE_INDEX          = 21;
+    static final int FOURRANDOMNUMBER_INDEX = 37;
+    static final int PICKANUMBER_INDEX      = 39;
+
+
+    Answer(){
+        map = new HashMap<>();
+        map.put(AGE_INDEX,                          new Numeric(0));
+        map.put(GENDER_INDEX,                       new Nominal(Gender.None));
+        map.put(SHOE_INDEX   ,                      new Numeric(0));
+        map.put(HEIGHT_INDEX  ,                     new Numeric(0));
+        map.put(DEGREE_INDEX   ,                    new Nominal(DegreeEnum.Other));
+        map.put(WHYCOURSE_INDEX ,                   new Nominal(WhyCourse.Other));
+        map.put(PROLANGUAGE_INDEX,                  new Multiple(new ArrayList<>()));
+        map.put(PHONEOS_INDEX     ,                 new Nominal(PhoneOS.Other));
+        map.put(HOWINTERESTED_DATABASE_INDEX,       new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PREDICTIVE_INDEX,     new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_SIMILAR_INDEX,        new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_VISUALIZATION_INDEX,  new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PATTERNSET_INDEX,     new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PATTERNSEQ_INDEX,     new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PATTERNGRAPHS_INDEX,  new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PATTERNTEXT_INDEX,    new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_PATTERNIMAGES_INDEX,  new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_CODE_INDEX,           new Nominal(PreferRange.Meh));
+        map.put(HOWINTERESTED_OFFSHELF_INDEX,       new Nominal(PreferRange.Meh));
+        map.put(WHICHGAMES_INDEX,                   new Multiple(new ArrayList<>()));
+        map.put(COMMUTE_INDEX,                      new Multiple(new ArrayList<>()));
+        map.put(FOURRANDOMNUMBER_INDEX,             new Multiple(new ArrayList<>()));
+        map.put(PICKANUMBER_INDEX,                  new Nominal(PickANumber.Asparagus));
+    }
+    public Answer(Map<Integer, SpaceComparable> map){
+        this.map = map;
     }
 
-    private PreferRange preferRangeParser(String value) {
-        switch (value.toLowerCase()) {
-            case "not interested":
-                return PreferRange.NotInterested;
-            case "meh":
-                return PreferRange.Meh;
-            case "sounds interesting":
-                return PreferRange.SoundsInteresting;
-            case "very interesting":
-                return PreferRange.VeryInteresting;
-            default:
-                throw new RuntimeException("something sketchy");
-        }
-
-    }
-
-    public Answer(String[] data) {
-        int index = 0;
-        this.timeStamp = data[index++];
-        this.age = Integer.parseInt(data[index++]);
-        char gender = data[index++].toLowerCase().charAt(0);
-        this.gender = gender == 'm' ? Gender.Male : gender == 'f' ? Gender.Female : Gender.None;
-        this.shoeSize = Float.parseFloat(data[index++].replace(',', '.'));
-        try {
-            this.height = Float.parseFloat(data[index++]);
-        } catch (Exception e) {
-
-        }
-
-        this.degree = data[index++];
-        this.whyCourse = data[index++];
-        this.profficientLanguages = Arrays.asList(data[index++].split(",|;"));
-        this.phoneOS = data[index++];
-        this.howInterested = new PreferRange[]{preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++]), preferRangeParser(data[index++])};
-        this.whichGamesPlayed = data[index++].split(";");
-        this.commutePossibilities = data[index++].split(",|;");
-        this.traversalOfITU = new String[]{data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++], data[index++]};
-        this.therbForttGlag = data[index++];
-        try {
-            this.fourRandomNumbers = new int[4];
-            this.fourRandomNumbers = new int[]{Integer.parseInt(data[index++]), Integer.parseInt(data[index++]), Integer.parseInt(data[index++]), Integer.parseInt(data[index++])};
-        } catch (Exception e) {
-        } // supressed;
-        try {
-            this.pickANumber = Integer.parseInt(data[index++]);
-        } catch (Exception e) {
-        } // supressed;
-        this.favoriteFilm = data[index++];
-        this.favoriteTV = data[index++];
-        this.favoriteGame = data[index++];
-        this.row = data[index++].charAt(0);
-
-        try {
-            Integer.parseInt(data[index++]);
-        } catch (Exception e) {
-            this.seat = -1;
-        }
-    }
 
     @Override
     public String toString() {
-        return "Answer{" +
-                "timeStamp='" + timeStamp + '\'' +
-                ", age=" + age +
-                ", gender=" + gender +
-                ", shoeSize=" + shoeSize +
-                ", height=" + height +
-                ", degree='" + degree + '\'' +
-                ", whyCourse='" + whyCourse + '\'' +
-                ", profficientLanguages=" + profficientLanguages +
-                ", phoneOS='" + phoneOS + '\'' +
-                ", howInterested=" + Arrays.toString(howInterested) +
-                ", whichGamesPlayed=" + Arrays.toString(whichGamesPlayed) +
-                ", commutePossibilities=" + Arrays.toString(commutePossibilities) +
-                ", traversalOfITU=" + Arrays.toString(traversalOfITU) +
-                ", therbForttGlag='" + therbForttGlag + '\'' +
-                ", fourRandomNumbers=" + Arrays.toString(fourRandomNumbers) +
-                ", PickANumber=" + pickANumber +
-                ", favoriteFilm='" + favoriteFilm + '\'' +
-                ", favoriteTV='" + favoriteTV + '\'' +
-                ", favoriteGame='" + favoriteGame + '\'' +
-                ", row=" + row +
-                ", seat=" + seat +
-                '}';
+        return "Answer{" + map.toString() + "}";
+    }
+
+    @Override
+    public SpaceComparable get(Integer key) {
+        return map.get(key);
+    }
+
+    @Override
+    public Set<Integer> keySet() {
+        return map.keySet();
+    }
+
+    @Override
+    public Collection<SpaceComparable> values() {
+        return map.values();
+    }
+
+    @Override
+    public Set<Map.Entry<Integer, SpaceComparable>> entrySet() {
+        return map.entrySet();
+    }
+
+    @Override
+    public NDimensionalPoint getDefaultPoint() {
+        return new Answer();
     }
 }

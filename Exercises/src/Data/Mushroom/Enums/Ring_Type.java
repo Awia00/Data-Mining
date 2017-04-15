@@ -8,5 +8,5 @@ public enum Ring_Type {
     none,
     pendant,
     sheathing,
-    zone;
+    zone
 }

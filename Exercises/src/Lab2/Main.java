@@ -1,6 +1,6 @@
 package Lab2;
 
-import Common.DataTypes.BooleanNominal;
+import Common.DataTypes.Binary;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.Classifier;
 import Common.Statistics.BooleanEvaluationSuite;
@@ -39,8 +39,8 @@ public class Main {
         classifierKNN.trainWithSet(trainingMushrooms);
         classifierID3.trainWithSet(trainingMushrooms);
 
-        EvaluationStatistics statsKNN = new BooleanEvaluationSuite().testClassifier(classifierKNN, new ArrayList<Classifiable<BooleanNominal>>(trainingMushrooms));
-        EvaluationStatistics statsID3 =  new BooleanEvaluationSuite().testClassifier(classifierID3, new ArrayList<Classifiable<BooleanNominal>>(trainingMushrooms));
+        EvaluationStatistics statsKNN = new BooleanEvaluationSuite().testClassifier(classifierKNN, new ArrayList<Classifiable<Binary>>(trainingMushrooms));
+        EvaluationStatistics statsID3 =  new BooleanEvaluationSuite().testClassifier(classifierID3, new ArrayList<Classifiable<Binary>>(trainingMushrooms));
 
         System.out.println(statsKNN);
         System.out.println(statsID3);

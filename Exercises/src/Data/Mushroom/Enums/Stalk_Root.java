@@ -7,5 +7,5 @@ public enum Stalk_Root {
     equal,
     rhizomorphs,
     rooted,
-    missing;
+    missing
 }

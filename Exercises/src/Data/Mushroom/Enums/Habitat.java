@@ -7,5 +7,5 @@ public enum Habitat {
     paths,
     urban,
     waste,
-    woods;
+    woods
 }
