@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
  */
 public class MultipleSpaceToolbox {
 
-    public static <T extends SpaceComparable> Multiple mean(Collection<Multiple<T>> multipleElements) {
+    public static <T extends SpaceComparable> Sequence mean(Collection<Sequence<T>> sequenceElements) {
         Map<Class, List<SpaceComparable>> map = new HashMap<>();
-        for (Multiple<T> multipleElement : multipleElements) {
-            for (SpaceComparable o : multipleElement.getElements()) {
+        for (Sequence<T> sequenceElement : sequenceElements) {
+            for (SpaceComparable o : sequenceElement.getElements()) {
                 if(map.containsKey(o.getClass())){
                     map.get(o.getClass()).add(o);
                 }
@@ -30,6 +30,6 @@ public class MultipleSpaceToolbox {
                 EuclidianSpaceToolbox.mean(classListEntry.getValue().stream().map(spaceComparable -> (Numeric) spaceComparable).collect(Collectors.toList()));
             }
         }
-        return new Multiple(newList);
+        return new Sequence(newList);
     }
 }

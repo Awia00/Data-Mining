@@ -3,9 +3,8 @@ package Individual;
 import Common.DataStructures.Cluster.Cluster;
 import Common.DataTypes.Binary;
 import Common.DataTypes.ComparerWrapper;
-import Common.DataTypes.Multiple;
+import Common.DataTypes.Sequence;
 import Common.DataTypes.Nominal;
-import Common.Interfaces.Classifiable;
 import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.Classifier;
 import Common.Interfaces.NDimensionalPoint;
@@ -65,14 +64,14 @@ public class Main {
 
     private static void runApriori(List<NDimensionalPoint> answers) {
 
-        List<Multiple<Nominal>> nominalMultiple = answers.stream()
-                .map(nDimensionalPoint -> (Multiple<Nominal>)nDimensionalPoint.get(Answer.PROLANGUAGE_INDEX))
+        List<Sequence<Nominal>> nominalSequence = answers.stream()
+                .map(nDimensionalPoint -> (Sequence<Nominal>)nDimensionalPoint.get(Answer.PROLANGUAGE_INDEX))
                 .collect(Collectors.toList());
 
-        ComparerWrapper<Nominal>[][] elements = new ComparerWrapper[nominalMultiple.size()][];
-        for (int i = 0; i < nominalMultiple.size(); i++) {
-            Multiple<Nominal> multiple = nominalMultiple.get(i);
-            List<Nominal> elements1 = multiple.getElements();
+        ComparerWrapper<Nominal>[][] elements = new ComparerWrapper[nominalSequence.size()][];
+        for (int i = 0; i < nominalSequence.size(); i++) {
+            Sequence<Nominal> sequence = nominalSequence.get(i);
+            List<Nominal> elements1 = sequence.getElements();
             for (int i1 = 0; i1 < elements1.size(); i1++) {
                 Nominal nominal = elements1.get(i1);
                 if(elements[i] == null) {

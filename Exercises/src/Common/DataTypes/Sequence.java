@@ -5,19 +5,19 @@ import java.util.List;
 /**
  * Created by ander on 15-04-2017.
  */
-public class Multiple<T extends SpaceComparable> implements SpaceComparable<Multiple<T>> {
+public class Sequence<T extends SpaceComparable> implements SpaceComparable<Sequence<T>> {
 
     public List<T> getElements() {
         return elements;
     }
 
     private List<T> elements;
-    public Multiple(List<T> elements){
+    public Sequence(List<T> elements){
         this.elements = elements;
     }
 
     @Override
-    public double distance(Multiple<T> comparable) {
+    public double distance(Sequence<T> comparable) {
         if(comparable.elements.size()>elements.size()) {
             return comparable.distance(this);
         }

@@ -44,7 +44,7 @@ public class Answer implements NDimensionalPoint {
         //map.put(HEIGHT_INDEX  ,                     new Numeric(0));
         map.put(DEGREE_INDEX   ,                    new Nominal(DegreeEnum.Other));
         map.put(WHYCOURSE_INDEX ,                   new Nominal(WhyCourse.Other));
-        map.put(PROLANGUAGE_INDEX,                  new Multiple<>(new ArrayList<>()));
+        map.put(PROLANGUAGE_INDEX,                  new Sequence<>(new ArrayList<>()));
         map.put(PHONEOS_INDEX     ,                 new Nominal(PhoneOS.Other));
         map.put(HOWINTERESTED_DATABASE_INDEX,       new Nominal(PreferRange.Meh));
         map.put(HOWINTERESTED_PREDICTIVE_INDEX,     new Nominal(PreferRange.Meh));
@@ -57,9 +57,9 @@ public class Answer implements NDimensionalPoint {
         map.put(HOWINTERESTED_PATTERNIMAGES_INDEX,  new Nominal(PreferRange.Meh));
         map.put(HOWINTERESTED_CODE_INDEX,           new Nominal(PreferRange.Meh));
         map.put(HOWINTERESTED_OFFSHELF_INDEX,       new Nominal(PreferRange.Meh));
-        map.put(WHICHGAMES_INDEX,                   new Multiple<>(new ArrayList<>()));
-        map.put(COMMUTE_INDEX,                      new Multiple<>(new ArrayList<>()));
-        //map.put(FOURRANDOMNUMBER_INDEX,             new Multiple<>(new ArrayList<>()));
+        map.put(WHICHGAMES_INDEX,                   new Sequence<>(new ArrayList<>()));
+        map.put(COMMUTE_INDEX,                      new Sequence<>(new ArrayList<>()));
+        //map.put(FOURRANDOMNUMBER_INDEX,             new Sequence<>(new ArrayList<>()));
         map.put(PICKANUMBER_INDEX,                  new Nominal(PickANumber.Asparagus));
     }
     public Answer(Map<Integer, SpaceComparable> map){

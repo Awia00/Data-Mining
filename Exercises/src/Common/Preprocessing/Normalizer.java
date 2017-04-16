@@ -1,6 +1,5 @@
 package Common.Preprocessing;
 
-import Common.DataTypes.Multiple;
 import Common.DataTypes.Numeric;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
