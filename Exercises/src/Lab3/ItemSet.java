@@ -7,33 +7,33 @@ import java.util.Arrays;
  * Should not need any changes.
  *
  */
-public class ItemSet {
+public class ItemSet<T extends Comparable<T>> {
 
     /***
      * The PRIMES array is internally in the ItemSet-class' hashCode method
      */
     private static final int[] PRIMES = {2, 3, 5, 7, 11, 13, 17, 23, 27, 31, 37};
-    final int[] set;
+    final T[] set;
     final int length;
 
     /***
      * Creates a new instance of the ItemSet class.
      * @param set Transaction content
      */
-    public ItemSet(int[] set) {
+    public ItemSet(T[] set) {
         this.set = set;
         this.length = set.length;
     }
 
-    public int get(int index) {
+    public T get(int index) {
         return set[index];
     }
 
-    public void set(int index, int value) {
+    public void set(int index, T value) {
         set[index] = value;
     }
 
-    public int getLast() {
+    public T getLast() {
         return set[length - 1];
     }
 
@@ -44,7 +44,7 @@ public class ItemSet {
     public int hashCode() {
         int code = 0;
         for (int i = 0; i < set.length; i++) {
-            code += set[i] * PRIMES[i];
+            code += set[i].hashCode() * PRIMES[i];
         }
         return code;
     }

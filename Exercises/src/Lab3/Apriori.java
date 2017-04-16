@@ -3,12 +3,12 @@ package Lab3;
 import java.util.*;
 
 
-public class Apriori {
+public class Apriori<T extends Comparable<T>> {
 
-    public static List<ItemSet> apriori(int[][] transactions, int supportThreshold) {
+    public List<ItemSet<T>> apriori(T[][] transactions, int supportThreshold) {
         int k;
-        List<ItemSet> itemSets = new ArrayList<>();
-        Hashtable<ItemSet, Integer> frequentItemSets = generateFrequentItemSetsLevel1(transactions, supportThreshold);
+        List<ItemSet<T>> itemSets = new ArrayList<>();
+        Hashtable<ItemSet<T>, Integer> frequentItemSets = generateFrequentItemSetsLevel1(transactions, supportThreshold);
         for (k = 1; frequentItemSets.size() > 0; k++) {
             System.out.print("Finding frequent itemsets of length " + (k + 1) + "…");
             frequentItemSets = generateFrequentItemSets(supportThreshold, transactions, frequentItemSets);
@@ -19,14 +19,14 @@ public class Apriori {
         return itemSets;
     }
 
-    private static Hashtable<ItemSet, Integer> generateFrequentItemSets(int supportThreshold, int[][] transactions,
-                                                                        Hashtable<ItemSet, Integer> lowerLevelItemSets) {
-        Set<ItemSet> candidates = new HashSet<>();
-        Hashtable<ItemSet, Integer> result = new Hashtable<>();
-        for (Map.Entry<ItemSet, Integer> entry1 : lowerLevelItemSets.entrySet()) {
-            ItemSet set1 = entry1.getKey();
-            for (Map.Entry<ItemSet, Integer> entry2 : lowerLevelItemSets.entrySet()) {
-                ItemSet set2 = entry2.getKey();
+    private Hashtable<ItemSet<T>, Integer> generateFrequentItemSets(int supportThreshold, T[][] transactions,
+                                                                        Hashtable<ItemSet<T>, Integer> lowerLevelItemSets) {
+        Set<ItemSet<T>> candidates = new HashSet<>();
+        Hashtable<ItemSet<T>, Integer> result = new Hashtable<>();
+        for (Map.Entry<ItemSet<T>, Integer> entry1 : lowerLevelItemSets.entrySet()) {
+            ItemSet<T> set1 = entry1.getKey();
+            for (Map.Entry<ItemSet<T>, Integer> entry2 : lowerLevelItemSets.entrySet()) {
+                ItemSet<T> set2 = entry2.getKey();
                 boolean isSame = true;
                 for (int i = 0; i < set1.length - 1; i++) {
                     if (set1.get(i) != set2.get(i)) {
@@ -39,7 +39,7 @@ public class Apriori {
                 }
             }
         }
-        for (ItemSet candidate : candidates) {
+        for (ItemSet<T> candidate : candidates) {
             int support = countSupport(candidate.set, transactions);
             if (support >= supportThreshold)
                 result.put(candidate, support);
@@ -49,15 +49,15 @@ public class Apriori {
     }
 
     // we know the sets are already sorted
-    private static ItemSet joinSets(ItemSet first, ItemSet second) {
+    private ItemSet<T> joinSets(ItemSet<T> first, ItemSet<T> second) {
         if (first.length != second.length) throw new RuntimeException("Join sets not of equal length");
         if (first.getLast() == second.getLast()) throw new RuntimeException("Join sets last element is equal");
 
-        int[] set = new int[first.length + 1];
+        T[] set = (T[]) new Comparable[first.length + 1];
         for (int i = 0; i < first.length - 1; i++) { // assumes that every element besides the last one can be the same.
             set[i] = first.get(i);
         }
-        if (first.getLast() < second.getLast()) {
+        if (first.getLast().compareTo(second.getLast()) < 0 ) {
             set[set.length - 2] = first.getLast();
             set[set.length - 1] = second.getLast();
         } else {
@@ -67,8 +67,8 @@ public class Apriori {
         return new ItemSet(set);
     }
 
-    private static Hashtable<ItemSet, Integer> generateFrequentItemSetsLevel1(int[][] transactions, int supportThreshold) {
-        Hashtable<Integer, Integer> table = new Hashtable<>();
+    private Hashtable<ItemSet<T>, Integer> generateFrequentItemSetsLevel1(T[][] transactions, int supportThreshold) {
+        Hashtable<T, Integer> table = new Hashtable<>();
 
         for (int i = 0; i < transactions.length; i++) {
             for (int j = 0; j < transactions[i].length; j++) {
@@ -76,23 +76,23 @@ public class Apriori {
             }
         }
 
-        Hashtable<ItemSet, Integer> result = new Hashtable<>();
+        Hashtable<ItemSet<T>, Integer> result = new Hashtable<>();
 
-        for (Map.Entry<Integer, Integer> entry : table.entrySet()) {
+        for (Map.Entry<T, Integer> entry : table.entrySet()) {
             if (entry.getValue() >= supportThreshold) {
-                result.put(new ItemSet(new int[]{entry.getKey()}), entry.getValue());
+                result.put(new ItemSet<>((T[])new Comparable[]{entry.getKey()}), entry.getValue());
             }
         }
         return result;
     }
 
-    private static int countSupport(int[] itemSet, int[][] transactions) {
+    private int countSupport(T[] itemSet, T[][] transactions) {
         // Assumes that items in ItemSets and transactions are both unique
         int result = 0;
-        for (int[] transaction : transactions) {
+        for (T[] transaction : transactions) {
             int i = 0;
-            for (int item : transaction) {
-                for (int freqItem : itemSet) {
+            for (T item : transaction) {
+                for (T freqItem : itemSet) {
                     if(Objects.equals(item, freqItem)){
                         i++;
                         break;
