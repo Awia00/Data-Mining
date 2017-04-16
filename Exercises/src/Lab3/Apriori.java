@@ -7,16 +7,16 @@ public class Apriori {
 
     public static List<ItemSet> apriori(int[][] transactions, int supportThreshold) {
         int k;
+        List<ItemSet> itemSets = new ArrayList<>();
         Hashtable<ItemSet, Integer> frequentItemSets = generateFrequentItemSetsLevel1(transactions, supportThreshold);
         for (k = 1; frequentItemSets.size() > 0; k++) {
             System.out.print("Finding frequent itemsets of length " + (k + 1) + "…");
             frequentItemSets = generateFrequentItemSets(supportThreshold, transactions, frequentItemSets);
-            System.out.println(" found " + frequentItemSets.size());
-        }
-        // TODO: create association rules from the frequent itemsets
 
-        // TODO: return something useful
-        return null;
+            System.out.println(" found " + frequentItemSets.size());
+            itemSets.addAll(frequentItemSets.keySet());
+        }
+        return itemSets;
     }
 
     private static Hashtable<ItemSet, Integer> generateFrequentItemSets(int supportThreshold, int[][] transactions,
@@ -57,7 +57,7 @@ public class Apriori {
         for (int i = 0; i < first.length - 1; i++) { // assumes that every element besides the last one can be the same.
             set[i] = first.get(i);
         }
-        if (first.set[first.length] < second.set[second.length]) {
+        if (first.getLast() < second.getLast()) {
             set[set.length - 2] = first.getLast();
             set[set.length - 1] = second.getLast();
         } else {
@@ -69,19 +69,19 @@ public class Apriori {
 
     private static Hashtable<ItemSet, Integer> generateFrequentItemSetsLevel1(int[][] transactions, int supportThreshold) {
         Hashtable<Integer, Integer> table = new Hashtable<>();
+
         for (int i = 0; i < transactions.length; i++) {
             for (int j = 0; j < transactions[i].length; j++) {
-                if (!table.containsKey(transactions[i][j]))
-                    table.put(transactions[i][j], 1);
-                else
-                    table.put(transactions[i][j], table.get(transactions[i][j]) + 1);
+                table.put(transactions[i][j], table.getOrDefault(transactions[i][j], 0) + 1);
             }
         }
-        Hashtable<ItemSet, Integer> result = new Hashtable<>();
-        for (Map.Entry<Integer, Integer> entry : table.entrySet()) {
-            if (entry.getValue() >= supportThreshold)
-                result.put(new ItemSet(new int[]{entry.getKey()}), entry.getValue());
 
+        Hashtable<ItemSet, Integer> result = new Hashtable<>();
+
+        for (Map.Entry<Integer, Integer> entry : table.entrySet()) {
+            if (entry.getValue() >= supportThreshold) {
+                result.put(new ItemSet(new int[]{entry.getKey()}), entry.getValue());
+            }
         }
         return result;
     }
@@ -89,18 +89,20 @@ public class Apriori {
     private static int countSupport(int[] itemSet, int[][] transactions) {
         // Assumes that items in ItemSets and transactions are both unique
         int result = 0;
-        for (int i = 0; i < transactions.length; i++) {
-            int lastIndex = 0;
-            for (int j = 0; j < transactions[i].length; j++) {
-                for (int k = lastIndex; k < itemSet.length; k++) {
-                    if (itemSet[k] == transactions[i][j]) {
-                        lastIndex = k;
+        for (int[] transaction : transactions) {
+            int i = 0;
+            for (int item : transaction) {
+                for (int freqItem : itemSet) {
+                    if(Objects.equals(item, freqItem)){
+                        i++;
                         break;
                     }
                 }
+                if(i == itemSet.length){
+                    result++;
+                    break;
+                }
             }
-            if (lastIndex == itemSet.length)
-                result++;
         }
         return result;
     }

@@ -1,5 +1,7 @@
 package Lab3;
 
+import java.util.Arrays;
+
 /***
  * The ItemSet class is used to store information concerning a single transaction.
  * Should not need any changes.
@@ -66,5 +68,11 @@ public class ItemSet {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemSet{" +
+                Arrays.toString(set) + "}";
     }
 }
