@@ -3,7 +3,7 @@ package Data.Answer;
 import Common.DataTypes.SpaceComparable;
 import Common.Interfaces.NDimensionalPoint;
 import Common.Interfaces.NDimensionalPointBuilder;
-import Data.Answer.SubAnswers.AnswerCanCalcMean;
+import Data.Answer.SpecialisedTypes.AnswerCanCalcMean;
 
 import java.util.Collection;
 import java.util.HashMap;

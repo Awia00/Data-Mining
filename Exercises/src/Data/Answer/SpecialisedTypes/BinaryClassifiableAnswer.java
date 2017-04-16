@@ -1,9 +1,11 @@
-package Data.Answer;
+package Data.Answer.SpecialisedTypes;
 
+import Common.DataTypes.Binary;
 import Common.DataTypes.Nominal;
 import Common.DataTypes.SpaceComparable;
 import Common.Interfaces.ClassifiablePoint;
 import Common.Interfaces.NDimensionalPoint;
+import Data.Answer.Answer;
 
 import java.util.Collection;
 import java.util.Map;
@@ -12,24 +14,26 @@ import java.util.Set;
 /**
  * Created by ander on 15-04-2017.
  */
-public class ClassifiableAnswer<T extends Nominal> implements ClassifiablePoint<T> {
+public class BinaryClassifiableAnswer implements ClassifiablePoint<Binary> {
 
     private Answer answer;
     private int classifiableDimension;
+    private Enum truthValue;
 
-    public ClassifiableAnswer(Answer answer, int classifiableDimension) {
+    public BinaryClassifiableAnswer(Answer answer, int classifiableDimension, Enum truthValue) {
         this.answer = answer;
         this.classifiableDimension = classifiableDimension;
+        this.truthValue = truthValue;
     }
 
     @Override
-    public T getClassification() {
-        return (T) answer.get(classifiableDimension);
+    public Binary getClassification() {
+        return answer.get(classifiableDimension).equals(new Nominal(truthValue)) ? Binary.positive() : Binary.negative();
     }
 
     @Override
-    public boolean checkClassification(T other) {
-        return answer.get(classifiableDimension) == other;
+    public boolean checkClassification(Binary other) {
+        return getClassification().equals(other);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class ClassifiableAnswer<T extends Nominal> implements ClassifiablePoint<
 
     @Override
     public String toString() {
-        return answer.toString() + " class:" + answer.get(classifiableDimension);
+        return answer.toString() + " class:" + getClassification();
     }
+
 }

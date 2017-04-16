@@ -1,6 +1,7 @@
 package Lab3;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by aws on 27-02-2017.
@@ -18,8 +19,8 @@ public class Main {
 
     public static void main(String[] args) {
         Apriori<Integer> integerApriori = new Apriori<>();
-        List<ItemSet<Integer>> transactionsFrequentSets = integerApriori.apriori(TRANSACTIONS, 5);
-        List<ItemSet<Integer>> booksFrequentSets = integerApriori.apriori(BOOK_TRANSACTIONS, 4);
+        List<ItemSet<Integer>> transactionsFrequentSets = integerApriori.runApriori(TRANSACTIONS, 5);
+        List<ItemSet<Integer>> booksFrequentSets = integerApriori.runApriori(BOOK_TRANSACTIONS, 4);
 
         System.out.println("Transactions: " + transactionsFrequentSets);
         System.out.println("Books: " + booksFrequentSets);

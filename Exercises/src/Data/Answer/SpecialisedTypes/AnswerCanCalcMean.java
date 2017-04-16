@@ -1,4 +1,4 @@
-package Data.Answer.SubAnswers;
+package Data.Answer.SpecialisedTypes;
 
 import Common.DataTypes.SpaceComparable;
 import Data.Answer.Answer;

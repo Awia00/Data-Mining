@@ -3,7 +3,7 @@ package Data.Answer;
 import Common.DataTypes.*;
 import Common.Interfaces.NDimensionalPoint;
 import Data.Answer.Enums.*;
-import Data.Answer.SubAnswers.AnswerCanCalcMean;
+import Data.Answer.SpecialisedTypes.AnswerCanCalcMean;
 
 import java.util.*;
 
@@ -34,6 +34,7 @@ public class Answer implements NDimensionalPoint {
     public static final int COMMUTE_INDEX          = 21;
     //public static final int FOURRANDOMNUMBER_INDEX = 37;
     public static final int PICKANUMBER_INDEX      = 39;
+    public static final int ACCUMULATEDLANG_INDEX = 40;
 
 
     public Answer(){

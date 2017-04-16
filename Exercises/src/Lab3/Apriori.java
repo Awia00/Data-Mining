@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Apriori<T extends Comparable<T>> {
 
-    public List<ItemSet<T>> apriori(T[][] transactions, int supportThreshold) {
+    public List<ItemSet<T>> runApriori(T[][] transactions, int supportThreshold) {
         int k;
         List<ItemSet<T>> itemSets = new ArrayList<>();
         Hashtable<ItemSet<T>, Integer> frequentItemSets = generateFrequentItemSetsLevel1(transactions, supportThreshold);
@@ -17,6 +17,40 @@ public class Apriori<T extends Comparable<T>> {
             itemSets.addAll(frequentItemSets.keySet());
         }
         return itemSets;
+    }
+
+    public List<AssociationRule> generateAssociationRules(T[][] transactions, int supportCountThreshold, double confidenceThreshold){
+        List<AssociationRule> result = new ArrayList<>();
+        List<ItemSet<T>> itemSets = runApriori(transactions, supportCountThreshold);
+
+        itemSets.sort(Comparator.naturalOrder());
+        for (ItemSet<T> itemSet : itemSets) {
+            for (ItemSet<T> subset : itemSet.nonEmptySubsets()) {
+                double l = countSupport(itemSet, transactions);
+                double si = countSupport(subset, transactions);
+
+                if (si != 0) {
+                    double confidence = l / si;
+                    if (confidence >= confidenceThreshold) {
+                        AssociationRule rule = createAssociationRule(itemSet, subset, confidence);
+                        if (rule != null)
+                            result.add(rule);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private AssociationRule createAssociationRule(ItemSet<T> itemSet, ItemSet<T> subSet, double confidence) {
+        Set<T> subset = new HashSet<>(Arrays.asList(subSet.set)),
+                itemset = new HashSet<>(Arrays.asList(itemSet.set));
+        itemset.removeAll(subset);
+
+        if (itemset.size() > 1) {
+            return new AssociationRule(subSet, itemSet, confidence);
+        }
+        return null;
     }
 
     private Hashtable<ItemSet<T>, Integer> generateFrequentItemSets(int supportThreshold, T[][] transactions,
@@ -40,7 +74,7 @@ public class Apriori<T extends Comparable<T>> {
             }
         }
         for (ItemSet<T> candidate : candidates) {
-            int support = countSupport(candidate.set, transactions);
+            int support = countSupport(candidate, transactions);
             if (support >= supportThreshold)
                 result.put(candidate, support);
         }
@@ -86,7 +120,7 @@ public class Apriori<T extends Comparable<T>> {
         return result;
     }
 
-    private int countSupport(T[] itemSet, T[][] transactions) {
+    private int countSupport(ItemSet<T> itemSet, T[][] transactions) {
         // Assumes that items in ItemSets and transactions are both unique
         int result = 0;
         for (T[] transaction : transactions) {
@@ -106,5 +140,6 @@ public class Apriori<T extends Comparable<T>> {
         }
         return result;
     }
+
 
 }

@@ -14,7 +14,6 @@ public class Normalizer {
         Map<Integer, Double> maxValues = new HashMap<>();
         Map<Integer, Double> minValues = new HashMap<>();
 
-
         for (NDimensionalPoint point : elements) {
             for (Integer attributeKey : builder.getAttributesOfType()) {
                 Class<? extends SpaceComparable> attributeType = point.get(attributeKey).getClass();

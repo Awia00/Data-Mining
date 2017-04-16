@@ -5,8 +5,9 @@ import java.util.stream.Collectors;
 
 /**
  * Created by ander on 15-04-2017.
+ * NOT USED
  */
-public class MultipleSpaceToolbox {
+public class SequenceSpaceToolbox {
 
     public static <T extends SpaceComparable> Sequence mean(Collection<Sequence<T>> sequenceElements) {
         Map<Class, List<SpaceComparable>> map = new HashMap<>();
