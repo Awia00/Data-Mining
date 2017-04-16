@@ -22,8 +22,7 @@ public class Apriori<T extends Comparable<T>> {
     public List<AssociationRule> generateAssociationRules(T[][] transactions, int supportCountThreshold, double confidenceThreshold){
         List<AssociationRule> result = new ArrayList<>();
         List<ItemSet<T>> itemSets = runApriori(transactions, supportCountThreshold);
-
-        itemSets.sort(Comparator.naturalOrder());
+        
         for (ItemSet<T> itemSet : itemSets) {
             for (ItemSet<T> subset : itemSet.nonEmptySubsets()) {
                 double l = countSupport(itemSet, transactions);

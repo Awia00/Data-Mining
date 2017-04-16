@@ -34,7 +34,10 @@ public class Answer implements NDimensionalPoint {
     public static final int COMMUTE_INDEX          = 21;
     //public static final int FOURRANDOMNUMBER_INDEX = 37;
     public static final int PICKANUMBER_INDEX      = 39;
-    public static final int ACCUMULATEDLANG_INDEX = 40;
+
+    public static final int HOWMANYLANGUAGES_INDEX  = 40;
+    public static final int HOWMANYGAMES_INDEX      = 41;
+    public static final int HOWMANYCOMMUTES_INDEX   = 42;
 
 
     public Answer(){
@@ -62,6 +65,10 @@ public class Answer implements NDimensionalPoint {
         map.put(COMMUTE_INDEX,                      new Sequence<>(new ArrayList<>()));
         //map.put(FOURRANDOMNUMBER_INDEX,             new Sequence<>(new ArrayList<>()));
         map.put(PICKANUMBER_INDEX,                  new Nominal(PickANumber.Asparagus));
+
+        map.put(HOWMANYGAMES_INDEX,                 new Numeric(0));
+        map.put(HOWMANYCOMMUTES_INDEX,              new Numeric(0));
+        map.put(HOWMANYLANGUAGES_INDEX,             new Numeric(0));
     }
     public Answer(Map<Integer, SpaceComparable> map){
         this.map = map;

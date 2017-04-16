@@ -18,17 +18,16 @@ public class Sequence<T extends SpaceComparable> implements SpaceComparable<Sequ
 
     @Override
     public double distance(Sequence<T> comparable) {
-        if(comparable.elements.size()>elements.size()) {
-            return comparable.distance(this);
-        }
-        else{
-            double result = 0;
-            for (int i = 0; i < comparable.elements.size(); i++) {
-                result += comparable.elements.get(i).distance(elements.get(i));
+        double result = 0;
+        for (T other : comparable.elements) {
+            double minDistance = 0;
+            for (T element : elements) {
+                minDistance = Math.min(minDistance, element.distance(other));
             }
-            result += elements.size() - comparable.elements.size();
-            return result/elements.size();
+            result += minDistance;
         }
+        result += Math.abs(elements.size()-comparable.elements.size());
+        return result;
     }
 
     @Override

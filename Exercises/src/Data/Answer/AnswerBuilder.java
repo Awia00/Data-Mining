@@ -49,7 +49,7 @@ public class AnswerBuilder implements NDimensionalPointBuilder {
     public NDimensionalPoint buildPointOnlyFrom(Map<Integer, SpaceComparable> attributes) {
         if(defaultAnswer instanceof AnswerCanCalcMean) {
             return new AnswerCanCalcMean(new HashMap<>(attributes));
-        } else{
+        } else {
             return new Answer(new HashMap<>(attributes));
         }
     }

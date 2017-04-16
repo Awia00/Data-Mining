@@ -24,30 +24,43 @@ public class AnswerDataLoader {
 
             for (String[] aDataOrig : dataOrig) {
                 try {
-                    answerBuilder.addAttributeValue(Answer.AGE_INDEX, new Numeric(ageParser(aDataOrig[Answer.AGE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.GENDER_INDEX, genderParser(aDataOrig[Answer.GENDER_INDEX]));
-                    //answerBuilder.addAttributeValue(Answer.SHOE_INDEX, new Numeric(shoeParser(aDataOrig[Answer.SHOE_INDEX])));
-                    //answerBuilder.addAttributeValue(Answer.HEIGHT_INDEX, new Numeric(heightParser(aDataOrig[Answer.HEIGHT_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.DEGREE_INDEX, new Nominal(degreeParser(aDataOrig[Answer.DEGREE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.WHYCOURSE_INDEX, new Nominal(whyCourseParser(aDataOrig[Answer.WHYCOURSE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.PROLANGUAGE_INDEX, new Sequence<>(proLanguagesParser(aDataOrig[Answer.PROLANGUAGE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.PHONEOS_INDEX, new Nominal(phoneOSParser(aDataOrig[Answer.PHONEOS_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_DATABASE_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_DATABASE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PREDICTIVE_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PREDICTIVE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_SIMILAR_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_SIMILAR_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.AGE_INDEX,                       new Numeric(ageParser(aDataOrig[Answer.AGE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.GENDER_INDEX,                    genderParser(aDataOrig[Answer.GENDER_INDEX]));
+                    answerBuilder.addAttributeValue(Answer.DEGREE_INDEX,                    new Nominal(degreeParser(aDataOrig[Answer.DEGREE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.WHYCOURSE_INDEX,                 new Nominal(whyCourseParser(aDataOrig[Answer.WHYCOURSE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.PHONEOS_INDEX,                   new Nominal(phoneOSParser(aDataOrig[Answer.PHONEOS_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_DATABASE_INDEX,    new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_DATABASE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PREDICTIVE_INDEX,  new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PREDICTIVE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_SIMILAR_INDEX,     new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_SIMILAR_INDEX])));
                     answerBuilder.addAttributeValue(Answer.HOWINTERESTED_VISUALIZATION_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_VISUALIZATION_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNSET_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNSET_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNSEQ_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNSEQ_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNSET_INDEX,  new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNSET_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNSEQ_INDEX,  new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNSEQ_INDEX])));
                     answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNGRAPHS_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNGRAPHS_INDEX])));
                     answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNTEXT_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNTEXT_INDEX])));
                     answerBuilder.addAttributeValue(Answer.HOWINTERESTED_PATTERNIMAGES_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_PATTERNIMAGES_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_CODE_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_CODE_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_OFFSHELF_INDEX, new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_OFFSHELF_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.WHICHGAMES_INDEX, new Sequence<>(whichGamesParser(aDataOrig[Answer.WHICHGAMES_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.COMMUTE_INDEX, new Sequence<>(commutesParser(aDataOrig[Answer.COMMUTE_INDEX])));
-                    //answerBuilder.addAttributeValue(Answer.FOURRANDOMNUMBER_INDEX, new Sequence<>(fourRandomsParser(aDataOrig[Answer.FOURRANDOMNUMBER_INDEX])));
-                    answerBuilder.addAttributeValue(Answer.PICKANUMBER_INDEX, new Nominal(pickNumberParser(aDataOrig[Answer.PICKANUMBER_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_CODE_INDEX,        new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_CODE_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.HOWINTERESTED_OFFSHELF_INDEX,    new Nominal(howInterestedSetParser(aDataOrig[Answer.HOWINTERESTED_OFFSHELF_INDEX])));
+                    answerBuilder.addAttributeValue(Answer.PICKANUMBER_INDEX,               new Nominal(pickNumberParser(aDataOrig[Answer.PICKANUMBER_INDEX])));
+                    // Sequences
+                    List<Nominal> whichGames = whichGamesParser(aDataOrig[Answer.WHICHGAMES_INDEX]);
+                    answerBuilder.addAttributeValue(Answer.WHICHGAMES_INDEX,                new Sequence<>(whichGames));
+                    List<Nominal> whichCommutes = commutesParser(aDataOrig[Answer.COMMUTE_INDEX]);
+                    answerBuilder.addAttributeValue(Answer.COMMUTE_INDEX,                   new Sequence<>(whichCommutes));
+                    List<Nominal> proficientLanguages = proLanguagesParser(aDataOrig[Answer.PROLANGUAGE_INDEX]);
+                    answerBuilder.addAttributeValue(Answer.PROLANGUAGE_INDEX,               new Sequence<>(proficientLanguages));
+
+                    // Derived data
+                    answerBuilder.addAttributeValue(Answer.HOWMANYGAMES_INDEX, new Numeric(whichGames.size()));
+                    answerBuilder.addAttributeValue(Answer.HOWMANYCOMMUTES_INDEX, new Numeric(whichCommutes.size()));
+                    answerBuilder.addAttributeValue(Answer.HOWMANYLANGUAGES_INDEX, new Numeric(proficientLanguages.size()));
+
+                    // build point
                     data.add(answerBuilder.buildPoint());
+
+                    // Data left out
+                    //answerBuilder.addAttributeValue(Answer.SHOE_INDEX, new Numeric(shoeParser(aDataOrig[Answer.SHOE_INDEX])));
+                    //answerBuilder.addAttributeValue(Answer.HEIGHT_INDEX, new Numeric(heightParser(aDataOrig[Answer.HEIGHT_INDEX])));
+                    //answerBuilder.addAttributeValue(Answer.FOURRANDOMNUMBER_INDEX, new Sequence<>(fourRandomsParser(aDataOrig[Answer.FOURRANDOMNUMBER_INDEX])));
                 } catch (Exception e) {
                     answerBuilder.buildPoint();
                 }
