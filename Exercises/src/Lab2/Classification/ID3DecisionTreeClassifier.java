@@ -82,7 +82,7 @@ public class ID3DecisionTreeClassifier implements Classifier<ClassifiablePoint<B
         double size = elements.size(), positives = 0, negatives = 0;
         for (ClassifiablePoint<Binary> element : elements) {
             Binary classification = element.getClassification();
-            if(classification.equals(Binary.negative()))
+            if (classification.equals(Binary.negative()))
                 negatives++;
             else
                 positives++;

@@ -1,6 +1,5 @@
 package Lab2.Classification;
 
-import Common.DataTypes.Binary;
 import Common.DataTypes.Nominal;
 import Common.DataTypes.NominalSpaceToolbox;
 import Common.Interfaces.Classifiable;
@@ -13,12 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * Created by aws on 13-02-2017.
  */
-public class KNearestNeighboursClassifier<T extends Nominal> implements Classifier<ClassifiablePoint<T>, T>  {
+public class KNearestNeighboursClassifier<T extends Nominal> implements Classifier<ClassifiablePoint<T>, T> {
 
     private Collection<ClassifiablePoint<T>> classifiedSet;
     private int _k;
