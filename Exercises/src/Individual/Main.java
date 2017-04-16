@@ -2,6 +2,8 @@ package Individual;
 
 import Common.DataStructures.Cluster.Cluster;
 import Common.DataTypes.Binary;
+import Common.DataTypes.ComparerWrapper;
+import Common.DataTypes.Multiple;
 import Common.DataTypes.Nominal;
 import Common.Interfaces.Classifiable;
 import Common.Interfaces.ClassifiablePoint;
@@ -15,6 +17,8 @@ import Data.Answer.*;
 import Data.Answer.SubAnswers.AnswerCanCalcMean;
 import Lab2.Classification.ID3DecisionTreeClassifier;
 import Lab2.Classification.KNearestNeighboursClassifier;
+import Lab3.Apriori;
+import Lab3.ItemSet;
 import Lab4.kMean.KMeanCluster;
 import Lab4.kMean.KMeans;
 import Lab4.kMedoid.KMedoid;
@@ -37,14 +41,19 @@ public class Main {
         //List<NDimensionalPoint> testSet = answers.subList((int) (0.7 * answers.size()), answers.size());
         //System.out.println("Training size: " + trainingSet.size() + " test size: " + testSet.size());
 
+        System.out.println("\nStarting KNN\n");
         runKNN(answers);
 
+        System.out.println("\nStarting ID3\n");
         runID3(answers);
 
+        System.out.println("\nStarting Apriori\n");
         runApriori(answers);
 
+        System.out.println("\nStarting KMeans\n");
         runKMeans(answers);
 
+        System.out.println("\nStarting KMedoids\n");
         runKMedoids(answers);
     }
 
@@ -56,6 +65,25 @@ public class Main {
 
     private static void runApriori(List<NDimensionalPoint> answers) {
 
+        List<Multiple<Nominal>> nominalMultiple = answers.stream()
+                .map(nDimensionalPoint -> (Multiple<Nominal>)nDimensionalPoint.get(Answer.PROLANGUAGE_INDEX))
+                .collect(Collectors.toList());
+
+        ComparerWrapper<Nominal>[][] elements = new ComparerWrapper[nominalMultiple.size()][];
+        for (int i = 0; i < nominalMultiple.size(); i++) {
+            Multiple<Nominal> multiple = nominalMultiple.get(i);
+            List<Nominal> elements1 = multiple.getElements();
+            for (int i1 = 0; i1 < elements1.size(); i1++) {
+                Nominal nominal = elements1.get(i1);
+                if(elements[i] == null) {
+                    elements[i] = new ComparerWrapper[elements1.size()];
+                }
+                elements[i][i1] =new ComparerWrapper<>(nominal);
+            }
+        }
+        Apriori<ComparerWrapper<Nominal>> comparerWrapperApriori = new Apriori<>();
+        List<ItemSet<ComparerWrapper<Nominal>>> aprioriResult = comparerWrapperApriori.apriori(elements, 20);
+        System.out.println(aprioriResult);
     }
 
     private static void runID3(List<NDimensionalPoint> answers) {
@@ -90,7 +118,6 @@ public class Main {
     }
 
     private static void runKMeans(List<NDimensionalPoint> answers){
-
         List<NDimensionalPoint> answersWithoutMultiple = answers
                 .stream().map(nDimensionalPoint ->
                         ((Answer)nDimensionalPoint).convertToAnswerCanCalcMean()
@@ -101,7 +128,6 @@ public class Main {
                         new ClassifiableAnswer<Nominal>(((Answer)nDimensionalPoint), Answer.DEGREE_INDEX)
                 ).collect(Collectors.toList());
 
-        System.out.println("Starting KMeans");
         Collection<KMeanCluster> foundClustersKMeans = new KMeans().KMeansPartition(4, answersClassifiableDegree, new AnswerBuilder(new AnswerCanCalcMean()));
         PurityChecker clusterPurityChecker = new PurityChecker();
         for (Cluster foundClustersKMean : foundClustersKMeans) {
@@ -116,7 +142,6 @@ public class Main {
                         new ClassifiableAnswer<Nominal>(((Answer)nDimensionalPoint), Answer.DEGREE_INDEX)
                 ).collect(Collectors.toList());
 
-        System.out.println("Starting KMedoids");
         Collection<KMedoidCluster> foundClustersKMeans = new KMedoid().KMedoidPartition(4, answersClassifiableDegree);
         PurityChecker clusterPurityChecker = new PurityChecker();
         for (Cluster foundClustersKMean : foundClustersKMeans) {

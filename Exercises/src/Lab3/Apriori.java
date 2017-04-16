@@ -10,10 +10,10 @@ public class Apriori<T extends Comparable<T>> {
         List<ItemSet<T>> itemSets = new ArrayList<>();
         Hashtable<ItemSet<T>, Integer> frequentItemSets = generateFrequentItemSetsLevel1(transactions, supportThreshold);
         for (k = 1; frequentItemSets.size() > 0; k++) {
-            System.out.print("Finding frequent itemsets of length " + (k + 1) + "…");
+            //System.out.print("Finding frequent itemsets of length " + (k + 1) + "…");
             frequentItemSets = generateFrequentItemSets(supportThreshold, transactions, frequentItemSets);
 
-            System.out.println(" found " + frequentItemSets.size());
+            //System.out.println(" found " + frequentItemSets.size());
             itemSets.addAll(frequentItemSets.keySet());
         }
         return itemSets;
