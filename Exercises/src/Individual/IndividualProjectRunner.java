@@ -114,7 +114,7 @@ public class IndividualProjectRunner {
             }
         }
         Apriori<ComparerWrapper<Nominal>> comparerWrapperApriori = new Apriori<>();
-        List<AssociationRule> aprioriResult = comparerWrapperApriori.generateAssociationRules(elements, 10, 0.84);
+        List<AssociationRule> aprioriResult = comparerWrapperApriori.generateAssociationRules(elements, 6, 0.9);
         for (AssociationRule associationRule : aprioriResult) {
             System.out.println(associationRule);
         }

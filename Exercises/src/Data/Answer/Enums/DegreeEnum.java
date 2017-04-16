@@ -10,5 +10,5 @@ public enum DegreeEnum {
     SDT_DT,
     SWU,
     Guest,
-    DIM, Other
+    Other
 }

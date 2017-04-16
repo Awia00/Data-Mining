@@ -28,6 +28,8 @@ public class KMeanCluster extends Cluster {
     }
 
     public NDimensionalPoint calculateMean() {
+        if(points.isEmpty())
+            return mean;
         Map<Integer, SpaceComparable> attributes = new HashMap<>();
         for (Integer attributeKey : mean.keySet()) {
             SpaceComparable value = mean.get(attributeKey);
