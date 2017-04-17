@@ -1,0 +1,75 @@
+package Common.Statistics;
+
+/**
+ * Created by aws on 13-02-2017.
+ */
+public class ConfusionMatrixStatistics {
+
+    final String title;
+    final double truePositives, falsePositives, trueNegatives, falseNegatives;
+
+    double positives() {
+        return truePositives + falsePositives;
+    }
+
+    double negatives() {
+        return trueNegatives + falseNegatives;
+    }
+
+    public ConfusionMatrixStatistics(String title, int truePositives, int falsePositives, int trueNegatives, int falseNegatives) {
+        this.title = title;
+        this.truePositives = truePositives;
+        this.falsePositives = falsePositives;
+        this.trueNegatives = trueNegatives;
+        this.falseNegatives = falseNegatives;
+    }
+
+
+    public double accuracy() // recognition rate
+    {
+        return (truePositives + trueNegatives) / (positives() + negatives());
+    }
+
+    public double errorRate() // mis-classification rate
+    {
+        return (falsePositives + falseNegatives) / (positives() + negatives());
+    }
+
+    public double sensitivity() // true positive rate, recall
+    {
+        return truePositives / positives();
+    }
+
+    public double specificity() // true negative rate
+    {
+        return trueNegatives / negatives();
+    }
+
+    public double precision() {
+        return truePositives / (truePositives + falsePositives);
+    }
+
+    public double fScore() {
+        return (2 * precision() * sensitivity()) / (precision() + sensitivity());
+    }
+
+    @Override
+    public String toString() {
+        String properties = "" +
+                "\n\t" + title +
+                "\n\ttruePositives=" + truePositives +
+                "\n\tfalsePositives=" + falsePositives +
+                "\n\ttrueNegatives=" + trueNegatives +
+                "\n\tfalseNegatives=" + falseNegatives;
+
+        String calculations = "" +
+                "\n\taccuracy=" + accuracy() +
+                "\n\terrorRate=" + errorRate() +
+                "\n\tsensitivity=" + sensitivity() +
+                "\n\tspecificity=" + specificity() +
+                "\n\tprecision=" + precision() +
+                "\n\tf-score=" + fScore();
+
+        return "ConfusionMatrixStatistics{" + properties + calculations + "\n}";
+    }
+}

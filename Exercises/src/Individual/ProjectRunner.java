@@ -31,11 +31,17 @@ import java.util.stream.Collectors;
 /**
  * Created by ander on 15-04-2017.
  */
-public class IndividualProjectRunner {
+public class ProjectRunner {
+    private static Random random;
     public static void main(String[] args){
+        if(args.length >= 1)
+            random = new Random(Integer.parseInt(args[0]));
+        else
+            random = new Random(15);
+
         List<NDimensionalPoint> answers = AnswerDataLoader.LoadAllAnswerData();
         answers = new ArrayList<>(new Normalizer().NormilizeData(answers, new AnswerBuilder(new Answer())));
-        Collections.shuffle(answers, new Random(args[0] == null ? 1 : Integer.parseInt(args[0])));
+        Collections.shuffle(answers, random);
         //printData(answers);
 
         System.out.println("\nStarting KNN\n");
@@ -66,8 +72,8 @@ public class IndividualProjectRunner {
                 .map(nDimensionalPoint -> new ClassifiableAnswer<Binary>(((Answer)nDimensionalPoint), Answer.GENDER_INDEX))
                 .collect(Collectors.toList());
 
-        List<ClassifiablePoint<Binary>> trainingSet = answersClassifiableDegree.subList(0, (int) (0.75 * answersClassifiableDegree.size()));
-        List<ClassifiablePoint<Binary>> testSet = answersClassifiableDegree.subList((int) (0.75 * answersClassifiableDegree.size()), answersClassifiableDegree.size());
+        List<ClassifiablePoint<Binary>> trainingSet = answersClassifiableDegree.subList(0, (int) (0.70 * answersClassifiableDegree.size()));
+        List<ClassifiablePoint<Binary>> testSet = answersClassifiableDegree.subList((int) (0.70 * answersClassifiableDegree.size()), answersClassifiableDegree.size());
 
         System.out.println("Training size: " + trainingSet.size() + " test size: " + testSet.size());
 
@@ -84,8 +90,8 @@ public class IndividualProjectRunner {
                 .map(nDimensionalPoint -> new ClassifiableAnswer<Binary>(((Answer)nDimensionalPoint), Answer.GENDER_INDEX))
                 .collect(Collectors.toList());
 
-        List<ClassifiablePoint<Binary>> trainingSet = answersClassifiableGender.subList(0, (int) (0.75 * answersClassifiableGender.size()));
-        List<ClassifiablePoint<Binary>> testSet = answersClassifiableGender.subList((int) (0.75 * answersClassifiableGender.size()), answersClassifiableGender.size());
+        List<ClassifiablePoint<Binary>> trainingSet = answersClassifiableGender.subList(0, (int) (0.70 * answersClassifiableGender.size()));
+        List<ClassifiablePoint<Binary>> testSet = answersClassifiableGender.subList((int) (0.70 * answersClassifiableGender.size()), answersClassifiableGender.size());
 
         System.out.println("Training size: " + trainingSet.size() + " test size: " + testSet.size());
 
@@ -127,7 +133,7 @@ public class IndividualProjectRunner {
                 .map(answer -> new ClassifiableAnswer<Nominal>(answer, Answer.DEGREE_INDEX))
                 .collect(Collectors.toList());
 
-        Collection<KMeanCluster> foundClustersKMeans = new KMeans().KMeansPartition(4, answersClassifiableDegree, new AnswerBuilder(new AnswerCanCalcMean()));
+        Collection<KMeanCluster> foundClustersKMeans = new KMeans().KMeansPartition(4, answersClassifiableDegree, new AnswerBuilder(new AnswerCanCalcMean()), random);
         PurityChecker clusterPurityChecker = new PurityChecker();
         for (Cluster foundClustersKMean : foundClustersKMeans) {
             System.out.println(clusterPurityChecker.checkCluster(foundClustersKMean.points
@@ -145,7 +151,7 @@ public class IndividualProjectRunner {
                 .map(answer -> new ClassifiableAnswer<Nominal>(((Answer)answer), Answer.DEGREE_INDEX))
                 .collect(Collectors.toList());
 
-        Collection<KMedoidCluster> foundClustersKMeans = new KMedoid().KMedoidPartition(4, answersClassifiableDegree);
+        Collection<KMedoidCluster> foundClustersKMeans = new KMedoid().KMedoidPartition(4, answersClassifiableDegree, random);
         PurityChecker clusterPurityChecker = new PurityChecker();
         for (Cluster foundClustersKMean : foundClustersKMeans) {
             System.out.println(clusterPurityChecker.checkCluster(foundClustersKMean.points.stream().map(nDimensionalPoint -> (ClassifiablePoint<Nominal>)nDimensionalPoint).collect(Collectors.toList())));
