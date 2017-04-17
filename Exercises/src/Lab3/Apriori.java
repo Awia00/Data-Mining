@@ -20,7 +20,7 @@ public class Apriori<T extends Comparable<T>> {
     }
 
     public List<AssociationRule> generateAssociationRules(T[][] transactions, int supportCountThreshold, double confidenceThreshold){
-        List<AssociationRule> result = new ArrayList<>();
+        Set<AssociationRule> result = new HashSet<>();
         List<ItemSet<T>> itemSets = runApriori(transactions, supportCountThreshold);
         
         for (ItemSet<T> itemSet : itemSets) {
@@ -38,16 +38,16 @@ public class Apriori<T extends Comparable<T>> {
                 }
             }
         }
-        return result;
+        return new ArrayList<>(result);
     }
 
     private AssociationRule createAssociationRule(ItemSet<T> itemSet, ItemSet<T> subSet, double confidence) {
-        Set<T> subset = new HashSet<>(Arrays.asList(subSet.set)),
-                itemset = new HashSet<>(Arrays.asList(itemSet.set));
-        itemset.removeAll(subset);
+        Set<T> ruleSet = new HashSet<>(Arrays.asList(subSet.set)),
+                entailSet = new HashSet<>(Arrays.asList(itemSet.set));
+        entailSet.removeAll(ruleSet);
 
-        if (itemset.size() > 1) {
-            return new AssociationRule(subSet, itemSet, confidence);
+        if (entailSet.size() > 1) {
+            return new AssociationRule(ruleSet, entailSet, confidence);
         }
         return null;
     }

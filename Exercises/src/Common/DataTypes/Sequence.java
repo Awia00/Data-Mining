@@ -27,7 +27,7 @@ public class Sequence<T extends SpaceComparable> implements SpaceComparable<Sequ
             result += minDistance;
         }
         result += Math.abs(elements.size()-comparable.elements.size());
-        return result;
+        return result; // / (elements.size() + comparable.elements.size());
     }
 
     @Override
