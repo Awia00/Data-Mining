@@ -1,38 +1,27 @@
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
-
-'''
-input > weight > hidden layer 1 (activation function) > weights > hidden l 2
-(activation function) > weights > output layer
-
-compare output to intended output > cost / loss function (cross entropy)
-optimization function (optimizer) > minimize cost (AdamOptimizer, SGD, AdaGrad)
-
-Backpropagation
-
-feed forward + backprop = epoch
-'''
+from create_sentiment_featureset import create_feature_sets_and_labels
+import numpy as np
 
 # one_hot: Only one output neuron is activated
-mnist = input_data.read_data_sets("/tmp/data", one_hot=True)
+train_x, train_y, test_x, test_y = create_feature_sets_and_labels('res/pos.txt', 'res/neg.txt')
 
 # hidden layer sizes
-n_nodes_hl1 = 250
-n_nodes_hl2 = 175
-n_nodes_hl3 = 100
+n_nodes_hl1 = 500
+n_nodes_hl2 = 500
+n_nodes_hl3 = 500
 
 # classes is number of output neurons
-n_classes = 10
+n_classes = 2
 batch_size = 100
 
 # height by width
-x = tf.placeholder('float', [None, 784])
+x = tf.placeholder('float', [None, len(train_x[0])])
 y = tf.placeholder('float')
 
 
 def neural_network_model(data):
     hidden_1_layer = {
-        'weights': tf.Variable(tf.random_normal([784, n_nodes_hl1])),
+        'weights': tf.Variable(tf.random_normal([len(train_x[0]), n_nodes_hl1])),
         'biases': tf.Variable(tf.random_normal([n_nodes_hl1]))
     }
     hidden_2_layer = {
@@ -63,8 +52,8 @@ def neural_network_model(data):
     return lo
 
 
-def train_neural_network(x):
-    prediction = neural_network_model(x)
+def train_neural_network(input_x):
+    prediction = neural_network_model(input_x)
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
 
@@ -75,21 +64,25 @@ def train_neural_network(x):
 
         for epoch in range(hm_epochs):
             epoch_loss = 0
-            for _ in range(int(mnist.train.num_examples/batch_size)):
-                # feed forward
-                epoch_x, epoch_y = mnist.train.next_batch(batch_size)
 
-                # back prop
-                _, c = sess.run([optimizer, cost], feed_dict={x: epoch_x, y: epoch_y})
+            i = 0
+            while i < len(train_x):
+                start = i
+                end = i+batch_size
 
-                # error stuff?
+                batch_x = np.array(train_x[start:end])
+                batch_y = np.array(train_y[start:end])
+
+                _, c = sess.run([optimizer, cost], feed_dict={x: batch_x, y: batch_y})
+
                 epoch_loss += c
+                i += batch_size
             print('Epoch', epoch, 'completed out of', hm_epochs, 'loss:', epoch_loss)
 
         # statistics?
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-        print('Accuracy:', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+        print('Accuracy:', accuracy.eval({x: test_x, y: test_y}))
 
 
 train_neural_network(x)
