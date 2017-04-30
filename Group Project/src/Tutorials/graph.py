@@ -1,3 +1,4 @@
+import itertools
 class Graph:
     def __init__(self, size):
         self.size = size
@@ -22,6 +23,9 @@ class Graph:
     def adjacency_matrix(self):
         return self.adjacencyMatrix
 
+    def flat_adjacency_matrix(self):
+        return list(itertools.chain(*self.adjacencyMatrix))
+
     def has_key(self, u):
         return u < len(self.adjacencyMatrix)
 
@@ -41,10 +45,15 @@ class Graph:
                     break
                 queue.append(neighbour)
 
+        if not edge_from[v]:
+            return None
+
         path = []
         vertex = v
         while vertex:
             path.append(vertex)
+            if vertex == u:
+                break
             vertex = edge_from[vertex]
 
         list.reverse(path)
@@ -55,6 +64,6 @@ class Graph:
 
     def next_on_shortest_path(self, u, v):
         path = self.shortest_path(u, v)
-        if len(path) > 0:
+        if len(path) > 1:
             return path[1]
         return v
