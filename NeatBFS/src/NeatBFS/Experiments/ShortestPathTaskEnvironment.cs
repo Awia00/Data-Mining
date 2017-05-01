@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ENTM.Base;
 using ENTM.Replay;
 using NeatBFS.Graph;
@@ -96,7 +97,7 @@ namespace NeatBFS.Experiments
         private double[] OneHotOfVertex(int vertex)
         {
             var result = new double[Graph.NumberOfVertices];
-            result[vertex] = 1;
+            result[vertex] = 1d;
             return result;
         }
 
@@ -107,14 +108,16 @@ namespace NeatBFS.Experiments
 
         public override int RandomSeed { get; set; }
 
-        protected double[] GetOutput(ShortestPathTaskInstance instance)
+        protected double[] GetOutput(int source)
         {
-            var n = instance.Graph.NumberOfVertices;
+            var n = Graph.NumberOfVertices;
             var arr = new double[n*n + 2*n];
             
+            EncodedGraph.CopyTo(arr, 0);
+            arr[n * n + source] = 1d;
+            arr[n * n + n + Goal] = 1d;
 
-
-            throw new NotImplementedException();
+            return arr;
         }
     }
 }
