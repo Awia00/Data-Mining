@@ -76,5 +76,21 @@ namespace NeatBFS.Graph
             }
             return distanceTo;
         }
+
+        public double[] EncodedGraph
+        {
+            get
+            {
+                var arr = new double[NumberOfVertices * NumberOfVertices];
+                for (var i = 0; i < NumberOfVertices; i++)
+                {
+                    for (var j = 0; j < NumberOfVertices; j++)
+                    {
+                        arr[i * NumberOfVertices + j] = AdjacencyMatrix[i, j] ? 1d : 0d;
+                    }
+                }
+                return arr;
+            }
+        }
     }
 }
