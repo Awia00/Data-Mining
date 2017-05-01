@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{951D6BCB-3991-419D-A40C-B64EC35C9451}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ENTM</RootNamespace>
+    <AssemblyName>ENTM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BaseEvaluator.cs" />
+    <Compile Include="Base\DefaultController.cs" />
+    <Compile Include="Distance\Knn.cs" />
+    <Compile Include="Distance\KnnSingleDimension.cs" />
+    <Compile Include="Base\IExperiment.cs" />
+    <Compile Include="Experiments\SeasonTask\TwoStepSeasonTaskEnviroment.cs" />
+    <Compile Include="Experiments\SeasonTask\OneStepSeasonTaskEnviroment.cs" />
+    <Compile Include="Experiments\SeasonTask\MultiStepSeasonTaskEnviroment.cs" />
+    <Compile Include="Experiments\Xor\XorEnvironment.cs" />
+    <Compile Include="Experiments\Xor\XorEvaluator.cs" />
+    <Compile Include="Experiments\Xor\XorExperiment.cs" />
+    <Compile Include="Base\Behaviour.cs" />
+    <Compile Include="Base\EvaluationInfo.cs" />
+    <Compile Include="MultiObjective\GeneticDiversityKnn.cs" />
+    <Compile Include="MultiObjective\IGeneticDiversityScorer.cs" />
+    <Compile Include="MultiObjective\IMultiObjectiveEvaluator.cs" />
+    <Compile Include="MultiObjective\IMultiObjectiveScorer.cs" />
+    <Compile Include="MultiObjective\MultiObjectiveParameters.cs" />
+    <Compile Include="MultiObjective\NSGAII.cs" />
+    <Compile Include="NoveltySearch\INoveltyScorer.cs" />
+    <Compile Include="Distance\KnnMultiDimensional.cs" />
+    <Compile Include="MultiObjective\MultiObjectiveListEvaluator.cs" />
+    <Compile Include="Base\BaseEnvironment.cs" />
+    <Compile Include="Experiments\SeasonTask\Container.cs" />
+    <Compile Include="Experiments\SeasonTask\SeasonTaskEnvironment.cs" />
+    <Compile Include="Experiments\SeasonTask\SeasonTaskEvaluator.cs" />
+    <Compile Include="Experiments\SeasonTask\SeasonTaskExperiment.cs" />
+    <Compile Include="Experiments\SeasonTask\SeasonTaskProperties.cs" />
+    <Compile Include="NoveltySearch\NoveltySearchInfo.cs" />
+    <Compile Include="NoveltySearch\NoveltySearchParameters.cs" />
+    <Compile Include="NoveltySearch\TuringNoveltyScorer.cs" />
+    <Compile Include="Replay\EnvironmentTimeStep.cs" />
+    <Compile Include="Replay\IReplayable.cs" />
+    <Compile Include="Replay\Recorder.cs" />
+    <Compile Include="TuringMachine\TuringEvaluator.cs" />
+    <Compile Include="TuringMachine\TuringMachineProperties.cs" />
+    <Compile Include="Utility\ColorUtils.cs" />
+    <Compile Include="Utility\ConcurrentAddList.cs" />
+    <Compile Include="Utility\ConfigPrinter.cs" />
+    <Compile Include="Utility\Debug.cs" />
+    <Compile Include="Experiments\CopyTask\CopyTaskEnvironment.cs" />
+    <Compile Include="Experiments\CopyTask\CopyTaskEvaluator.cs" />
+    <Compile Include="Experiments\CopyTask\CopyTaskExperiment.cs" />
+    <Compile Include="Base\IController.cs" />
+    <Compile Include="Base\IEnvironment.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TuringMachine\ITuringMachine.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Experiments\CopyTask\CopyTaskProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Base\BaseExperiment.cs" />
+    <Compile Include="Experiments\Sine\SineEvaluator.cs" />
+    <Compile Include="Utility\ExperimentUtils.cs" />
+    <Compile Include="Utility\ITimeable.cs" />
+    <Compile Include="Utility\ThreadSafeRandom.cs" />
+    <Compile Include="TuringMachine\TuringController.cs" />
+    <Compile Include="TuringMachine\MinimalTuringMachine.cs" />
+    <Compile Include="Replay\TuringMachineTimeStep.cs" />
+    <Compile Include="Utility\Utilities.cs" />
+    <Compile Include="Utility\XmlUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="AbacusSlurmScripts\execute_slurm_scripts.sh" />
+    <None Include="log4net.properties" />
+    <None Include="packages.config" />
+    <None Include="AbacusSlurmScripts\slurmtask_copytask0.sh" />
+    <None Include="AbacusSlurmScripts\slurmtask_copytask1.sh" />
+    <None Include="AbacusSlurmScripts\slurmtask_copytask2.sh" />
+    <None Include="AbacusSlurmScripts\slurmtask_copytask3.sh" />
+    <None Include="AbacusSlurmScripts\slurmtask_copytask4.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SharpNeatLib\SharpNeatLib.csproj">
+      <Project>{abc5c77a-deba-420c-926c-bd3e6f37ae15}</Project>
+      <Name>SharpNeatLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\copytask-default.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\copytask-noveltysearch.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\copytask1.txt" />
+    <Content Include="Config\CopyTask\copytask8.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\CopyTask\copytask4.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\CopyTask\copytask2.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\CopyTask\copytask1.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\SeasonTask\seasontask-5steps-noveltysearch.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\SeasonTask\seasontask-5steps.config.xml" />
+    <Content Include="Config\xor.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\copytask-moea.config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\seasontask.config.xml" />
+    <Content Include="Scripts\anji2sharpneat.py" />
+    <Content Include="Genomes\chromosome11943.xml" />
+    <Content Include="Scripts\data_analysis.py" />
+    <Content Include="Scripts\results_analysis.py" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(SolutionDir)Config" "$(TargetDir)\ENTM\Config\" /S /Y
+XCOPY "$(SolutionDir)Genomes" "$(TargetDir)\ENTM\Genomes\" /S /Y
+XCOPY "$(SolutionDir)AbacusSlurmScripts" "$(TargetDir)" /S /Y
+COPY "$(SolutionDir)log4net.properties" "$(TargetDir)\" /Y
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
