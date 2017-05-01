@@ -48,12 +48,19 @@ namespace NeatBFS.Graph
             return result;
         }
 
-        public List<int> ShortestPath(int u, int v)
+        public int[] DistanceToArray(int v)
         {
             var queue = new Queue<int>();
-            var edgeFrom = new Dictionary<int,int>();
-            queue.Enqueue(u);
-            while (queue.Count != 0)
+            var edgeFrom = new Dictionary<int, int>();
+            var distanceTo = new int[_size];
+            for (var i = 0; i < distanceTo.Length; i++)
+            {
+                distanceTo[i] = -1;
+            }
+            distanceTo[v] = 0;
+
+            queue.Enqueue(v);
+            while (queue.Any())
             {
                 var vertex = queue.Dequeue();
                 foreach (var neighbour in Neighbours(vertex))
@@ -62,45 +69,11 @@ namespace NeatBFS.Graph
                     {
                         queue.Enqueue(neighbour);
                         edgeFrom.Add(neighbour, vertex);
-                        if (neighbour == v)
-                        {
-                            queue.Clear();
-                        }
+                        distanceTo[neighbour] = distanceTo[vertex] + 1;
                     }
                 }
             }
-            var path = new List<int>();
-            var pathVertex = v;
-            while (pathVertex != u)
-            {
-                path.Add(pathVertex);
-                pathVertex = edgeFrom[pathVertex];
-            }
-            path.Add(u);
-            path.Reverse();
-            return path;
-        }
-
-        public int NextOnShortestPath(int u, int v)
-        {
-            var path = ShortestPath(u, v);
-            return path.Count > 1 ? path[1] : v;
-        }
-
-        public int Distance(int u, int v)
-        {
-            var path = ShortestPath(u, v);
-            return path.Count;
-        }
-
-        public int[] DistanceToArray(int v)
-        {
-            var result = new int[_size];
-            for (var i = 0; i < AdjacencyMatrix.GetLength(0); i++)
-            {
-                result[i] = Distance(i, v);
-            }
-            return result;
+            return distanceTo;
         }
     }
 }
