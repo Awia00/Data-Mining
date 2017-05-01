@@ -44,12 +44,7 @@ namespace NeatBFS.Experiments
             DistanceToArray = graph.DistanceToArray(goal);
             Goal = goal;
             CurrentVertex = currentVertex;
-            //todo number of iterations.
-        }
-
-        public override void ResetIteration()
-        {
-            throw new NotImplementedException();
+            InitialObservation = GetOutput(currentVertex);
         }
 
         public override double[] PerformAction(double[] action)
@@ -72,7 +67,8 @@ namespace NeatBFS.Experiments
             {
                 _currentScore += 3;
             }
-            CurrentVertex = next;
+            // Since we are working with one step only, it does not make sense to change state.
+            //CurrentVertex = next;
 
             return GetOutput(next);
         }
@@ -101,11 +97,6 @@ namespace NeatBFS.Experiments
             return result;
         }
 
-        public override void ResetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public override int RandomSeed { get; set; }
 
         protected double[] GetOutput(int source)
@@ -118,6 +109,16 @@ namespace NeatBFS.Experiments
             arr[n * n + n + Goal] = 1d;
 
             return arr;
+        }
+
+        public override void ResetIteration()
+        {
+            throw new Exception("Resetting is not supported in this task");
+        }
+
+        public override void ResetAll()
+        {
+            throw new Exception("Resetting is not supported in this task");
         }
     }
 }
