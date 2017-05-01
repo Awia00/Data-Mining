@@ -8,5 +8,6 @@ namespace NeatBFS.Graph
         void AddEdge(int u, int v);
         void RemoveEdge(int u, int v);
         int[] DistanceToArray(int v);
+        bool[] EncodedGraph { get; }
     }
 }

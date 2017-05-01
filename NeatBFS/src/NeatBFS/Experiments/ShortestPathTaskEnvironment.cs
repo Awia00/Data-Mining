@@ -64,8 +64,11 @@ namespace NeatBFS.Experiments
 
         protected double[] GetOutput(ShortestPathTaskInstance instance)
         {
-            var arr = new double[instance.Graph.NumberOfVertices * instance.Graph.NumberOfVertices + 2];
+            var n = instance.Graph.NumberOfVertices;
+            var arr = new double[n*n + 2*n];
             
+
+
             throw new NotImplementedException();
         }
     }

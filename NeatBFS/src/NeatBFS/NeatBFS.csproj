@@ -71,6 +71,8 @@
     <Compile Include="Graph\AdjacencyMatrixGraph.cs" />
     <Compile Include="Graph\IGraph.cs" />
     <Compile Include="Graph\IGraphFactory.cs" />
+    <Compile Include="Graph\ShortestPathTaskInstance.cs" />
+    <Compile Include="Graph\SingleGraphFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
