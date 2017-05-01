@@ -65,6 +65,8 @@
     <Compile Include="Experiments\ShortestPathTaskEnvironment.cs" />
     <Compile Include="Experiments\ShortestPathTaskEvaluator.cs" />
     <Compile Include="Experiments\ShortestPathTaskExperiment.cs" />
+    <Compile Include="Graph\AdjacencyMatrixGraph.cs" />
+    <Compile Include="Graph\IGraph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +78,7 @@
       <Project>{951D6BCB-3991-419D-A40C-B64EC35C9451}</Project>
       <Name>ENTM</Name>
     </ProjectReference>
+    <Folder Include="ShortestPathTask\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
