@@ -31,6 +31,11 @@ namespace NeatBFS.Graph
             AdjacencyMatrix[v, u] = false;
         }
 
+        public bool HasEdge(int u, int v)
+        {
+            return AdjacencyMatrix[u, v];
+        }
+
         private IEnumerable<int> Neighbours(int u)
         {
             var result = new List<int>();
