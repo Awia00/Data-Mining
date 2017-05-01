@@ -28,16 +28,19 @@ namespace NeatBFS.Experiments
         #endregion environment
 
         #region graph
+
         public IGraph Graph { get; set; }
+        public double[] EncodedGraph { get; set; }
         public int[] DistanceToArray { get; set; }
         public int Goal { get; set; }
         public int CurrentVertex { get; set; }
         #endregion graph
 
-        public ShortestPathTaskEnvironment(IGraph graph, int[] distanceToArray, int goal, int currentVertex)
+        public ShortestPathTaskEnvironment(IGraph graph, int goal, int currentVertex)
         {
             Graph = graph;
-            DistanceToArray = distanceToArray;
+            EncodedGraph = graph.EncodedGraph;
+            DistanceToArray = graph.DistanceToArray(goal);
             Goal = goal;
             CurrentVertex = currentVertex;
             //todo number of iterations.
@@ -52,25 +55,25 @@ namespace NeatBFS.Experiments
         {
             var next = GetMaxIndex(action);
 
-            if (Graph.HasEdge(CurrentVertex, next))
+            if (!Graph.HasEdge(CurrentVertex, next)) // took non edge
             {
-                _currentScore = 0;
+                _currentScore += 0;
             }
-            else if (DistanceToArray[next] > DistanceToArray[CurrentVertex])
+            else if (DistanceToArray[next] > DistanceToArray[CurrentVertex]) // took an edge away from goal
             {
-                _currentScore = 1;
+                _currentScore += 1;
             }
-            else if (DistanceToArray[next] == DistanceToArray[CurrentVertex])
+            else if (DistanceToArray[next] == DistanceToArray[CurrentVertex]) // took an edge on the current fridge
             {
-                _currentScore = 2;
+                _currentScore += 2;
             }
-            else if (DistanceToArray[next] < DistanceToArray[CurrentVertex])
+            else if (DistanceToArray[next] < DistanceToArray[CurrentVertex]) // took an edge towards the goal.
             {
-                _currentScore = 3;
+                _currentScore += 3;
             }
             CurrentVertex = next;
 
-            return OneHotOfVertex(next);
+            return GetOutput(next);
         }
 
         private static int GetMaxIndex(double[] action)

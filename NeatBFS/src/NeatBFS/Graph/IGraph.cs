@@ -9,6 +9,6 @@ namespace NeatBFS.Graph
         void RemoveEdge(int u, int v);
         bool HasEdge(int u, int v);
         int[] DistanceToArray(int v);
-        bool[] EncodedGraph { get; }
+        double[] EncodedGraph { get; }
     }
 }
