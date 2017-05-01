@@ -30,7 +30,28 @@ namespace NeatBFS.Experiments
 
         public override double[] PerformAction(double[] action)
         {
+            var next = GetMaxIndex(action);
+
+
+
             throw new NotImplementedException();
+        }
+
+        private static int GetMaxIndex(double[] action)
+        {
+            var index = -1;
+            var oneHotVal = double.NegativeInfinity;
+
+            for (var i = 0; i < action.Length; i++)
+            {
+                if (action[i] > oneHotVal)
+                {
+                    index = i;
+                    oneHotVal = action[i];
+                }
+            }
+
+            return index;
         }
 
         public override void ResetAll()
