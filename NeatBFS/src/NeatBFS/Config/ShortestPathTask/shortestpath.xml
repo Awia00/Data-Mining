@@ -35,7 +35,7 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>100</Iterations>
+    <Iterations>2</Iterations>
     <Source>0</Source>
     <Goal>4</Goal>
     <Graph vertices="5">
