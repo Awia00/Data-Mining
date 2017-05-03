@@ -63,6 +63,7 @@ namespace NeatBFS.Experiments
             InputCount = graph.NumberOfVertices;
             InitialObservation = GetOutput(currentVertex);
             TotalTimeSteps = DistanceToArray[currentVertex];
+            MaxTimeSteps = DistanceToArray[currentVertex];
         }
 
         public override double[] PerformAction(double[] action)
