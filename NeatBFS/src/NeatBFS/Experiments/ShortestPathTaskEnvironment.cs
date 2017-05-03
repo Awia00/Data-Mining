@@ -9,23 +9,37 @@ namespace NeatBFS.Experiments
     public class ShortestPathTaskEnvironment : BaseEnvironment
     {
         #region environment
-        public override bool RecordTimeSteps { get; set; }
-        public override EnvironmentTimeStep InitialTimeStep { get; }    
-        public override EnvironmentTimeStep PreviousTimeStep { get; }
         public override IController Controller { get; set; }
         public override int InputCount { get; }
         public override int OutputCount { get; }
         public override double[] InitialObservation { get; }
         private double _currentScore;
         public override double CurrentScore => _currentScore;
-        public override double MaxScore { get; }
-        public override double NormalizedScore { get; }
-        public override bool IsTerminated { get; }
+
+        public override double MaxScore => DistanceToArray[CurrentVertex] * 3;
+
+        public override double NormalizedScore => CurrentScore / MaxScore;
+        public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
         public override int TotalTimeSteps { get; } = 1;
         public override int MaxTimeSteps { get; } = 1;
-        public override int NoveltyVectorLength { get; }
-        public override int NoveltyVectorDimensions { get; }
-        public override int MinimumCriteriaLength { get; }
+
+        public override int NoveltyVectorLength
+        {
+            get
+            {
+                throw new Exception("novelty not implemented");
+            }
+        }
+
+        public override int NoveltyVectorDimensions
+        {
+            get
+            {
+                throw new Exception("novelty not implemented");
+            }
+        }
+
+        public override int MinimumCriteriaLength { get; } = 0;
         #endregion environment
 
         #region graph
@@ -44,33 +58,50 @@ namespace NeatBFS.Experiments
             DistanceToArray = graph.DistanceToArray(goal);
             Goal = goal;
             CurrentVertex = currentVertex;
+
+            OutputCount = graph.NumberOfVertices * graph.NumberOfVertices + 2 * graph.NumberOfVertices;
+            InputCount = graph.NumberOfVertices;
             InitialObservation = GetOutput(currentVertex);
+            TotalTimeSteps = DistanceToArray[currentVertex];
         }
 
         public override double[] PerformAction(double[] action)
         {
             var next = GetMaxIndex(action);
+            var observation = GetOutput(next);
+            var thisScore = Evaluate(CurrentVertex, next);
 
-            if (!Graph.HasEdge(CurrentVertex, next)) // took non edge
-            {
-                _currentScore += 0;
-            }
-            else if (DistanceToArray[next] > DistanceToArray[CurrentVertex]) // took an edge away from goal
-            {
-                _currentScore += 1;
-            }
-            else if (DistanceToArray[next] == DistanceToArray[CurrentVertex]) // took an edge on the current fridge
-            {
-                _currentScore += 2;
-            }
-            else if (DistanceToArray[next] < DistanceToArray[CurrentVertex]) // took an edge towards the goal.
-            {
-                _currentScore += 3;
-            }
-            // Since we are working with one step only, it does not make sense to change state.
-            //CurrentVertex = next;
+            _currentScore += thisScore;
 
+            if (RecordTimeSteps)
+            {
+                PrevTimeStep = new EnvironmentTimeStep(action, observation, thisScore);
+            }
+            CurrentVertex = next;
+            _step++;
             return GetOutput(next);
+        }
+
+        protected double Evaluate(int current, int next)
+        {
+            var score = 0;
+            if (!Graph.HasEdge(current, next)) // took non edge
+            {
+                score += 0;
+            }
+            else if (DistanceToArray[next] > DistanceToArray[current]) // took an edge away from goal
+            {
+                score += 1;
+            }
+            else if (DistanceToArray[next] == DistanceToArray[current]) // took an edge on the current fridge
+            {
+                score += 2;
+            }
+            else if (DistanceToArray[next] < DistanceToArray[current]) // took an edge towards the goal.
+            {
+                score += 3;
+            }
+            return score;
         }
 
         private static int GetMaxIndex(double[] action)
@@ -120,5 +151,21 @@ namespace NeatBFS.Experiments
         {
             throw new Exception("Resetting is not supported in this task");
         }
+
+        #region RecordTimesteps
+
+        private int _step;
+        public override bool RecordTimeSteps { get; set; }
+        protected EnvironmentTimeStep PrevTimeStep;
+
+        public override EnvironmentTimeStep InitialTimeStep
+        {
+            get
+            {
+                return PrevTimeStep = new EnvironmentTimeStep(new double[InputCount], GetOutput(CurrentVertex), _currentScore);
+            }
+        }
+        public override EnvironmentTimeStep PreviousTimeStep => PrevTimeStep;
+        #endregion
     }
 }
