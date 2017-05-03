@@ -89,9 +89,7 @@
       <Name>ENTM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ShortestPathTask\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Config\ShortestPathTask\shortestpath.xml">
       <SubType>Designer</SubType>
