@@ -109,7 +109,7 @@ namespace NeatBFS
                 {
                     config = config.EndsWith(".config") ? $"{config}.xml" : $"{config}.config.xml";
                 }
-                configs[i] = $"ENTM/Config/{config}";
+                configs[i] = $"{ROOT_PATH}Config/{config}";
             }
 
             return configs;

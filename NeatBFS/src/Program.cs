@@ -22,7 +22,7 @@ namespace ENTM
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(Program));
 
-        public const string ROOT_PATH = "ENTM/";
+        public const string ROOT_PATH = "NeatBFS/";
         private const string CONFIG_PATH = ROOT_PATH + "Config/";
         private const string LOG4NET_CONFIG = "log4net.properties";
         private const string RESULTS_FILE = "results.csv";
