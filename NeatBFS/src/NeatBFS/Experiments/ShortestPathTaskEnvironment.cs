@@ -49,6 +49,7 @@ namespace NeatBFS.Experiments
         public int[] DistanceToArray { get; set; }
         public int Goal { get; set; }
         public int CurrentVertex { get; set; }
+        private int _originalStart;
         #endregion graph
 
         public ShortestPathTaskEnvironment(IGraph graph, int goal, int currentVertex)
@@ -57,6 +58,7 @@ namespace NeatBFS.Experiments
             EncodedGraph = graph.EncodedGraph;
             DistanceToArray = graph.DistanceToArray(goal);
             Goal = goal;
+            _originalStart = currentVertex;
             CurrentVertex = currentVertex;
 
             OutputCount = graph.NumberOfVertices * graph.NumberOfVertices + 2 * graph.NumberOfVertices;
@@ -145,12 +147,16 @@ namespace NeatBFS.Experiments
 
         public override void ResetIteration()
         {
-            throw new Exception("Resetting is not supported in this task");
+            CurrentVertex = _originalStart;
+            _currentScore = 0;
+            _step = 0;
         }
 
         public override void ResetAll()
         {
-            throw new Exception("Resetting is not supported in this task");
+            CurrentVertex = _originalStart;
+            _currentScore = 0;
+            _step = 0;
         }
 
         #region RecordTimesteps
