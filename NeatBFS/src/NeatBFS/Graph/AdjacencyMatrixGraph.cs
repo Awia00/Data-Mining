@@ -55,7 +55,10 @@ namespace NeatBFS.Graph
         public int[] DistanceToArray(int v)
         {
             var queue = new Queue<int>();
-            var edgeFrom = new Dictionary<int, int>();
+            var edgeFrom = new Dictionary<int, int>()
+            {
+                {v,-1}
+            };
             var distanceTo = new int[NumberOfVertices];
             for (var i = 0; i < distanceTo.Length; i++)
             {
@@ -77,7 +80,6 @@ namespace NeatBFS.Graph
                     }
                 }
             }
-            distanceTo[v] = 0;
             return distanceTo;
         }
 

@@ -16,7 +16,7 @@ namespace NeatBFS.Experiments
         private double _currentScore;
         public override double CurrentScore => _currentScore;
 
-        public override double MaxScore => DistanceToArray[CurrentVertex] * 3;
+        public override double MaxScore { get; }
 
         public override double NormalizedScore => CurrentScore / MaxScore;
         public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
@@ -49,23 +49,24 @@ namespace NeatBFS.Experiments
         public int[] DistanceToArray { get; set; }
         public int Goal { get; set; }
         public int CurrentVertex { get; set; }
-        private int _originalStart;
+        private readonly int _startVertex;
         #endregion graph
 
-        public ShortestPathTaskEnvironment(IGraph graph, int goal, int currentVertex)
+        public ShortestPathTaskEnvironment(IGraph graph, int goal, int startVertex)
         {
             Graph = graph;
             EncodedGraph = graph.EncodedGraph;
             DistanceToArray = graph.DistanceToArray(goal);
             Goal = goal;
-            _originalStart = currentVertex;
-            CurrentVertex = currentVertex;
+            _startVertex = startVertex;
+            CurrentVertex = startVertex;
 
             OutputCount = graph.NumberOfVertices * graph.NumberOfVertices + 2 * graph.NumberOfVertices;
             InputCount = graph.NumberOfVertices;
-            InitialObservation = GetOutput(currentVertex);
-            TotalTimeSteps = DistanceToArray[currentVertex];
-            MaxTimeSteps = DistanceToArray[currentVertex];
+            InitialObservation = GetOutput(startVertex);
+            TotalTimeSteps = DistanceToArray[startVertex];
+            MaxTimeSteps = DistanceToArray[startVertex];
+            MaxScore = DistanceToArray[startVertex] * 3;
         }
 
         public override double[] PerformAction(double[] action)
@@ -147,14 +148,14 @@ namespace NeatBFS.Experiments
 
         public override void ResetIteration()
         {
-            CurrentVertex = _originalStart;
+            CurrentVertex = _startVertex;
             _currentScore = 0;
             _step = 0;
         }
 
         public override void ResetAll()
         {
-            CurrentVertex = _originalStart;
+            CurrentVertex = _startVertex;
             _currentScore = 0;
             _step = 0;
         }
