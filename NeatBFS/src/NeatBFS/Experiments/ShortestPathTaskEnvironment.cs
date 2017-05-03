@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ENTM.Base;
 using ENTM.Replay;
@@ -10,18 +11,18 @@ namespace NeatBFS.Experiments
     {
         #region environment
         public override IController Controller { get; set; }
-        public override int InputCount { get; }
-        public override int OutputCount { get; }
-        public override double[] InitialObservation { get; }
+        public override int InputCount => Graph.NumberOfVertices;
+        public override int OutputCount => Graph.NumberOfVertices * Graph.NumberOfVertices + 2 * Graph.NumberOfVertices;
+        public override double[] InitialObservation => GetOutput(_startVertex);
         private double _currentScore;
         public override double CurrentScore => _currentScore;
 
-        public override double MaxScore { get; }
+        public override double MaxScore => DistanceToArray[_startVertex] * 3;
 
         public override double NormalizedScore => CurrentScore / MaxScore;
         public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
-        public override int TotalTimeSteps { get; } = 1;
-        public override int MaxTimeSteps { get; } = 1;
+        public override int TotalTimeSteps => DistanceToArray[_startVertex];
+        public override int MaxTimeSteps => DistanceToArray[_startVertex];
 
         public override int NoveltyVectorLength
         {
@@ -49,7 +50,7 @@ namespace NeatBFS.Experiments
         public int[] DistanceToArray { get; set; }
         public int Goal { get; set; }
         public int CurrentVertex { get; set; }
-        private readonly int _startVertex;
+        private int _startVertex;
         #endregion graph
 
         public ShortestPathTaskEnvironment(IGraph graph, int goal, int startVertex)
@@ -60,13 +61,6 @@ namespace NeatBFS.Experiments
             Goal = goal;
             _startVertex = startVertex;
             CurrentVertex = startVertex;
-
-            OutputCount = graph.NumberOfVertices * graph.NumberOfVertices + 2 * graph.NumberOfVertices;
-            InputCount = graph.NumberOfVertices;
-            InitialObservation = GetOutput(startVertex);
-            TotalTimeSteps = DistanceToArray[startVertex];
-            MaxTimeSteps = DistanceToArray[startVertex];
-            MaxScore = DistanceToArray[startVertex] * 3;
         }
 
         public override double[] PerformAction(double[] action)
@@ -153,11 +147,19 @@ namespace NeatBFS.Experiments
             _step = 0;
         }
 
+        private IList<ShortestPathTaskInstance> instances;
         public override void ResetAll()
         {
+            if(instances == null || !instances.Any())
+                instances = new SingleGraphFactory(Graph).GenerateInstances(0).ToList();
+            var instance = instances[0];
+            instances.Remove(instance);
+            Graph = instance.Graph;
+            EncodedGraph = Graph.EncodedGraph;
+            Goal = instance.Goal;
+            DistanceToArray = Graph.DistanceToArray(Goal);
+            _startVertex = instance.Source;
             CurrentVertex = _startVertex;
-            _currentScore = 0;
-            _step = 0;
         }
 
         #region RecordTimesteps
