@@ -45,5 +45,11 @@ namespace NeatBFS.Experiments
         {
             return new ShortestPathTaskEnvironment(_instance.Graph, _instance.Goal, _instance.Source);
         }
+
+        protected override void OnObjectiveEvaluationStart()
+        {
+            // Reset the environment. This will reset the random
+            Environment.ResetAll();
+        }
     }
 }
