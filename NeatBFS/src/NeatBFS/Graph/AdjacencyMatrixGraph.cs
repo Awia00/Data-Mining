@@ -61,8 +61,8 @@ namespace NeatBFS.Graph
             {
                 distanceTo[i] = -1;
             }
-            distanceTo[v] = 0;
 
+            distanceTo[v] = 0;
             queue.Enqueue(v);
             while (queue.Any())
             {
@@ -77,6 +77,7 @@ namespace NeatBFS.Graph
                     }
                 }
             }
+            distanceTo[v] = 0;
             return distanceTo;
         }
 
