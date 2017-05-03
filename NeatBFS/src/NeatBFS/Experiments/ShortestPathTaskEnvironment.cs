@@ -64,7 +64,7 @@ namespace NeatBFS.Experiments
             OutputCount = graph.NumberOfVertices * graph.NumberOfVertices + 2 * graph.NumberOfVertices;
             InputCount = graph.NumberOfVertices;
             InitialObservation = GetOutput(currentVertex);
-            TotalTimeSteps = DistanceToArray[currentVertex];
+            TotalTimeSteps = DistanceToArray[currentVertex] + 1;
             MaxTimeSteps = DistanceToArray[currentVertex];
         }
 

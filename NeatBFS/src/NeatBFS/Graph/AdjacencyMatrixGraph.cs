@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Xml;
+using SharpNeat.Domains;
 
 namespace NeatBFS.Graph
 {
@@ -91,6 +94,23 @@ namespace NeatBFS.Graph
                 }
                 return arr;
             }
+        }
+
+        public static IGraph Parse(XmlElement xmlElement)
+        {
+            var vertices = int.Parse(xmlElement.GetAttribute("vertices"));
+
+            var graph = new AdjacencyMatrixGraph(vertices);
+
+            foreach (XmlElement edge in xmlElement.SelectNodes("Edge"))
+            {
+                var from = int.Parse(edge.GetAttribute("from"));
+                var to = int.Parse(edge.GetAttribute("to"));
+
+                graph.AddEdge(from, to);
+            }
+
+            return graph;
         }
     }
 }

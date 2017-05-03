@@ -9,7 +9,7 @@ using SharpNeat.Phenomes;
 
 namespace ENTM.Base
 {
-    interface IExperiment
+    public interface IExperiment
     {
         Recorder Recorder { get; }
 
