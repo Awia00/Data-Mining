@@ -45,6 +45,7 @@ namespace NeatBFS.Experiments
 
         #region graph
 
+        private readonly IShortestPathInstanceFactory _instanceFactory;
         public IGraph Graph { get; set; }
         public double[] EncodedGraph { get; set; }
         public int[] DistanceToArray { get; set; }
@@ -53,14 +54,11 @@ namespace NeatBFS.Experiments
         private int _startVertex;
         #endregion graph
 
-        public ShortestPathTaskEnvironment(IGraph graph, int goal, int startVertex)
+        public ShortestPathTaskEnvironment(IShortestPathInstanceFactory instanceFactory)
         {
-            Graph = graph;
-            EncodedGraph = graph.EncodedGraph;
-            DistanceToArray = graph.DistanceToArray(goal);
-            Goal = goal;
-            _startVertex = startVertex;
-            CurrentVertex = startVertex;
+            _instanceFactory = instanceFactory;
+
+            ResetAll();
         }
 
         public override double[] PerformAction(double[] action)
@@ -147,13 +145,16 @@ namespace NeatBFS.Experiments
             _step = 0;
         }
 
-        private IList<ShortestPathTaskInstance> instances;
+        private IEnumerator<ShortestPathTaskInstance> instances;
         public override void ResetAll()
         {
-            if(instances == null || !instances.Any())
-                instances = new SingleGraphFactory(Graph).GenerateInstances(0).ToList();
-            var instance = instances[0];
-            instances.Remove(instance);
+            if (instances == null || !instances.MoveNext())
+            {
+                instances = _instanceFactory.GenerateInstances().GetEnumerator();
+                if (!instances.MoveNext()) throw new Exception("No generated instances :-(");
+            }
+            
+            var instance = instances.Current;
             Graph = instance.Graph;
             EncodedGraph = Graph.EncodedGraph;
             Goal = instance.Goal;

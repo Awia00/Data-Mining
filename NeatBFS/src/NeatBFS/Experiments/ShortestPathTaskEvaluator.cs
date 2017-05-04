@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Xml;
 using ENTM.TuringMachine;
 using NeatBFS.Graph;
@@ -15,7 +16,7 @@ namespace NeatBFS.Experiments
 
         private int _environmentInputCount, _environmentOutputCount, _iterations;
 
-        private ShortestPathTaskInstance _instance;
+        private IShortestPathInstanceFactory _instanceFactory;
 
         public ShortestPathTaskEvaluator()
         {
@@ -30,20 +31,33 @@ namespace NeatBFS.Experiments
 
             _iterations = XmlUtils.TryGetValueAsInt(shortestPathParams, "Iterations") ?? 1;
 
-            _instance = new ShortestPathTaskInstance
+            var graphConfig = shortestPathParams.SelectSingleNode("Graph") as XmlElement;
+            
+            switch (graphConfig.GetAttribute("type").ToLower())
             {
-                Source = XmlUtils.GetValueAsInt(shortestPathParams, "Source"),
-                Goal = XmlUtils.GetValueAsInt(shortestPathParams, "Goal"),
-                Graph = AdjacencyMatrixGraph.Parse(shortestPathParams.SelectSingleNode("Graph") as XmlElement)
-            };
+                case "random":
+                    int vertices = int.Parse(graphConfig.GetAttribute("vertices")),
+                        edges = int.Parse(graphConfig.GetAttribute("edges"));
+                    var seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
 
-            _environmentOutputCount = _instance.Graph.NumberOfVertices * _instance.Graph.NumberOfVertices + 2 * _instance.Graph.NumberOfVertices;
-            _environmentInputCount = _instance.Graph.NumberOfVertices;
+                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, seed);
+                    break;
+                case "manual":
+                    _instanceFactory = new ManualShortestPathInstanceFactory(AdjacencyMatrixGraph.Parse(graphConfig));
+                    break;
+                default:
+                    throw new ConfigurationErrorsException();
+            }
+
+            var n = _instanceFactory.Vertices;
+
+            _environmentOutputCount = n*n + 2*n;
+            _environmentInputCount = n;
         }
         
         protected override ShortestPathTaskEnvironment NewEnvironment()
         {
-            return new ShortestPathTaskEnvironment(_instance.Graph, _instance.Goal, _instance.Source);
+            return new ShortestPathTaskEnvironment(_instanceFactory);
         }
 
         protected override void OnObjectiveEvaluationStart()
