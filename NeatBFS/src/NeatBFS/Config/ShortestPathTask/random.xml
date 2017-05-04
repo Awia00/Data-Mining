@@ -2,7 +2,7 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task</Name>
+  <Name>Shortest Path Task With Random</Name>
 
   <!-- The fully qualified name of the experiment class -->
   <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
@@ -29,13 +29,13 @@
   <LogInterval>10</LogInterval>
 
   <!-- Wether or not to use parallel or serial evaluation. Parallel is faster, but serial can be necessary for debugging -->
-  <MultiThreading>true</MultiThreading>
+  <MultiThreading>false</MultiThreading>
 
   <!-- Maximum number of threads if multithreading is enabled. -1 defaults to CPU core count -->
-  <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
+  <MaxDegreeOfParallelism>1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>2</Iterations>
+    <Iterations>10</Iterations>
     <Graph type="Random" vertices="8" edges="16" seed="34628936" />
   </ShortestPathTaskParams>
 

@@ -23,7 +23,7 @@
   <MaxGenerations>100</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>30</PopulationSize>
+  <PopulationSize>300</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -35,7 +35,7 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>2</Iterations>
+    <Iterations>10</Iterations>
     <Graph type="Manual" vertices="5">
       <Edge from="0" to="1" />
       <Edge from="1" to="2" />

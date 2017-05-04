@@ -13,12 +13,12 @@ namespace NeatBFS.Graph
         
         public IEnumerable<ShortestPathTaskInstance> GenerateInstances()
         {
-            for (var source = 0; source < _graph.NumberOfVertices; source++)
+            for (var goal = 0; goal < _graph.NumberOfVertices; goal++)
             {
-                var distance = _graph.DistanceToArray(source);
-                for (var goal = 0; goal < _graph.NumberOfVertices; goal++)
+                var distance = _graph.DistanceToArray(goal);
+                for (var source = 0; source < _graph.NumberOfVertices; source++)
                 {
-                    if (goal != source && distance[goal] > 2)
+                    if (source != goal && distance[source] > 2)
                     {
                         yield return new ShortestPathTaskInstance
                         {

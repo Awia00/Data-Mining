@@ -63,6 +63,7 @@ namespace NeatBFS.Experiments
 
         public override double[] PerformAction(double[] action)
         {
+            if (CurrentVertex == Goal) throw new Exception("Goal reached before step");
             var next = GetMaxIndex(action);
             var observation = GetOutput(next);
             var thisScore = Evaluate(CurrentVertex, next);
@@ -80,24 +81,23 @@ namespace NeatBFS.Experiments
 
         protected double Evaluate(int current, int next)
         {
-            var score = 0;
             if (!Graph.HasEdge(current, next)) // took non edge
             {
-                score += 0;
+                return 0;
             }
             else if (DistanceToArray[next] > DistanceToArray[current]) // took an edge away from goal
             {
-                score += 1;
+                return 1;
             }
             else if (DistanceToArray[next] == DistanceToArray[current]) // took an edge on the current fridge
             {
-                score += 2;
+                return 2;
             }
             else if (DistanceToArray[next] < DistanceToArray[current]) // took an edge towards the goal.
             {
-                score += 4;
+                return 4;
             }
-            return score;
+            throw new Exception("Didn't make choice?");
         }
 
         private static int GetMaxIndex(double[] action)
@@ -115,13 +115,6 @@ namespace NeatBFS.Experiments
             }
 
             return index;
-        }
-
-        private double[] OneHotOfVertex(int vertex)
-        {
-            var result = new double[Graph.NumberOfVertices];
-            result[vertex] = 1d;
-            return result;
         }
 
         public override int RandomSeed { get; set; }
@@ -145,23 +138,23 @@ namespace NeatBFS.Experiments
             _step = 0;
         }
 
-        private IEnumerator<ShortestPathTaskInstance> instances;
+        public ShortestPathTaskInstance Current => _instances.Current;
+        private IEnumerator<ShortestPathTaskInstance> _instances;
         public override void ResetAll()
         {
-            if (instances == null || !instances.MoveNext())
+            if (_instances == null || !_instances.MoveNext())
             {
                 do
                 {
-                    instances = _instanceFactory.GenerateInstances().GetEnumerator();
-                } while (!instances.MoveNext());
+                    _instances = _instanceFactory.GenerateInstances().GetEnumerator();
+                } while (!_instances.MoveNext());
             }
             
-            var instance = instances.Current;
-            Graph = instance.Graph;
+            Graph = Current.Graph;
             EncodedGraph = Graph.EncodedGraph;
-            Goal = instance.Goal;
+            Goal = Current.Goal;
             DistanceToArray = Graph.DistanceToArray(Goal);
-            _startVertex = instance.Source;
+            _startVertex = Current.Source;
 
             ResetIteration();
         }
