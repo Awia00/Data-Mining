@@ -38,9 +38,11 @@ namespace NeatBFS.Experiments
                 case "random":
                     int vertices = int.Parse(graphConfig.GetAttribute("vertices")),
                         edges = int.Parse(graphConfig.GetAttribute("edges"));
+
+                    int minPath = graphConfig.HasAttribute("minpath") ? int.Parse(graphConfig.GetAttribute("minpath")) : 1;
                     var seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
 
-                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, seed);
+                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, minPath, seed);
                     break;
                 case "manual":
                     _instanceFactory = new ManualShortestPathInstanceFactory(AdjacencyMatrixGraph.Parse(graphConfig));
