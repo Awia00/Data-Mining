@@ -10,7 +10,7 @@ namespace NeatBFS.Experiments
     public class ShortestPathTaskEvaluator : TuringEvaluator<ShortestPathTaskEnvironment>
     {
         public override int Iterations => _iterations;
-        public override int MaxScore => Iterations*3;
+        public override int MaxScore => 1;
         public override int EnvironmentInputCount => _environmentInputCount;
         public override int EnvironmentOutputCount => _environmentOutputCount;
 

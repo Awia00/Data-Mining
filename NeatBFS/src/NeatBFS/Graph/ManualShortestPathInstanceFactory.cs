@@ -18,7 +18,7 @@ namespace NeatBFS.Graph
                 var distance = _graph.DistanceToArray(source);
                 for (var goal = 0; goal < _graph.NumberOfVertices; goal++)
                 {
-                    if (goal != source && distance[goal] > 0)
+                    if (goal != source && distance[goal] > 2)
                     {
                         yield return new ShortestPathTaskInstance
                         {

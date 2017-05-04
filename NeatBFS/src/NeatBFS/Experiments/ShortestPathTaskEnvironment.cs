@@ -17,7 +17,7 @@ namespace NeatBFS.Experiments
         private double _currentScore;
         public override double CurrentScore => _currentScore;
 
-        public override double MaxScore => DistanceToArray[_startVertex] * 3;
+        public override double MaxScore => DistanceToArray[_startVertex]*4;
 
         public override double NormalizedScore => CurrentScore / MaxScore;
         public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
@@ -95,7 +95,7 @@ namespace NeatBFS.Experiments
             }
             else if (DistanceToArray[next] < DistanceToArray[current]) // took an edge towards the goal.
             {
-                score += 3;
+                score += 4;
             }
             return score;
         }
@@ -150,8 +150,10 @@ namespace NeatBFS.Experiments
         {
             if (instances == null || !instances.MoveNext())
             {
-                instances = _instanceFactory.GenerateInstances().GetEnumerator();
-                if (!instances.MoveNext()) throw new Exception("No generated instances :-(");
+                do
+                {
+                    instances = _instanceFactory.GenerateInstances().GetEnumerator();
+                } while (!instances.MoveNext());
             }
             
             var instance = instances.Current;
@@ -160,7 +162,8 @@ namespace NeatBFS.Experiments
             Goal = instance.Goal;
             DistanceToArray = Graph.DistanceToArray(Goal);
             _startVertex = instance.Source;
-            CurrentVertex = _startVertex;
+
+            ResetIteration();
         }
 
         #region RecordTimesteps

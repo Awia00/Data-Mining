@@ -21,7 +21,7 @@ namespace NeatBFS.Graph
             // Generate graph.
             IGraph g = new AdjacencyMatrixGraph(Vertices);
 
-            for (var i = 0; i < Edges; i++)
+            for (var i = 0; i < _random.Next(Edges)+1; i++)
             {
                 int from, to;
                 do
