@@ -21,40 +21,56 @@ namespace NeatBFS.Graph
 
         public IEnumerable<ShortestPathTaskInstance> GenerateInstances()
         {
-            // Generate graph.
-            IGraph g = new AdjacencyMatrixGraph(Vertices);
-
-            if (MinPathLength > 0)
-            {    
-                IList<int> path = new List<int>();
-                for (var i = 0; i < MinPathLength+1; i++)
-                {
-                    int number;
-                    do
-                    {
-                        number = _random.Next(Vertices);
-                    } while (path.Contains(number));
-                    path.Add(number);
-                }
-
-                for (var i = 0; i < MinPathLength; i++)
-                {
-                    g.AddEdge(path[i], path[i+1]);
-                }
-            }        
-            for (var i = 0; i < _random.Next(Edges)-MinPathLength+1; i++)
+            while (true)
             {
                 int from, to;
+
+                // generate problem
                 do
                 {
                     from = _random.Next(Vertices);
                     to = _random.Next(Vertices);
-                } while (from == to || g.HasEdge(from, to));
+                } while (from == to);
 
-                g.AddEdge(from, to);
+                // Generate graph.
+                IGraph g = new AdjacencyMatrixGraph(Vertices);
+
+                if (MinPathLength > 0)
+                {
+                    IList<int> path = new List<int>
+                    {
+                        from
+                    };
+
+                    while (path.Count < MinPathLength)
+                    {
+                        int number;
+                        do
+                        {
+                            number = _random.Next(Vertices);
+                        } while (number == to || path.Contains(number));
+                        path.Add(number);
+                    }
+                    path.Add(to);
+
+                    for (var i = 0; i < MinPathLength; i++)
+                    {
+                        g.AddEdge(path[i], path[i + 1]);
+                    }
+                }
+
+                if (g.DistanceToArray(to)[from] != MinPathLength)
+                {
+                    throw new Exception("Logical error");
+                }
+
+                yield return new ShortestPathTaskInstance
+                {
+                    Source = from,
+                    Goal = to,
+                    Graph = g
+                };
             }
-
-            return new ManualShortestPathInstanceFactory(g, MinPathLength).GenerateInstances();
         }
     }
 }

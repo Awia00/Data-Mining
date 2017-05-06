@@ -39,7 +39,7 @@ namespace NeatBFS.Experiments
                     int vertices = int.Parse(graphConfig.GetAttribute("vertices")),
                         edges = int.Parse(graphConfig.GetAttribute("edges"));
 
-                    int minPath = graphConfig.HasAttribute("minpath") ? int.Parse(graphConfig.GetAttribute("minpath")) : 1;
+                    var minPath = int.Parse(graphConfig.GetAttribute("minpath"));
                     var seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
 
                     _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, minPath, seed);
