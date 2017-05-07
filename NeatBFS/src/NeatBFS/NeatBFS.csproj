@@ -73,11 +73,12 @@
     <Compile Include="Experiments\ShortestPathTaskEvaluator.cs" />
     <Compile Include="Experiments\ShortestPathTaskExperiment.cs" />
     <Compile Include="Graph\AdjacencyMatrixGraph.cs" />
+    <Compile Include="Graph\Factories\PathOnlyShortestPathInstanceFactory.cs" />
     <Compile Include="Graph\IGraph.cs" />
-    <Compile Include="Graph\IShortestPathInstanceFactory.cs" />
-    <Compile Include="Graph\RandomShortestPathInstanceFactory.cs" />
+    <Compile Include="Graph\Factories\IShortestPathInstanceFactory.cs" />
+    <Compile Include="Graph\Factories\RandomShortestPathInstanceFactory.cs" />
     <Compile Include="Graph\ShortestPathTaskInstance.cs" />
-    <Compile Include="Graph\ManualShortestPathInstanceFactory.cs" />
+    <Compile Include="Graph\Factories\ManualShortestPathInstanceFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +96,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Config\ShortestPathTask\cycle_with_leaf.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\path.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Config\ShortestPathTask\random.xml">

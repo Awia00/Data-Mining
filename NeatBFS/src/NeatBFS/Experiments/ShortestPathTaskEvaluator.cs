@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Xml;
 using ENTM.TuringMachine;
 using NeatBFS.Graph;
+using NeatBFS.Graph.Factories;
 using SharpNeat.Domains;
 
 namespace NeatBFS.Experiments
@@ -18,34 +19,41 @@ namespace NeatBFS.Experiments
 
         private IShortestPathInstanceFactory _instanceFactory;
 
-        public ShortestPathTaskEvaluator()
-        {
-            
-        }
-
         public override void Initialize(XmlElement xmlConfig)
         {
             base.Initialize(xmlConfig);
 
-            var shortestPathParams = xmlConfig.SelectSingleNode("ShortestPathTaskParams") as XmlElement;
+            var shortestPathParams = (XmlElement) xmlConfig.SelectSingleNode("ShortestPathTaskParams");
 
             _iterations = XmlUtils.TryGetValueAsInt(shortestPathParams, "Iterations") ?? 1;
 
-            var graphConfig = shortestPathParams.SelectSingleNode("Graph") as XmlElement;
-            
-            switch (graphConfig.GetAttribute("type").ToLower())
+            var graphConfig = (XmlElement) shortestPathParams?.SelectSingleNode("Graph");
+
+            int vertices, pathLength;
+            int? seed;
+
+            switch (graphConfig?.GetAttribute("type").ToLower())
             {
                 case "random":
-                    int vertices = int.Parse(graphConfig.GetAttribute("vertices")),
-                        edges = int.Parse(graphConfig.GetAttribute("edges"));
+                    vertices = int.Parse(graphConfig.GetAttribute("vertices"));
+                    var edges = int.Parse(graphConfig.GetAttribute("edges"));
 
-                    var minPath = int.Parse(graphConfig.GetAttribute("minpath"));
-                    var seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
+                    pathLength = int.Parse(graphConfig.GetAttribute("minpath"));
+                    seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
 
-                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, minPath, seed);
+                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, pathLength, seed);
                     break;
                 case "manual":
                     _instanceFactory = new ManualShortestPathInstanceFactory(AdjacencyMatrixGraph.Parse(graphConfig));
+                    break;
+                case "path":
+                    vertices = int.Parse(graphConfig.GetAttribute("vertices"));
+
+                    pathLength = int.Parse(graphConfig.GetAttribute("minpath"));
+                    seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?)null;
+                    var symmetricInstances = !graphConfig.HasAttribute("symmetricinstances") || bool.Parse(graphConfig.GetAttribute("symmetricinstances"));
+
+                    _instanceFactory = new PathOnlyShortestPathInstanceFactory(vertices, pathLength, symmetricInstances, seed);
                     break;
                 default:
                     throw new ConfigurationErrorsException();

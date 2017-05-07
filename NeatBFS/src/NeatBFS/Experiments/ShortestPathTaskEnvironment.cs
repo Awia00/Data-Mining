@@ -4,6 +4,7 @@ using System.Linq;
 using ENTM.Base;
 using ENTM.Replay;
 using NeatBFS.Graph;
+using NeatBFS.Graph.Factories;
 
 namespace NeatBFS.Experiments
 {
@@ -46,10 +47,10 @@ namespace NeatBFS.Experiments
         #region graph
 
         private readonly IShortestPathInstanceFactory _instanceFactory;
-        public IGraph Graph { get; set; }
+        public IGraph Graph => Current.Graph;
         public double[] EncodedGraph { get; set; }
         public int[] DistanceToArray { get; set; }
-        public int Goal { get; set; }
+        public int Goal => Current.Goal;
         public int CurrentVertex { get; set; }
         private int _startVertex;
         #endregion graph
@@ -131,8 +132,27 @@ namespace NeatBFS.Experiments
             return arr;
         }
 
+        
+        /// <summary>
+        /// Move the agent back to start for a new round of evaluation (can be different from the previous state).
+        /// </summary>
         public override void ResetIteration()
         {
+            if (_instances == null || !_instances.MoveNext())
+            {
+                _seenInstances.Clear();
+                do
+                {
+                    _instances = _instanceFactory.GenerateInstances().GetEnumerator();
+                } while (!_instances.MoveNext());
+            }
+
+            _seenInstances.Add(Current);
+
+            EncodedGraph = Graph.EncodedGraph;
+            DistanceToArray = Graph.DistanceToArray(Goal);
+            _startVertex = Current.Source;
+
             CurrentVertex = _startVertex;
             _currentScore = 0;
             _step = 0;
@@ -140,22 +160,15 @@ namespace NeatBFS.Experiments
 
         public ShortestPathTaskInstance Current => _instances.Current;
         private IEnumerator<ShortestPathTaskInstance> _instances;
-        public override void ResetAll()
-        {
-            if (_instances == null || !_instances.MoveNext())
-            {
-                do
-                {
-                    _instances = _instanceFactory.GenerateInstances().GetEnumerator();
-                } while (!_instances.MoveNext());
-            }
-            
-            Graph = Current.Graph;
-            EncodedGraph = Graph.EncodedGraph;
-            Goal = Current.Goal;
-            DistanceToArray = Graph.DistanceToArray(Goal);
-            _startVertex = Current.Source;
+        private List<ShortestPathTaskInstance> _seenInstances = new List<ShortestPathTaskInstance>();
 
+        /// <summary>
+        /// ResetAll the simulator to some initial state (for new agents to be tested under same circumstances
+        /// </summary>
+        public sealed override void ResetAll()
+        {
+            _instances = _seenInstances.GetEnumerator();
+            _seenInstances = new List<ShortestPathTaskInstance>();
             ResetIteration();
         }
 

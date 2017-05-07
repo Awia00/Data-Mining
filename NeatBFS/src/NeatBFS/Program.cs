@@ -272,6 +272,7 @@ namespace NeatBFS
             {
                 try
                 {
+                    Directory.CreateDirectory(e.Directory);
                     _configs[_currentConfig].Save(configFile);
                 }
                 catch (Exception ex)

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace NeatBFS.Graph
+namespace NeatBFS.Graph.Factories
 {
     public class ManualShortestPathInstanceFactory : IShortestPathInstanceFactory
     {
