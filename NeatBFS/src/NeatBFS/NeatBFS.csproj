@@ -98,7 +98,25 @@
     <Content Include="Config\ShortestPathTask\cycle_with_leaf.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\path.xml">
+    <Content Include="Config\ShortestPathTask\PathOnly\4vertices3edges.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\4vertices2edges.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\4vertices1edge.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\3vertices2edges.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\3vertices1edge.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\2vertices1edge.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\path.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Config\ShortestPathTask\random.xml">

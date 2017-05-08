@@ -20,7 +20,7 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>-1</MaxGenerations>
+  <MaxGenerations>2500</MaxGenerations>
 
   <!-- NEAT -->
   <PopulationSize>300</PopulationSize>
@@ -36,7 +36,7 @@
 
   <ShortestPathTaskParams>
     <Iterations>300</Iterations>
-    <Graph type="Path" vertices="10" edges="15" seed="978654321" minpath="4" symmetricinstances="true" />
+    <Graph type="Path" vertices="4" seed="978654321" minpath="3" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
