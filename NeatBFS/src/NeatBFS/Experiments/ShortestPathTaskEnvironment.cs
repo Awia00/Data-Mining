@@ -24,21 +24,9 @@ namespace NeatBFS.Experiments
         public override int TotalTimeSteps => DistanceToArray[_startVertex];
         public override int MaxTimeSteps => DistanceToArray[_startVertex];
 
-        public override int NoveltyVectorLength
-        {
-            get
-            {
-                throw new Exception("novelty not implemented");
-            }
-        }
+        public override int NoveltyVectorLength => MaxTimeSteps;
 
-        public override int NoveltyVectorDimensions
-        {
-            get
-            {
-                throw new Exception("novelty not implemented");
-            }
-        }
+        public override int NoveltyVectorDimensions => 1;
 
         public override int MinimumCriteriaLength { get; } = 0;
         #endregion environment
@@ -81,6 +69,10 @@ namespace NeatBFS.Experiments
 
         protected double Evaluate(int current, int next)
         {
+            if (NoveltySearch.ScoreNovelty)
+            {
+                NoveltySearch.NoveltyVectors[current][0] = next;
+            }
             if (!Graph.HasEdge(current, next)) // took non edge
             {
                 return 0;
