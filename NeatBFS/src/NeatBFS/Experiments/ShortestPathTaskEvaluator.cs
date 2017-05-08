@@ -11,7 +11,7 @@ namespace NeatBFS.Experiments
     public class ShortestPathTaskEvaluator : TuringEvaluator<ShortestPathTaskEnvironment>
     {
         public override int Iterations => _iterations;
-        public override int MaxScore => 1;
+        public override int MaxScore { get; } = 1;
         public override int EnvironmentInputCount => _environmentInputCount;
         public override int EnvironmentOutputCount => _environmentOutputCount;
 
@@ -73,6 +73,12 @@ namespace NeatBFS.Experiments
         protected override void OnObjectiveEvaluationStart()
         {
             // Reset the environment. This will reset the random
+            Environment.ResetAll();
+        }
+
+        protected override void OnNoveltyEvaluationStart()
+        {
+            // Reset environment so random seed is reset
             Environment.ResetAll();
         }
     }
