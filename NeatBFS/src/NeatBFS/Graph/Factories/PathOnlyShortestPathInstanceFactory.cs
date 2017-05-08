@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace NeatBFS.Graph.Factories
@@ -40,14 +41,15 @@ namespace NeatBFS.Graph.Factories
                     from
                 };
 
+                IList<int> vertices = new List<int>(Enumerable.Range(0, Vertices));
+                vertices.Remove(from);
+                vertices.Remove(to);
                 while (path.Count < PathLength)
                 {
-                    int number;
-                    do
-                    {
-                        number = _random.Value.Next(Vertices);
-                    } while (number == to || path.Contains(number));
-                    path.Add(number);
+                    var index = _random.Value.Next(vertices.Count);
+                    var vertex = vertices[index];
+                    vertices.Remove(vertex);
+                    path.Add(vertex);
                 }
                 path.Add(to);
 
