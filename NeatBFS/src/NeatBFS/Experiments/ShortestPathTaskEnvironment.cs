@@ -25,7 +25,7 @@ namespace NeatBFS.Experiments
         public override int TotalTimeSteps => DistanceToArray[_startVertex];
         public override int MaxTimeSteps => DistanceToArray[_startVertex];
 
-        public override int NoveltyVectorLength => MaxTimeSteps;
+        public override int NoveltyVectorLength => Graph.NumberOfVertices;
 
         public override int NoveltyVectorDimensions => 1;
 

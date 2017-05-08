@@ -1,0 +1,5 @@
+Se om de bedste netværk overhovedet bruger turing hukommelse.
+
+Kør 3 runs med og uden hukommelse, og tegn en graf over hvor gode de er hver især. (gennemsnitlig, men sammenlign værdier fra de sidste generationer)
+
+Hvis ikke tingene virker, skal vi også gøre rede for "next steps".
