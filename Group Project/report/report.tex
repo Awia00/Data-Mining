@@ -57,10 +57,10 @@ In order to feed the instance into the network, we use a one hot encoding of the
 		\begin{tabular}{|c|c|c|c|c|}
 			\hline
 			&\textbf{1}&\textbf{2}&\textbf{3}&\textbf{4}\\\hline
-			\textbf{1}&0&1&0&1\\\hline
-			\textbf{2}&1&0&1&0\\\hline
+			\textbf{1}&0&1&0&0\\\hline
+			\textbf{2}&1&0&1&1\\\hline
 			\textbf{3}&0&1&0&1\\\hline
-			\textbf{4}&1&0&1&0\\\hline
+			\textbf{4}&0&1&1&0\\\hline
 		\end{tabular}
 	\end{subfigure}\par\bigskip
 	\begin{adjustbox}{center}
@@ -68,11 +68,11 @@ In order to feed the instance into the network, we use a one hot encoding of the
 			\centering
 			\begin{tabu}{|c|c|c|c||c|c|c|c||c|c|c|c||c|c|c|c|[2pt]c|c|c|c|[2pt]c|c|c|c|}
 				\hline
-				0&1&0&1&1&0&1&0&0&1&0&1&1&0&1&0&0&1&0&0&0&0&0&1\\\hline
+				0&1&0&0&1&0&1&1&0&1&0&1&0&1&1&0&1&0&0&0&0&0&0&1\\\hline
 			\end{tabu}
 		\end{subfigure}
 	\end{adjustbox}
-	\caption{Shows a simple graph, its adjancency matrix and an encoding where $s=2$ and $t=4$. Thick lines between cells means encoding of a new structure. The three structures are the flattened adjacency table, with each row delimited with double lines for visibility, the one-hot encoding of $s$, and the one-hot encoding of $t$}
+	\caption{Shows a simple graph, its adjancency matrix and an encoding where $s=1$ and $t=4$. Thick lines between cells means encoding of a new structure. The three structures are the flattened adjacency table, with each row delimited with double lines for visibility, the one-hot encoding of $s$, and the one-hot encoding of $t$}
 	\label{fig:input:encoding}
 \end{figure}
 

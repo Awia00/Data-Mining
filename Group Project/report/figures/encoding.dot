@@ -1,0 +1,6 @@
+graph G {
+	{rank=same;1;2;3;4;}
+	1[color=red]; 4[color=green];
+	1--2--3--4;
+	2--4;
+}
