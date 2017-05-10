@@ -1,6 +1,14 @@
 % !TeX spellcheck = en_GB
 \documentclass{article}
 
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{tabu}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+
 \author{Anders Wind Steffensen \& Mikael Lindemann}
 \title{Shortest Path in Undirected Unweighted Graphs using Evolvable Neural Turing Machine}
 
@@ -24,10 +32,54 @@ A \textit{one hot encoding} of a nominal data point, is a conversion of the data
 
 \subsection{Evolutionary Neural Networks}
 \subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
+
 \subsection{Evolvable Neural Turing Machine}
+
+
 \subsubsection{SharpNEAT extension}
 
 \section{Experiment}
+Given an unweighted undirected graph $G$, a source vertex $s$, and a target vertex $t$, find the shortest path from $s$ to $t$ in $G$.
+
+We have restricted the problem to instances where a path between $s$ and $t$ exists.
+
+\subsection{Instance encoding}
+In order to feed the instance into the network, we use a one hot encoding of the adjacency matrix of the graph and each of the source and target vertices. See \autoref{fig:input:encoding} for an example.
+
+\begin{figure}[hb]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[scale=.5]{figures/encoding.png}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			&\textbf{1}&\textbf{2}&\textbf{3}&\textbf{4}\\\hline
+			\textbf{1}&0&1&0&1\\\hline
+			\textbf{2}&1&0&1&0\\\hline
+			\textbf{3}&0&1&0&1\\\hline
+			\textbf{4}&1&0&1&0\\\hline
+		\end{tabular}
+	\end{subfigure}\par\bigskip
+	\begin{adjustbox}{center}
+		\begin{subfigure}{1.3\textwidth}
+			\centering
+			\begin{tabu}{|c|c|c|c||c|c|c|c||c|c|c|c||c|c|c|c|[2pt]c|c|c|c|[2pt]c|c|c|c|}
+				\hline
+				0&1&0&1&1&0&1&0&0&1&0&1&1&0&1&0&0&1&0&0&0&0&0&1\\\hline
+			\end{tabu}
+		\end{subfigure}
+	\end{adjustbox}
+	\caption{Shows a simple graph, its adjancency matrix and an encoding where $s=2$ and $t=4$. Thick lines between cells means encoding of a new structure. The three structures are the flattened adjacency table, with each row delimited with double lines for visibility, the one-hot encoding of $s$, and the one-hot encoding of $t$}
+	\label{fig:input:encoding}
+\end{figure}
+
+When the neural network using the turing machine returns output, this is a one-hot encoding of the next vertex on the path to the target.
+
+This means that we can run the graph through the neural network multiple times, and each time, the neural network will tell us which vertex to move to, which we can give it back as the new source vertex to move from.
+
 \section{Results}
 \section{Conclusion}
 \end{document}
