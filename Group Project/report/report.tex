@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_GB
 \documentclass{article}
 
 \author{Anders Wind Steffensen \& Mikael Lindemann}
@@ -9,10 +10,23 @@
 \newpage
 \section{Background}
 \subsection{Graphs}
-\subsubsection{Shortest Path}
-\subsection{NEAT}
+A \textit{graph} $G(V,E)$ is data-structure which consists of a set of \textit{vertices} $V$ and a set of \textit{edges} $E$ where an edge is a pair of vertices $(u,v)$. An \textit{undirected graph} implies that if edge $ (u,v) $ exists then $ (v,u) $ exists in the graph. An \textit{unweighted graph} every edge is equal in the cost to traverse it. 
+Two vertices are \textit{adjacent} if they are part of the same edge $ e $. A \textit{path} $ P $ is a ordered set of edges such that every consecutive edge shares a vertex. To vertices $ u $, $ v $ are \textit{connected} if there exist a path between $ u $, $ v $.
+
+In an undirected unweighted graph the length of a path P is $ |P| $. A shortest path between two vertices  $ u $, $ v $ is a path $ P $ connecting  $ u $, $ v $ of the smallest length. 
+
+\subsection{Neural Networks}
+A \textit{neural network} is an approximation method for n dimensional functions. Neural networks consists of a collection of \textit{layers} $ L_1 .. L_n $ where $ L_1 $ is the \textit{input layer} and $ L_2 ... L_{n-1} $ are \textit{hidden layers} and $ L_n $ is the \textit{output layer}. Each layer $ Li $ consist of a number of \textit{neurons}. A neuron is connected to other neurons in the layer before and after its own layer. Neurons can send signals to other neurons it is connected to. The strength of a signal is specified by a \textit{signal function} of a neuron. Neurons gets \textit{activated} and sends a signal if itself has become activated a \textit{threshold} amount by other neurons. The signal function is based on a \textit{formula}, a \textit{weight} and a \textit{bias}. 
+
+The \textit{feed forward algorithm} activates the neurons of the input layer based on some input data, whom in return activates the neurons of the next layer and so on. The values of the output layer is then read. The \textit{backpropagation algorithm} calculates the error of the output neurons compared to the input data and corrects it based on a function. The errors or then backpropagated through the layers. By running the feed forward and backpropagation algorithms in combination with enough data, almost any function can be approximated.
+
+A \textit{one hot encoding} of a nominal data point, is a conversion of the data point into a bit array $ A $ with the length of the range of possible nominal values. For a nominal value $ i $ only $ A[i] $ is $ 1 $.  
+
+\subsection{Evolutionary Neural Networks}
+\subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
 \subsection{Evolvable Neural Turing Machine}
 \subsubsection{SharpNEAT extension}
+
 \section{Experiment}
 \section{Results}
 \section{Conclusion}
