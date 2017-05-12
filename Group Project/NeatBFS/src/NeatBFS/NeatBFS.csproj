@@ -98,6 +98,9 @@
     <Content Include="Config\ShortestPathTask\cycle_with_leaf.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Config\ShortestPathTask\PathOnly\10vertices5edges.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Config\ShortestPathTask\PathOnly\4vertices3edges.xml">
       <SubType>Designer</SubType>
     </Content>

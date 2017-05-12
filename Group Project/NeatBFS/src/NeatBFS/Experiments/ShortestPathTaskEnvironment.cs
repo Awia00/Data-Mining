@@ -56,6 +56,7 @@ namespace NeatBFS.Experiments
             var next = GetMaxIndex(action);
             var observation = GetOutput(next);
             var thisScore = Evaluate(CurrentVertex, next);
+            //var thisScore = FuzzyEvaluate(CurrentVertex, action);
 
             _currentScore += thisScore;
 
@@ -68,29 +69,54 @@ namespace NeatBFS.Experiments
             return GetOutput(next);
         }
 
+        private double _nonEdgeThreshold = 0.1;
+        protected double FuzzyEvaluate(int current, double[] next)
+        {
+            if (NoveltySearch.ScoreNovelty)
+            {
+                NoveltySearch.NoveltyVectors[current][0] = GetMaxIndex(next);
+            }
+
+            double weightSum = 0, scoreSum = 0;
+            for (var i = 0; i < next.Length; i++)
+            {
+                weightSum += next[i];
+                var scoreMove = ScoreForMove(current, i);
+                if (scoreMove == 0 && next[i] > _nonEdgeThreshold)
+                    return 0;
+                scoreSum += scoreMove;
+            }
+            return scoreSum / (next.Length / weightSum);
+        }
+        
         protected double Evaluate(int current, int next)
         {
             if (NoveltySearch.ScoreNovelty)
             {
                 NoveltySearch.NoveltyVectors[current][0] = next;
             }
-            if (!Graph.HasEdge(current, next)) // took non edge
+            return ScoreForMove(current, next);
+        }
+
+        private int ScoreForMove(int current, int i)
+        {
+            if (!Graph.HasEdge(current, i)) // took non edge
             {
-                return 0;
+                return 0; 
             }
-            else if (DistanceToArray[next] > DistanceToArray[current]) // took an edge away from goal
+            if (DistanceToArray[i] > DistanceToArray[current]) // took an edge away from goal
             {
                 return 1;
             }
-            else if (DistanceToArray[next] == DistanceToArray[current]) // took an edge on the current fridge
+            if (DistanceToArray[i] == DistanceToArray[current]) // took an edge on the current fridge
             {
                 return 2;
             }
-            else if (DistanceToArray[next] < DistanceToArray[current]) // took an edge towards the goal.
+            if (DistanceToArray[i] < DistanceToArray[current]) // took an edge towards the goal.
             {
                 return 4;
             }
-            throw new Exception("Didn't make choice?");
+            throw new Exception("Should not get here aka no move");
         }
 
         private static int GetMaxIndex(double[] action)
