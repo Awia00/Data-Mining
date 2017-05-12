@@ -8,6 +8,7 @@
 \usepackage{tabu}
 \usepackage{subcaption}
 \usepackage{adjustbox}
+\usepackage{todonotes}
 
 \newcommand{\newpar}{\bigskip\noindent}
 
@@ -18,12 +19,15 @@
 \maketitle
 \tableofcontents
 \newpage
+\section{Introduction}
 \section{Background}
 \subsection{Graphs}
 A \textit{graph} $G(V,E)$ is data-structure which consists of a set of \textit{vertices} $V$ and a set of \textit{edges} $E$ where an edge is a pair of vertices $(u,v)$. An \textit{undirected graph} implies that if edge $ (u,v) $ exists then $ (v,u) $ exists in the graph. An \textit{unweighted graph} every edge is equal in the cost to traverse it. 
 Two vertices are \textit{adjacent} if they are part of the same edge $ e $. A \textit{path} $ P $ is a ordered set of edges such that every consecutive edge shares a vertex. To vertices $ u $, $ v $ are \textit{connected} if there exist a path between $ u $, $ v $.
 
-In an undirected unweighted graph the length of a path P is $ |P| $. A shortest path between two vertices  $ u $, $ v $ is a path $ P $ connecting  $ u $, $ v $ of the smallest length. 
+In an undirected unweighted graph the length of a path P is $ |P| $. A shortest path between two vertices  $ u $, $ v $ is a path $ P $ connecting  $ u $, $ v $ of the smallest length. The Breadth First Search (BFS) algorithm can find the shortest path in time $ \mathcal{O}(n+m) $ where $ n=|V| $ and $ m=|E| $. To be able to solve this combinatorial problem for which the exhaustive search space is $ n! $ the BFS algorithm uses a queue to store previously visited vertices and a map of the vertices and which vertex would come before it in the shortest path.
+
+\todo{why is memory neccesary or maybe further in}
 
 \subsection{Neural Networks}
 A \textit{neural network} is an approximation method for n dimensional functions. Neural networks consists of a collection of \textit{layers} $ L_1 .. L_n $ where $ L_1 $ is the \textit{input layer} and $ L_2 ... L_{n-1} $ are \textit{hidden layers} and $ L_n $ is the \textit{output layer}. Each layer $ Li $ consist of a number of \textit{neurons}. A neuron is connected to other neurons in the layer before and after its own layer. Neurons can send signals to other neurons it is connected to. The strength of a signal is specified by a \textit{signal function} of a neuron. Neurons gets \textit{activated} and sends a signal if itself has become activated a \textit{threshold} amount by other neurons. The signal function is based on a \textit{formula}, a \textit{weight} and a \textit{bias}. 
@@ -112,11 +116,25 @@ Furthermore, we give the score 0, if one step resulted in a move where no edge e
 
 The gist of these scores is that we want to reward neural networks that understand the underlying graph problem (or can at least guess them) more than a network that chooses arbitrarily.
 
-\subsection{The experiment}
-The experiment that we are performing
+\subsection{The Experiments}
+To assess and measure how well the shortest path problem is solved, two times three experiments are performed. The first three experiments uses the NEAT framework to train and build the neural networks. The last three experiments uses the ENTM extension of the NEAT framework and can therefore in addition approximate Neural Turing machines. The memory is unlimited (within the bounds of the host machine), the write vector size is 4 and the default jump mechanism introduced in \todo{ref ENTM} is used. 
 
-
+Both networks uses the exact same configuration for NEAT and the general problem to make it easier to compare the two. Each configuration uses 30 species with population of 500. Each genome is tested on 25 unique graphs per generation. The entire configuration can be seen in appendix \todo{appendix}. 
 
 \section{Results}
+The results of the experiments can be seen on figure \ref{experiments:graph:1}. The $ y $ axis shows the fitness of the champion whereas the $ x $ axis shows the generation. The experiments shown with blue represents the configuration without memory and those shown in red with memory. 
+
+\begin{figure}
+	\todo[inline]{TODO}
+	\caption{experiments:graph:1}
+	\label{Graph of the results}
+\end{figure}
+
+
+
+\subsubsection{Analysis}
+
+
+
 \section{Conclusion}
 \end{document}
