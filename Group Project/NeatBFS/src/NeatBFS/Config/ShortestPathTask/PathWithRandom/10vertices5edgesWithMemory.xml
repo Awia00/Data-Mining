@@ -195,7 +195,7 @@
   <!-- Evolution Algorithm Parameters -->
   <EAParams>
     <!-- Number of species in the population. Default: 10 -->
-    <SpecieCount>10</SpecieCount>
+    <SpecieCount>20</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
     <ElitismProportion>0.2</ElitismProportion>
