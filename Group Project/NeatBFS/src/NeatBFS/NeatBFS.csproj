@@ -123,6 +123,7 @@
     <Content Include="Config\ShortestPathTask\PathWithRandom\10vertices3path.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Config\ShortestPathTask\PathWithRandom\6vertices3path.xml" />
     <Content Include="Config\ShortestPathTask\random.xml">
       <SubType>Designer</SubType>
     </Content>
