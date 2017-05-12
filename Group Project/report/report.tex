@@ -9,6 +9,8 @@
 \usepackage{subcaption}
 \usepackage{adjustbox}
 
+\newcommand{\newpar}{\bigskip\noindent}
+
 \author{Anders Wind Steffensen (awis@itu.dk)\and Mikael Lindemann (mlin@itu.dk)\\\\Supervisor: Sebastian Risi (sebr@itu.dk)}
 \title{Shortest Path in Undirected Unweighted Graphs using Evolvable Neural Turing Machine}
 
@@ -74,9 +76,9 @@ In order to feed the instance into the network, we use a one hot encoding of the
 	\label{fig:input:encoding}
 \end{figure}
 
-When the neural network using the turing machine returns output, this is a one-hot encoding of the next vertex on the path to the target.
+\noindent When the neural network using the turing machine returns output, this is a one-hot encoding of the next vertex on the path to the target. Furthermore, for simplicity we choose the first node with maximal weight.
 
-This means that we can run the graph through the neural network multiple times, and each time, the neural network will tell us which vertex to move to, which we can give it back as the new source vertex to move from.
+\newpar This means that we can run the graph through the neural network multiple times, and each time, the neural network will tell us which vertex to move to, which we can give it back as the new source vertex to move from.
 
 \subsection{Instance generation}
 Each experiment has a few settings that can be chosen between.
@@ -97,7 +99,21 @@ The factory then chooses a source and a goal, and builds a path of the specified
 If there are any unused vertices left in the graph, they will become adjacent to some other vertex in the connected component of the path.
 The last part is implemented to try to confuse the neural networks, since the input is given to them as an adjacency matrix.
 
+\subsection{Fitness}
+We have chosen to give the following scores for the output of each step on the shortest path:
 
+\begin{itemize}
+	\item[1] if there is an edge from the current vertex to the chosen vertex, but the distance from the chosen vertex to the goal vertex is greater than from the current vertex to the goal vertex.
+	\item[2] if there is an edge from the current vertex to the chosen vertex, but the distance from the chosen vertex to the goal vertex is the same as from the current vertex to the goal vertex.
+	\item[4] if there is an edge from the current vertex to the chosen vertex, but the distance from the chosen vertex to the goal vertex is less than from the current vertex to the goal vertex.
+\end{itemize}
+
+Furthermore, we give the score 0, if one step resulted in a move where no edge exists. Also the accumulated score is reset to 0, and no further steps are performed.
+
+The gist of these scores is that we want to reward neural networks that understand the underlying graph problem (or can at least guess them) more than a network that chooses arbitrarily.
+
+\subsection{The experiment}
+The experiment that we are performing
 
 
 
