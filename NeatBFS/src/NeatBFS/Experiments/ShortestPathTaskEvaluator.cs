@@ -55,6 +55,15 @@ namespace NeatBFS.Experiments
 
                     _instanceFactory = new PathOnlyShortestPathInstanceFactory(vertices, pathLength, symmetricInstances, seed);
                     break;
+                case "pathwithrandom":
+                    vertices = int.Parse(graphConfig.GetAttribute("vertices"));
+
+                    pathLength = int.Parse(graphConfig.GetAttribute("minpath"));
+                    seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?)null;
+                    symmetricInstances = !graphConfig.HasAttribute("symmetricinstances") || bool.Parse(graphConfig.GetAttribute("symmetricinstances"));
+
+                    _instanceFactory = new PathWithRandomShortestPathInstanceFactory(vertices, pathLength, symmetricInstances, seed);
+                    break;
                 default:
                     throw new ConfigurationErrorsException();
             }

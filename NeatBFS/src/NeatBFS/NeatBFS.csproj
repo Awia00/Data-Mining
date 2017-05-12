@@ -74,6 +74,7 @@
     <Compile Include="Experiments\ShortestPathTaskExperiment.cs" />
     <Compile Include="Graph\AdjacencyMatrixGraph.cs" />
     <Compile Include="Graph\Factories\PathOnlyShortestPathInstanceFactory.cs" />
+    <Compile Include="Graph\Factories\PathWithRandomShortestPathInstanceFactory.cs" />
     <Compile Include="Graph\IGraph.cs" />
     <Compile Include="Graph\Factories\IShortestPathInstanceFactory.cs" />
     <Compile Include="Graph\Factories\RandomShortestPathInstanceFactory.cs" />
@@ -117,6 +118,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Config\ShortestPathTask\PathOnly\path.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ShortestPathTask\PathWithRandom\10vertices3path.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Config\ShortestPathTask\random.xml">
