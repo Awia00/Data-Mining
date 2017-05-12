@@ -2,7 +2,7 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths only (10,5)</Name>
+  <Name>Shortest Path Task With Paths only (10,5) with memory</Name>
 
   <!-- The fully qualified name of the experiment class -->
   <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
@@ -17,7 +17,7 @@
   <Comment>Size 1 objective</Comment>
 
   <!-- How many experiments will be performed (serially) -->
-  <ExperimentCount>1</ExperimentCount>
+  <ExperimentCount>3</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
   <MaxGenerations>10000</MaxGenerations>
@@ -49,13 +49,13 @@
     <N>-1</N>
 
     <!-- Write vector size -->
-    <M>4</M>
+    <M>10</M>
 
     <!-- If M > 1 this will initialize the values of the turing machine with a gradient from 0 to 1. Default = false -->
     <InitalizeWithGradient>false</InitalizeWithGradient>
 
     <!-- The turing machine vectors can have an initial values instead of a gradient. Default = 0-->
-    <InitalValue>0</InitalValue>
+    <InitalValue>0.1</InitalValue>
 
     <!-- Minimum similarity of the turing data vector to consider this location for a content jump -->
     <MinSimilarityToJump>0.5</MinSimilarityToJump>
@@ -174,7 +174,7 @@
     <Threshold>0.1</Threshold>
 
     <!-- CyclicRelax only -->
-    <MaxIters>5</MaxIters>
+    <MaxIters>6</MaxIters>
 
   </Activation>
 
@@ -195,7 +195,7 @@
   <!-- Evolution Algorithm Parameters -->
   <EAParams>
     <!-- Number of species in the population. Default: 10 -->
-    <SpecieCount>15</SpecieCount>
+    <SpecieCount>10</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
     <ElitismProportion>0.2</ElitismProportion>
