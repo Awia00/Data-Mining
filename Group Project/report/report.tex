@@ -48,7 +48,7 @@ In order to feed the instance into the network, we use a one hot encoding of the
 	\centering
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[scale=.5]{figures/encoding.png}
+		\includegraphics[width=\textwidth]{figures/encoding.png}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
 		\centering
@@ -77,6 +77,29 @@ In order to feed the instance into the network, we use a one hot encoding of the
 When the neural network using the turing machine returns output, this is a one-hot encoding of the next vertex on the path to the target.
 
 This means that we can run the graph through the neural network multiple times, and each time, the neural network will tell us which vertex to move to, which we can give it back as the new source vertex to move from.
+
+\subsection{Instance generation}
+Each experiment has a few settings that can be chosen between.
+A number of these settings are related to instance generation.
+
+We have made a factory that produces graphs containing a path of a specified length, but with the rest of the vertices connected to this path, in some fashion.
+
+The configurations that can be chosen between for this factory is the following:
+
+\begin{itemize}
+	\item The number of vertices of the graph
+	\item The length of the path that should be found in the graph
+	\item The seed of the random number generator that is used to produce instances
+	\item Whether or not the same graph should be used in symmetric instances, that is, one instance with a source and goal and another where they have been switched.
+\end{itemize}
+
+The factory then chooses a source and a goal, and builds a path of the specified length between them.
+If there are any unused vertices left in the graph, they will become adjacent to some other vertex in the connected component of the path.
+The last part is implemented to try to confuse the neural networks, since the input is given to them as an adjacency matrix.
+
+
+
+
 
 \section{Results}
 \section{Conclusion}
