@@ -26,7 +26,7 @@
   <PopulationSize>300</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
-  <LogInterval>4</LogInterval>
+  <LogInterval>10</LogInterval>
 
   <!-- Wether or not to use parallel or serial evaluation. Parallel is faster, but serial can be necessary for debugging -->
   <MultiThreading>true</MultiThreading>
@@ -165,7 +165,7 @@
          CyclicFixedIters:  Each iteration will iterate signals one step from input -> output.
          CyclicRelax:       Activate the network until all node output has remained unchanged between iterations within the threshold, 
                             or until the maximum iteration count is reached. -->
-    <Scheme>Acyclic</Scheme>
+    <Scheme>CyclicRelax</Scheme>
 
     <!-- CyclicFixedIters only -->
     <Iters>3</Iters>
