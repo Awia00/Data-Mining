@@ -102,6 +102,8 @@ namespace NeatBFS.Experiments
         {
             if (!Graph.HasEdge(current, i)) // took non edge
             {
+                _step = MaxTimeSteps;
+                _currentScore = 0;
                 return 0; 
             }
             if (DistanceToArray[i] > DistanceToArray[current]) // took an edge away from goal
