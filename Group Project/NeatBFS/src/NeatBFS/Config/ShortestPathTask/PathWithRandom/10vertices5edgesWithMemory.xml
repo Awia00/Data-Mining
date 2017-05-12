@@ -23,7 +23,7 @@
   <MaxGenerations>10000</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>300</PopulationSize>
+  <PopulationSize>500</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -35,7 +35,7 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>50</Iterations>
+    <Iterations>25</Iterations>
     <Graph type="PathWithRandom" vertices="10" seed="978654321" minpath="5" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
@@ -174,7 +174,7 @@
     <Threshold>0.1</Threshold>
 
     <!-- CyclicRelax only -->
-    <MaxIters>6</MaxIters>
+    <MaxIters>5</MaxIters>
 
   </Activation>
 
@@ -195,7 +195,7 @@
   <!-- Evolution Algorithm Parameters -->
   <EAParams>
     <!-- Number of species in the population. Default: 10 -->
-    <SpecieCount>20</SpecieCount>
+    <SpecieCount>30</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
     <ElitismProportion>0.2</ElitismProportion>
