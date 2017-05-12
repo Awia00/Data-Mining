@@ -36,7 +36,7 @@
 
   <ShortestPathTaskParams>
     <Iterations>50</Iterations>
-    <Graph type="Path" vertices="10" seed="978654321" minpath="5" symmetricinstances="true" />
+    <Graph type="PathWithRandom" vertices="10" seed="978654321" minpath="5" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
