@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ENTM.Base;
 using ENTM.Replay;
 using NeatBFS.Graph;
@@ -55,7 +54,7 @@ namespace NeatBFS.Experiments
             if (CurrentVertex == Goal) throw new Exception("Goal reached before step");
             var next = GetMaxIndex(action);
             var observation = GetOutput(next);
-            var thisScore = Evaluate(CurrentVertex, next);
+            var thisScore = Evaluate(CurrentVertex, next, action);
             //var thisScore = FuzzyEvaluate(CurrentVertex, action);
 
             _currentScore += thisScore;
@@ -68,28 +67,8 @@ namespace NeatBFS.Experiments
             _step++;
             return GetOutput(next);
         }
-
-        private double _nonEdgeThreshold = 0.1;
-        protected double FuzzyEvaluate(int current, double[] next)
-        {
-            if (NoveltySearch.ScoreNovelty)
-            {
-                NoveltySearch.NoveltyVectors[current][0] = GetMaxIndex(next);
-            }
-
-            double weightSum = 0, scoreSum = 0;
-            for (var i = 0; i < next.Length; i++)
-            {
-                weightSum += next[i];
-                var scoreMove = ScoreForMove(current, i);
-                if (scoreMove == 0 && next[i] > _nonEdgeThreshold)
-                    return 0;
-                scoreSum += scoreMove;
-            }
-            return scoreSum / (next.Length / weightSum);
-        }
         
-        protected double Evaluate(int current, int next)
+        protected virtual double Evaluate(int current, int next, double[] action)
         {
             if (NoveltySearch.ScoreNovelty)
             {
@@ -98,7 +77,7 @@ namespace NeatBFS.Experiments
             return ScoreForMove(current, next);
         }
 
-        private int ScoreForMove(int current, int i)
+        protected int ScoreForMove(int current, int i)
         {
             if (!Graph.HasEdge(current, i)) // took non edge
             {
@@ -119,7 +98,7 @@ namespace NeatBFS.Experiments
             throw new Exception("Should not get here aka no move");
         }
 
-        private static int GetMaxIndex(double[] action)
+        protected static int GetMaxIndex(double[] action)
         {
             var index = -1;
             var oneHotVal = double.NegativeInfinity;

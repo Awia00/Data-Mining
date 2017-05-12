@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experiments\FuzzyShortestPathTaskEnvironment.cs" />
     <Compile Include="Experiments\ShortestPathTaskEnvironment.cs" />
     <Compile Include="Experiments\ShortestPathTaskEvaluator.cs" />
     <Compile Include="Experiments\ShortestPathTaskExperiment.cs" />
