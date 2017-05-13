@@ -20,6 +20,14 @@
 \tableofcontents
 \newpage
 \section{Introduction}
+Finding the shortest path in a graph is one of the most well studied algorithmic graph problems and solutions for the problem origin back to the late 1950's. Finding the shortest path has a long list of applications from transport and routing tables in networks to being an essential part of many more advanced graph algorithms. Most problems can be modelled as a shortest path problem on a large enough graph and as such it can be seen as a general problem solver(\todo{check liiiige om det her er bullshit}). In recent years neural networks has gained more and more traction in the artificial intelligence and machine learning areas. This change is both due to the more widespread adoption and advancement of graphical processing units but also due to theoretical breakthroughs. Neural networks are used for classification, finding heuristics and as the decision mechanism for artificial agents among others.
+
+One of the most often mentioned problems with neural networks and machine learning in general is that they are inherently single purpose and do not handle different problems and domains very well from what they are trained to do.
+
+With the introduction of neural networks with memory more domains should be feasible solvable. In X article a neural differentiable computer was shown to be able to find the shortest path in the London underground by using memory to store variables and information about the graph.
+
+In this report we want to examine how well these neural networks with memory can handle the shortest path problem on undirected, unweigthed general graphs. 
+
 \section{Background}
 \subsection{Graphs}
 A \textit{graph} $G(V,E)$ is data-structure which consists of a set of \textit{vertices} $V$ and a set of \textit{edges} $E$ where an edge is a pair of vertices $(u,v)$. An \textit{undirected graph} implies that if edge $ (u,v) $ exists then $ (v,u) $ exists in the graph. An \textit{unweighted graph} every edge is equal in the cost to traverse it. 
@@ -37,6 +45,7 @@ The \textit{feed forward algorithm} activates the neurons of the input layer bas
 A \textit{one hot encoding} of a nominal data point, is a conversion of the data point into a bit array $ A $ with the length of the range of possible nominal values. For a nominal value $ i $ only $ A[i] $ is $ 1 $.  
 
 \subsection{Evolutionary Neural Networks}
+Evolutionary neural networks is a method of training and building neural networks based on evolutionary algorithms. These networks can be trained without having specific input and expected outputs but by specifying a fitness function which describes how well the network does in the specific instance. 
 
 \subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
 
