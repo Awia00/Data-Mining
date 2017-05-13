@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Xml;
 using ENTM.TuringMachine;
 using NeatBFS.Graph;
@@ -8,7 +7,7 @@ using SharpNeat.Domains;
 
 namespace NeatBFS.Experiments
 {
-    public class ShortestPathTaskEvaluator : TuringEvaluator<ShortestPathTaskEnvironment>
+    public class MultiStepShortestPathTaskEvaluator : TuringEvaluator<MultiStepShortestPathTaskEnvironment>
     {
         public override int Iterations => _iterations;
         public override int MaxScore { get; } = 1;
@@ -41,7 +40,9 @@ namespace NeatBFS.Experiments
                     pathLength = int.Parse(graphConfig.GetAttribute("minpath"));
                     seed = graphConfig.HasAttribute("seed") ? int.Parse(graphConfig.GetAttribute("seed")) : (int?) null;
 
-                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, pathLength, seed);
+                    if (seed != null) Environment.RandomSeed = seed.Value;
+
+                    _instanceFactory = new RandomShortestPathInstanceFactory(vertices, edges, pathLength, Environment.SealedRandom);
                     break;
                 case "manual":
                     _instanceFactory = new ManualShortestPathInstanceFactory(AdjacencyMatrixGraph.Parse(graphConfig));
@@ -70,13 +71,13 @@ namespace NeatBFS.Experiments
 
             var n = _instanceFactory.Vertices;
 
-            _environmentOutputCount = n*n + 2*n;
+            _environmentOutputCount = 4 * n;
             _environmentInputCount = n;
         }
         
-        protected override ShortestPathTaskEnvironment NewEnvironment()
+        protected override MultiStepShortestPathTaskEnvironment NewEnvironment()
         {
-            return new ShortestPathTaskEnvironment(_instanceFactory);
+            return new MultiStepShortestPathTaskEnvironment(_instanceFactory);
         }
 
         protected override void OnObjectiveEvaluationStart()

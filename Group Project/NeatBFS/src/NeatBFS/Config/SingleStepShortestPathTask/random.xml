@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Cycle</Name>
+  <Name>Shortest Path Task With Random</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -17,13 +17,13 @@
   <Comment>Size 1 objective</Comment>
 
   <!-- How many experiments will be performed (serially) -->
-  <ExperimentCount>4</ExperimentCount>
+  <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
   <MaxGenerations>100</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>100</PopulationSize>
+  <PopulationSize>500</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -36,20 +36,7 @@
 
   <ShortestPathTaskParams>
     <Iterations>100</Iterations>
-    <Graph type="Manual" vertices="11">
-      <Edge from="0" to="1" />
-      <Edge from="1" to="2" />
-      <Edge from="2" to="3" />
-      <Edge from="3" to="4" />
-      <Edge from="4" to="5" />
-      <Edge from="5" to="6" />
-      <Edge from="6" to="7" />
-      <Edge from="7" to="8" />
-      <Edge from="8" to="9" />
-      <Edge from="9" to="0" />
-      <Edge from="2" to="7" />
-      <Edge from="6" to="10" />
-    </Graph>
+    <Graph type="Random" vertices="10" edges="14" seed="34628936" minpath="5" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -93,7 +80,7 @@
         Interpolate: Turing machine will interpolate between the write vector and the content already stored at the position.
         Overwrite: Turing machine will overwrite if output is >= 0.5, otherwise it will not write.
     -->
-    <WriteMode>Interpolate</WriteMode>
+    <WriteMode>Overwrite</WriteMode>
 
   </TuringMachineParams>
 
@@ -197,10 +184,10 @@
     <!-- "Absolute" or "Relative"
        Absolute: Defines an absolute ceiling on complexity.
        Relative: Defines a relative ceiling on complexity. E.g. relative to the complexity at the end of the most recent simplification phase. -->
-    <ComplexityRegulationStrategy>Relative</ComplexityRegulationStrategy>
+    <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
 
     <!-- The complexity ceiling. When complexity reaches this threshold, the algorithm will switch from complexifying to simplification -->
-    <ComplexityThreshold>25</ComplexityThreshold>
+    <ComplexityThreshold>2370</ComplexityThreshold>
 
   </ComplexityRegulation>
 
@@ -211,7 +198,7 @@
     <SpecieCount>10</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
-    <ElitismProportion>0.2</ElitismProportion>
+    <ElitismProportion>0.02</ElitismProportion>
 
     <!-- We sort specie genomes by fitness and select parent genomes for producing offspring from the top N%. 
          Selection is performed prior to elitism being applied, therefore selecting from more genomes than will be made elite is possible. Default: 0.2 -->
@@ -233,27 +220,27 @@
   <GenomeParams>
     <!-- The connection weight range to use in NEAT genomes. E.g. a value of 5 defines a weight range of -5 to 5. 
          The weight range is strictly enforced - e.g. when creating new connections and mutating existing ones. Default: 5.0 -->
-    <ConnectionWeightRange>5.0</ConnectionWeightRange>
+    <ConnectionWeightRange>10.0</ConnectionWeightRange>
 
     <!-- A proportion that specifies the number of interconnections to make between input and output neurons in an initial random population. 
          This is a proportion of the total number of possible interconnections. Default: 0.05 -->
-    <InitialInterconnectionsProportion>0.05</InitialInterconnectionsProportion>
+    <InitialInterconnectionsProportion>1</InitialInterconnectionsProportion>
 
     <!-- The probability that all excess and disjoint genes are copied into an offspring genome during sexual reproduction. 
          Currently the execss/disjoint genes are copied in an all or nothing strategy. Default: 0.1 -->
-    <DisjointExcessGenesRecombinedProbability>0.1</DisjointExcessGenesRecombinedProbability>
+    <DisjointExcessGenesRecombinedProbability>1</DisjointExcessGenesRecombinedProbability>
 
     <!-- The probability that a genome mutation operates on genome connection weights. Default: 0.988 -->
     <ConnectionWeightMutationProbability>0.988</ConnectionWeightMutationProbability>
 
     <!-- The probability that a genome mutation is an 'add node' mutation. Default: 0.001 -->
-    <AddNodeMutationProbability>0.0001</AddNodeMutationProbability>
+    <AddNodeMutationProbability>0.0005</AddNodeMutationProbability>
 
     <!-- The probability that a genome mutation is an 'add connection' mutation. Default: 0.01 -->
-    <AddConnectionMutationProbability>0.01</AddConnectionMutationProbability>
+    <AddConnectionMutationProbability>0.09</AddConnectionMutationProbability>
 
     <!-- The probability that a genome mutation is a 'delete connection' mutation. Default: 0.001 -->
-    <DeleteConnectionMutationProbability>0.001</DeleteConnectionMutationProbability>
+    <DeleteConnectionMutationProbability>0.05</DeleteConnectionMutationProbability>
   </GenomeParams>
 
 </Config>

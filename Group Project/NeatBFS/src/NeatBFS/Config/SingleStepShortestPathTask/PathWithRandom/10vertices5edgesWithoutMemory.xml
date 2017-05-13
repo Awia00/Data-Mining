@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths only (4,2)</Name>
+  <Name>Shortest Path Task With Paths only (10,5) with memory</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -17,13 +17,13 @@
   <Comment>Size 1 objective</Comment>
 
   <!-- How many experiments will be performed (serially) -->
-  <ExperimentCount>2</ExperimentCount>
+  <ExperimentCount>3</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>-1</MaxGenerations>
+  <MaxGenerations>10000</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>300</PopulationSize>
+  <PopulationSize>500</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -35,27 +35,27 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>300</Iterations>
-    <Graph type="Path" vertices="4" seed="978654321" minpath="2" symmetricinstances="true" />
+    <Iterations>25</Iterations>
+    <Graph type="PathWithRandom" vertices="10" seed="978654321" minpath="5" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
   <TuringMachineParams>
 
     <!-- If set to false, the Turing machine will always return a 0 vector -->
-    <Enabled>true</Enabled>
+    <Enabled>false</Enabled>
 
     <!-- Maximum memory size (-1 for unlimited) -->
     <N>-1</N>
 
     <!-- Write vector size -->
-    <M>4</M>
+    <M>10</M>
 
     <!-- If M > 1 this will initialize the values of the turing machine with a gradient from 0 to 1. Default = false -->
     <InitalizeWithGradient>false</InitalizeWithGradient>
 
     <!-- The turing machine vectors can have an initial values instead of a gradient. Default = 0-->
-    <InitalValue>0</InitalValue>
+    <InitalValue>0.1</InitalValue>
 
     <!-- Minimum similarity of the turing data vector to consider this location for a content jump -->
     <MinSimilarityToJump>0.5</MinSimilarityToJump>
@@ -71,7 +71,7 @@
 
     <!-- A extra memory location is maintained with the initial values at the end of the tape. If the machine write to this location, a new one is created.
 		This can be used to give the tm an option to always have a place to jump to create new memories. Default = false -->
-    <UseMemoryExpandLocation>false</UseMemoryExpandLocation>
+    <UseMemoryExpandLocation>true</UseMemoryExpandLocation>
 
     <!-- Similarity threshold to check if a write operation changed the values at a location Default = 0.9 -->
     <DidWriteThreshold>0.9</DidWriteThreshold>
@@ -96,7 +96,7 @@
       WritePatternAndInterp:  Use write position and interp as novelty vector.
       ShiftJumpInterp:        Shift, jump and interp for novelty vector
       -->
-    <NoveltyVector>ShiftJumpInterp</NoveltyVector>
+    <NoveltyVector>EnvironmentAction</NoveltyVector>
 
     <!-- The minimum novelty score an individual must achieve to be entered into the archive. -->
     <PMin>15</PMin>
@@ -165,7 +165,7 @@
          CyclicFixedIters:  Each iteration will iterate signals one step from input -> output.
          CyclicRelax:       Activate the network until all node output has remained unchanged between iterations within the threshold, 
                             or until the maximum iteration count is reached. -->
-    <Scheme>Acyclic</Scheme>
+    <Scheme>CyclicRelax</Scheme>
 
     <!-- CyclicFixedIters only -->
     <Iters>3</Iters>
@@ -195,10 +195,10 @@
   <!-- Evolution Algorithm Parameters -->
   <EAParams>
     <!-- Number of species in the population. Default: 10 -->
-    <SpecieCount>10</SpecieCount>
+    <SpecieCount>30</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
-    <ElitismProportion>0.02</ElitismProportion>
+    <ElitismProportion>0.2</ElitismProportion>
 
     <!-- We sort specie genomes by fitness and select parent genomes for producing offspring from the top N%. 
          Selection is performed prior to elitism being applied, therefore selecting from more genomes than will be made elite is possible. Default: 0.2 -->
@@ -220,27 +220,27 @@
   <GenomeParams>
     <!-- The connection weight range to use in NEAT genomes. E.g. a value of 5 defines a weight range of -5 to 5. 
          The weight range is strictly enforced - e.g. when creating new connections and mutating existing ones. Default: 5.0 -->
-    <ConnectionWeightRange>10.0</ConnectionWeightRange>
+    <ConnectionWeightRange>5.0</ConnectionWeightRange>
 
     <!-- A proportion that specifies the number of interconnections to make between input and output neurons in an initial random population. 
          This is a proportion of the total number of possible interconnections. Default: 0.05 -->
-    <InitialInterconnectionsProportion>1</InitialInterconnectionsProportion>
+    <InitialInterconnectionsProportion>0.05</InitialInterconnectionsProportion>
 
     <!-- The probability that all excess and disjoint genes are copied into an offspring genome during sexual reproduction. 
          Currently the execss/disjoint genes are copied in an all or nothing strategy. Default: 0.1 -->
-    <DisjointExcessGenesRecombinedProbability>1</DisjointExcessGenesRecombinedProbability>
+    <DisjointExcessGenesRecombinedProbability>0.1</DisjointExcessGenesRecombinedProbability>
 
     <!-- The probability that a genome mutation operates on genome connection weights. Default: 0.988 -->
     <ConnectionWeightMutationProbability>0.988</ConnectionWeightMutationProbability>
 
     <!-- The probability that a genome mutation is an 'add node' mutation. Default: 0.001 -->
-    <AddNodeMutationProbability>0.0005</AddNodeMutationProbability>
+    <AddNodeMutationProbability>0.001</AddNodeMutationProbability>
 
     <!-- The probability that a genome mutation is an 'add connection' mutation. Default: 0.01 -->
-    <AddConnectionMutationProbability>0.09</AddConnectionMutationProbability>
+    <AddConnectionMutationProbability>0.01</AddConnectionMutationProbability>
 
     <!-- The probability that a genome mutation is a 'delete connection' mutation. Default: 0.001 -->
-    <DeleteConnectionMutationProbability>0.05</DeleteConnectionMutationProbability>
+    <DeleteConnectionMutationProbability>0.001</DeleteConnectionMutationProbability>
   </GenomeParams>
 
 </Config>

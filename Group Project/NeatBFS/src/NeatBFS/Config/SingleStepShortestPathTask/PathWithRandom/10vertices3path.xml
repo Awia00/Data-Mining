@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths and Random (6,3)</Name>
+  <Name>Shortest Path Task With Paths and Random (10,3)</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,13 +20,13 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>10000</MaxGenerations>
+  <MaxGenerations>2500</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>50</PopulationSize>
+  <PopulationSize>300</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
-  <LogInterval>25</LogInterval>
+  <LogInterval>1</LogInterval>
 
   <!-- Wether or not to use parallel or serial evaluation. Parallel is faster, but serial can be necessary for debugging -->
   <MultiThreading>true</MultiThreading>
@@ -36,7 +36,7 @@
 
   <ShortestPathTaskParams>
     <Iterations>100</Iterations>
-    <Graph type="PathWithRandom" vertices="6" seed="978654321" minpath="3" symmetricinstances="true" />
+    <Graph type="PathWithRandom" vertices="10" seed="978654321" minpath="3" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->

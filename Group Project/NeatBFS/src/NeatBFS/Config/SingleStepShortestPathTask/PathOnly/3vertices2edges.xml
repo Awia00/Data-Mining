@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Random</Name>
+  <Name>Shortest Path Task With Paths only (3,2)</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,10 +20,10 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>100</MaxGenerations>
+  <MaxGenerations>-1</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>500</PopulationSize>
+  <PopulationSize>300</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -35,8 +35,8 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>100</Iterations>
-    <Graph type="Random" vertices="10" edges="14" seed="34628936" minpath="5" />
+    <Iterations>300</Iterations>
+    <Graph type="Path" vertices="3" seed="978654321" minpath="2" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -80,7 +80,7 @@
         Interpolate: Turing machine will interpolate between the write vector and the content already stored at the position.
         Overwrite: Turing machine will overwrite if output is >= 0.5, otherwise it will not write.
     -->
-    <WriteMode>Overwrite</WriteMode>
+    <WriteMode>Interpolate</WriteMode>
 
   </TuringMachineParams>
 
@@ -184,10 +184,10 @@
     <!-- "Absolute" or "Relative"
        Absolute: Defines an absolute ceiling on complexity.
        Relative: Defines a relative ceiling on complexity. E.g. relative to the complexity at the end of the most recent simplification phase. -->
-    <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+    <ComplexityRegulationStrategy>Relative</ComplexityRegulationStrategy>
 
     <!-- The complexity ceiling. When complexity reaches this threshold, the algorithm will switch from complexifying to simplification -->
-    <ComplexityThreshold>2370</ComplexityThreshold>
+    <ComplexityThreshold>25</ComplexityThreshold>
 
   </ComplexityRegulation>
 

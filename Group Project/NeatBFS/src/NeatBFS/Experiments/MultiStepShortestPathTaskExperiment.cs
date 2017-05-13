@@ -3,7 +3,7 @@ using ENTM.TuringMachine;
 
 namespace NeatBFS.Experiments
 {
-    public class ShortestPathTaskExperiment : BaseExperiment<ShortestPathTaskEvaluator, ShortestPathTaskEnvironment, TuringController>
+    public class MultiStepShortestPathTaskExperiment : BaseExperiment<MultiStepShortestPathTaskEvaluator, MultiStepShortestPathTaskEnvironment, TuringController>
     {
         public override int EnvironmentInputCount => _evaluator.EnvironmentInputCount;
         public override int EnvironmentOutputCount => _evaluator.EnvironmentOutputCount;

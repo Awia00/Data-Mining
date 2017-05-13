@@ -18,6 +18,14 @@ namespace NeatBFS.Graph.Factories
             _random = seed.HasValue ? new Random(seed.Value) : new Random();
         }
 
+        public RandomShortestPathInstanceFactory(int vertices, int edges, int minPathLength, Random random)
+        {
+            Vertices = vertices;
+            Edges = edges;
+            MinPathLength = minPathLength;
+            _random = random;
+        }
+
         public IEnumerable<ShortestPathTaskInstance> GenerateInstances()
         {
             // Generate graph.

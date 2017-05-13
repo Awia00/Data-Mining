@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ENTM.Base;
 using ENTM.Replay;
 using NeatBFS.Graph;
@@ -7,26 +8,26 @@ using NeatBFS.Graph.Factories;
 
 namespace NeatBFS.Experiments
 {
-    public class ShortestPathTaskEnvironment : BaseEnvironment
+    public class MultiStepShortestPathTaskEnvironment : BaseEnvironment
     {
         #region environment
         public override IController Controller { get; set; }
         public override int InputCount => Graph.NumberOfVertices;
-        public override int OutputCount => Graph.NumberOfVertices * Graph.NumberOfVertices + 2 * Graph.NumberOfVertices;
-        public override double[] InitialObservation => GetOutput(_startVertex);
+        public override int OutputCount => 4 * Graph.NumberOfVertices; // One hot of vertex | many-hots of neighbors | one hot of goal | one hot of current.
+        public override double[] InitialObservation => new double[OutputCount];
         private double _currentScore;
         public override double CurrentScore => _currentScore;
 
-        public override double MaxScore => DistanceToArray[_startVertex]*4;
+        public override double MaxScore => DistanceToArray[_startVertex] * 4;
 
         public override double NormalizedScore => CurrentScore / MaxScore;
         public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
-        public override int TotalTimeSteps => DistanceToArray[_startVertex];
-        public override int MaxTimeSteps => DistanceToArray[_startVertex];
+        public override int TotalTimeSteps => 2 * Graph.NumberOfVertices + DistanceToArray[_startVertex] + 1;
+        public override int MaxTimeSteps => TotalTimeSteps;
 
-        public override int NoveltyVectorLength => Graph.NumberOfVertices;
+        public override int NoveltyVectorLength => TotalTimeSteps;
 
-        public override int NoveltyVectorDimensions => 1;
+        public override int NoveltyVectorDimensions => InputCount;
 
         public override int MinimumCriteriaLength { get; } = 0;
         #endregion environment
@@ -35,14 +36,14 @@ namespace NeatBFS.Experiments
 
         private readonly IShortestPathInstanceFactory _instanceFactory;
         public IGraph Graph => Current.Graph;
-        public double[] EncodedGraph { get; set; }
+        public double[][] EncodedGraph { get; set; }
         public int[] DistanceToArray { get; set; }
         public int Goal => Current.Goal;
         public int CurrentVertex { get; set; }
         private int _startVertex;
         #endregion graph
 
-        public ShortestPathTaskEnvironment(IShortestPathInstanceFactory instanceFactory)
+        public MultiStepShortestPathTaskEnvironment(IShortestPathInstanceFactory instanceFactory)
         {
             _instanceFactory = instanceFactory;
 
@@ -51,30 +52,66 @@ namespace NeatBFS.Experiments
 
         public override double[] PerformAction(double[] action)
         {
-            if (CurrentVertex == Goal) throw new Exception("Goal reached before step");
-            var next = GetMaxIndex(action);
-            var observation = GetOutput(next);
-            var thisScore = Evaluate(CurrentVertex, next, action);
-            //var thisScore = FuzzyEvaluate(CurrentVertex, action);
-
-            _currentScore += thisScore;
-
-            if (RecordTimeSteps)
+            double[] output;
+            if (_step < Graph.NumberOfVertices) // Training / Graph phase
             {
-                PrevTimeStep = new EnvironmentTimeStep(action, observation, thisScore);
+                output = new double[OutputCount];
+                output[_step] = 1d; // v
+                EncodedGraph[_step].CopyTo(output, Graph.NumberOfVertices); // neighbors of v
+                output[2 * Graph.NumberOfVertices + Goal] = 1d; // goal
             }
-            CurrentVertex = next;
+            else if (_step < 2 * Graph.NumberOfVertices) // Training / Goal phase
+            {
+                output = new double[OutputCount];
+                output[2 * Graph.NumberOfVertices + Goal] = 1d;
+            }
+            else if (_step == 2 * Graph.NumberOfVertices) // separator
+            {
+                output = InitialObservation;
+            }
+            else if (_step == 2 * Graph.NumberOfVertices + 1) // first instance
+            {
+                output = GetOutput(_startVertex);
+            }
+            else // Test phase
+            {
+                if (CurrentVertex == Goal) throw new Exception("Goal reached before step");
+                var next = GetMaxIndex(action);
+                var observation = GetOutput(next);
+                var thisScore = Evaluate(CurrentVertex, next, action);
+
+                _currentScore += thisScore;
+
+                if (RecordTimeSteps)
+                {
+                    PrevTimeStep = new EnvironmentTimeStep(action, observation, thisScore);
+                }
+                CurrentVertex = next;
+                output = observation;
+            }
+
             _step++;
-            return GetOutput(next);
+            return output;
         }
-        
+
+        private double[] GetOutput(int current)
+        {
+            var output = new double[OutputCount];
+            output[Graph.NumberOfVertices * 3 + current] = 1;
+
+            return output;
+        }
+
         protected virtual double Evaluate(int current, int next, double[] action)
         {
+            var step = _step; // step might be reset by score for move.
+            var score = ScoreForMove(current, next);
+
             if (NoveltySearch.ScoreNovelty)
             {
-                NoveltySearch.NoveltyVectors[current][0] = next;
+                NoveltySearch.NoveltyVectors[step][0] = next;
             }
-            return ScoreForMove(current, next);
+            return score;
         }
 
         protected int ScoreForMove(int current, int i)
@@ -83,7 +120,7 @@ namespace NeatBFS.Experiments
             {
                 _step = MaxTimeSteps;
                 _currentScore = 0;
-                return 0; 
+                return 0;
             }
             if (DistanceToArray[i] > DistanceToArray[current]) // took an edge away from goal
             {
@@ -119,19 +156,6 @@ namespace NeatBFS.Experiments
 
         public override int RandomSeed { get; set; }
 
-        protected double[] GetOutput(int source)
-        {
-            var n = Graph.NumberOfVertices;
-            var arr = new double[n*n + 2*n];
-            
-            EncodedGraph.CopyTo(arr, 0);
-            arr[n * n + source] = 1d;
-            arr[n * n + n + Goal] = 1d;
-
-            return arr;
-        }
-
-        
         /// <summary>
         /// Move the agent back to start for a new round of evaluation (can be different from the previous state).
         /// </summary>
@@ -148,7 +172,8 @@ namespace NeatBFS.Experiments
 
             _seenInstances.Add(Current);
 
-            EncodedGraph = Graph.EncodedGraph;
+            EncodedGraph = Graph.EncodedAdjacencyMatrix;
+
             DistanceToArray = Graph.DistanceToArray(Goal);
             _startVertex = Current.Source;
 

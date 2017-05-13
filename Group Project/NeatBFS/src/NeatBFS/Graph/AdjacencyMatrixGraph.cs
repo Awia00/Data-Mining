@@ -2,41 +2,60 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Xml;
-using SharpNeat.Domains;
 
 namespace NeatBFS.Graph
 {
     public class AdjacencyMatrixGraph : IGraph
     {
-        public bool[,] AdjacencyMatrix { get; }
+        private readonly bool[,] _adjacencyMatrix;
+        private readonly Lazy<double[][]> _encodedAdjMatrix;
         public int NumberOfVertices { get; }
+        public double[][] EncodedAdjacencyMatrix => _encodedAdjMatrix.Value;
 
         public AdjacencyMatrixGraph(int size)
         {
-            AdjacencyMatrix = new bool[size,size];
+            _adjacencyMatrix = new bool[size,size];
             NumberOfVertices = size;
+
+            _encodedAdjMatrix = new Lazy<double[][]>(() =>
+            {
+                var output = new double[NumberOfVertices][];
+
+                for (var i = 0; i < output.Length; i++)
+                {
+                    output[i] = new double[NumberOfVertices];
+
+                    for (var j = 0; j < NumberOfVertices; j++)
+                    {
+                        output[i][j] = _adjacencyMatrix[i, j] ? 1d : 0d;
+                    }
+                }
+
+                return output;
+            }, LazyThreadSafetyMode.ExecutionAndPublication);
         }
 
         public void AddEdge(int u, int v)
         {
             Debug.Assert(u < NumberOfVertices);
             Debug.Assert(v < NumberOfVertices);
-            AdjacencyMatrix[u, v] = true;
-            AdjacencyMatrix[v, u] = true;
+            _adjacencyMatrix[u, v] = true;
+            _adjacencyMatrix[v, u] = true;
         }
 
         public void RemoveEdge(int u, int v)
         {
             Debug.Assert(u < NumberOfVertices);
             Debug.Assert(v < NumberOfVertices);
-            AdjacencyMatrix[u, v] = false;
-            AdjacencyMatrix[v, u] = false;
+            _adjacencyMatrix[u, v] = false;
+            _adjacencyMatrix[v, u] = false;
         }
 
         public bool HasEdge(int u, int v)
         {
-            return AdjacencyMatrix[u, v];
+            return _adjacencyMatrix[u, v];
         }
 
         private IEnumerable<int> Neighbours(int u)
@@ -44,7 +63,7 @@ namespace NeatBFS.Graph
             var result = new List<int>();
             for (var i = 0; i < NumberOfVertices; i++)
             {
-                if (AdjacencyMatrix[u, i])
+                if (_adjacencyMatrix[u, i])
                 {
                     result.Add(i);
                 }
@@ -92,7 +111,7 @@ namespace NeatBFS.Graph
                 {
                     for (var j = 0; j < NumberOfVertices; j++)
                     {
-                        arr[i * NumberOfVertices + j] = AdjacencyMatrix[i, j] ? 1d : 0d;
+                        arr[i * NumberOfVertices + j] = _adjacencyMatrix[i, j] ? 1d : 0d;
                     }
                 }
                 return arr;

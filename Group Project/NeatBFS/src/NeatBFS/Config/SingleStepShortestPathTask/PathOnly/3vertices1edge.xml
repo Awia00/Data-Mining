@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths and Random (10,3)</Name>
+  <Name>Shortest Path Task With Paths only (3,1)</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,13 +20,13 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>2500</MaxGenerations>
+  <MaxGenerations>-1</MaxGenerations>
 
   <!-- NEAT -->
   <PopulationSize>300</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
-  <LogInterval>1</LogInterval>
+  <LogInterval>10</LogInterval>
 
   <!-- Wether or not to use parallel or serial evaluation. Parallel is faster, but serial can be necessary for debugging -->
   <MultiThreading>true</MultiThreading>
@@ -35,8 +35,8 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>100</Iterations>
-    <Graph type="PathWithRandom" vertices="10" seed="978654321" minpath="3" symmetricinstances="true" />
+    <Iterations>300</Iterations>
+    <Graph type="Path" vertices="3" seed="978654321" minpath="1" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -96,7 +96,7 @@
       WritePatternAndInterp:  Use write position and interp as novelty vector.
       ShiftJumpInterp:        Shift, jump and interp for novelty vector
       -->
-    <NoveltyVector>EnvironmentAction</NoveltyVector>
+    <NoveltyVector>ShiftJumpInterp</NoveltyVector>
 
     <!-- The minimum novelty score an individual must achieve to be entered into the archive. -->
     <PMin>15</PMin>

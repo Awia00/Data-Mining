@@ -70,9 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Experiments\FuzzyShortestPathTaskEnvironment.cs" />
-    <Compile Include="Experiments\ShortestPathTaskEnvironment.cs" />
-    <Compile Include="Experiments\ShortestPathTaskEvaluator.cs" />
-    <Compile Include="Experiments\ShortestPathTaskExperiment.cs" />
+    <Compile Include="Experiments\MultiStepShortestPathTaskEnvironment.cs" />
+    <Compile Include="Experiments\MultiStepShortestPathTaskExperiment.cs" />
+    <Compile Include="Experiments\SingleStepShortestPathTaskEnvironment.cs" />
+    <Compile Include="Experiments\MultiStepShortestPathTaskEvaluator.cs" />
+    <Compile Include="Experiments\SingleStepShortestPathTaskEvaluator.cs" />
+    <Compile Include="Experiments\SingleStepShortestPathTaskExperiment.cs" />
     <Compile Include="Graph\AdjacencyMatrixGraph.cs" />
     <Compile Include="Graph\Factories\PathOnlyShortestPathInstanceFactory.cs" />
     <Compile Include="Graph\Factories\PathWithRandomShortestPathInstanceFactory.cs" />
@@ -97,44 +100,47 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Config\ShortestPathTask\cycle_with_leaf.xml">
+    <Content Include="Config\MultiStepShortestPathTask\10vertices5pathnomemory.xml" />
+    <Content Include="Config\MultiStepShortestPathTask\10vertices5path.xml" />
+    <Content Include="Config\MultiStepShortestPathTask\6vertices3path.xml" />
+    <Content Include="Config\SingleStepShortestPathTask\cycle_with_leaf.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathWithRandom\10vertices5edgesWithoutMemory.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathWithRandom\10vertices5edgesWithoutMemory.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathWithRandom\10vertices5edgesWithMemory.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathWithRandom\10vertices5edgesWithMemory.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\4vertices3edges.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\4vertices3edges.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\4vertices2edges.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\4vertices2edges.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\4vertices1edge.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\4vertices1edge.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\3vertices2edges.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\3vertices2edges.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\3vertices1edge.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\3vertices1edge.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\2vertices1edge.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\2vertices1edge.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathOnly\path.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathOnly\path.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathWithRandom\10vertices3path.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathWithRandom\10vertices3path.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\PathWithRandom\6vertices3path.xml" />
-    <Content Include="Config\ShortestPathTask\random.xml">
+    <Content Include="Config\SingleStepShortestPathTask\PathWithRandom\6vertices3path.xml" />
+    <Content Include="Config\SingleStepShortestPathTask\random.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Config\ShortestPathTask\shortestpath.xml">
+    <Content Include="Config\SingleStepShortestPathTask\shortestpath.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
