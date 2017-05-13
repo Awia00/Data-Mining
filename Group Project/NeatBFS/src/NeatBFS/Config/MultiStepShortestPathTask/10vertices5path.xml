@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths only</Name>
+  <Name>MSSP Task WPR (10,5)</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.MultiStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,10 +20,10 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>-1</MaxGenerations>
+  <MaxGenerations>10000</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>300</PopulationSize>
+  <PopulationSize>500</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
   <LogInterval>10</LogInterval>
@@ -32,11 +32,11 @@
   <MultiThreading>true</MultiThreading>
 
   <!-- Maximum number of threads if multithreading is enabled. -1 defaults to CPU core count -->
-  <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
+  <MaxDegreeOfParallelism>3</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>300</Iterations>
-    <Graph type="Path" vertices="10" seed="978654321" minpath="4" symmetricinstances="true" />
+    <Iterations>25</Iterations>
+    <Graph type="PathWithRandom" vertices="10" seed="42" minpath="5" symmetricinstances="false" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -49,7 +49,7 @@
     <N>-1</N>
 
     <!-- Write vector size -->
-    <M>4</M>
+    <M>10</M>
 
     <!-- If M > 1 this will initialize the values of the turing machine with a gradient from 0 to 1. Default = false -->
     <InitalizeWithGradient>false</InitalizeWithGradient>
@@ -71,7 +71,7 @@
 
     <!-- A extra memory location is maintained with the initial values at the end of the tape. If the machine write to this location, a new one is created.
 		This can be used to give the tm an option to always have a place to jump to create new memories. Default = false -->
-    <UseMemoryExpandLocation>false</UseMemoryExpandLocation>
+    <UseMemoryExpandLocation>true</UseMemoryExpandLocation>
 
     <!-- Similarity threshold to check if a write operation changed the values at a location Default = 0.9 -->
     <DidWriteThreshold>0.9</DidWriteThreshold>
@@ -96,7 +96,7 @@
       WritePatternAndInterp:  Use write position and interp as novelty vector.
       ShiftJumpInterp:        Shift, jump and interp for novelty vector
       -->
-    <NoveltyVector>ShiftJumpInterp</NoveltyVector>
+    <NoveltyVector>WritePattern</NoveltyVector>
 
     <!-- The minimum novelty score an individual must achieve to be entered into the archive. -->
     <PMin>15</PMin>
@@ -136,7 +136,7 @@
     <MinimumCriteriaReadWriteLowerThreshold>0.1</MinimumCriteriaReadWriteLowerThreshold>
 
     <!-- Multiply the Novely Score with the Objective fitness to the power of x. 0 to use only Novelty Score. -->
-    <ObjectiveFactorExponent>0</ObjectiveFactorExponent>
+    <ObjectiveFactorExponent>1</ObjectiveFactorExponent>
 
   </NoveltySearch>
 
@@ -195,7 +195,7 @@
   <!-- Evolution Algorithm Parameters -->
   <EAParams>
     <!-- Number of species in the population. Default: 10 -->
-    <SpecieCount>10</SpecieCount>
+    <SpecieCount>30</SpecieCount>
 
     <!-- We sort specie genomes by fitness and keep the top N%, the other genomes are removed to make way for the offspring. Default: 0.2  -->
     <ElitismProportion>0.02</ElitismProportion>

@@ -10,5 +10,6 @@ namespace NeatBFS.Graph
         bool HasEdge(int u, int v);
         int[] DistanceToArray(int v);
         double[] EncodedGraph { get; }
+        double[][] EncodedAdjacencyMatrix { get; }
     }
 }

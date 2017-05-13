@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task</Name>
+  <Name>Shortest Path Task With Paths and Random (6,3)</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,13 +20,13 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>100</MaxGenerations>
+  <MaxGenerations>10000</MaxGenerations>
 
   <!-- NEAT -->
-  <PopulationSize>300</PopulationSize>
+  <PopulationSize>50</PopulationSize>
 
   <!-- The generation interval between writing the status to the log -->
-  <LogInterval>10</LogInterval>
+  <LogInterval>25</LogInterval>
 
   <!-- Wether or not to use parallel or serial evaluation. Parallel is faster, but serial can be necessary for debugging -->
   <MultiThreading>true</MultiThreading>
@@ -35,14 +35,8 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>10</Iterations>
-    <Graph type="Manual" vertices="5">
-      <Edge from="0" to="1" />
-      <Edge from="1" to="2" />
-      <Edge from="2" to="3" />
-      <Edge from="3" to="4" />
-      <Edge from="0" to="3" />
-    </Graph>
+    <Iterations>100</Iterations>
+    <Graph type="PathWithRandom" vertices="6" seed="978654321" minpath="3" symmetricinstances="true" />
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -86,7 +80,7 @@
         Interpolate: Turing machine will interpolate between the write vector and the content already stored at the position.
         Overwrite: Turing machine will overwrite if output is >= 0.5, otherwise it will not write.
     -->
-    <WriteMode>Overwrite</WriteMode>
+    <WriteMode>Interpolate</WriteMode>
 
   </TuringMachineParams>
 
@@ -102,7 +96,7 @@
       WritePatternAndInterp:  Use write position and interp as novelty vector.
       ShiftJumpInterp:        Shift, jump and interp for novelty vector
       -->
-    <NoveltyVector>ShiftJumpInterp</NoveltyVector>
+    <NoveltyVector>EnvironmentAction</NoveltyVector>
 
     <!-- The minimum novelty score an individual must achieve to be entered into the archive. -->
     <PMin>15</PMin>

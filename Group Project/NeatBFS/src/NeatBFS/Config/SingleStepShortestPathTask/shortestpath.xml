@@ -2,10 +2,10 @@
 <Config>
 
   <!-- The name of the experiment -->
-  <Name>Shortest Path Task With Paths only (3,1)</Name>
+  <Name>Shortest Path Task</Name>
 
   <!-- The fully qualified name of the experiment class -->
-  <ExperimentClass>NeatBFS.Experiments.ShortestPathTaskExperiment</ExperimentClass>
+  <ExperimentClass>NeatBFS.Experiments.SingleStepShortestPathTaskExperiment</ExperimentClass>
 
   <!-- Experiment description -->
   <Description>
@@ -20,7 +20,7 @@
   <ExperimentCount>2</ExperimentCount>
 
   <!-- The maximum number of generations that the experiment will run before terminating if the maximum fitness has not been achieved. -1 for unlimited -->
-  <MaxGenerations>-1</MaxGenerations>
+  <MaxGenerations>100</MaxGenerations>
 
   <!-- NEAT -->
   <PopulationSize>300</PopulationSize>
@@ -35,8 +35,14 @@
   <MaxDegreeOfParallelism>-1</MaxDegreeOfParallelism>
 
   <ShortestPathTaskParams>
-    <Iterations>300</Iterations>
-    <Graph type="Path" vertices="3" seed="978654321" minpath="1" symmetricinstances="true" />
+    <Iterations>10</Iterations>
+    <Graph type="Manual" vertices="5">
+      <Edge from="0" to="1" />
+      <Edge from="1" to="2" />
+      <Edge from="2" to="3" />
+      <Edge from="3" to="4" />
+      <Edge from="0" to="3" />
+    </Graph>
   </ShortestPathTaskParams>
 
   <!-- Turing Machine Parameters-->
@@ -80,7 +86,7 @@
         Interpolate: Turing machine will interpolate between the write vector and the content already stored at the position.
         Overwrite: Turing machine will overwrite if output is >= 0.5, otherwise it will not write.
     -->
-    <WriteMode>Interpolate</WriteMode>
+    <WriteMode>Overwrite</WriteMode>
 
   </TuringMachineParams>
 

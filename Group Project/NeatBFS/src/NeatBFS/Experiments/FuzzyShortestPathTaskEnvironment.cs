@@ -2,7 +2,7 @@ using NeatBFS.Graph.Factories;
 
 namespace NeatBFS.Experiments
 {
-    public class FuzzyShortestPathTaskEnvironment : ShortestPathTaskEnvironment
+    public class FuzzyShortestPathTaskEnvironment : SingleStepShortestPathTaskEnvironment
     {
         public FuzzyShortestPathTaskEnvironment(IShortestPathInstanceFactory instanceFactory) : base(instanceFactory)
         {}
