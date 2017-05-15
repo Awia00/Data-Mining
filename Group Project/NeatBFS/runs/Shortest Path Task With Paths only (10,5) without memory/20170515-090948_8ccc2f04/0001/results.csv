@@ -1,0 +1,4 @@
+Experiment,Comment,Start Time,Time,Solved,Generations,Champion Fitness,Champion Complexity,Champion Hidden Nodes,Champion Birth Generation,Tested Fitness,Tested Generalization Fitness
+1,"Size 1 objective",15052017-090952,01h:38m:00s:094ms,False,10000,0.3520,30,2,8374,0.0780,0.0415
+2,"Size 1 objective",15052017-111419,03h:05m:33s:818ms,False,10001,0.3020,104,14,9599,0.0850,0.0600
+3,"Size 1 objective",15052017-142246,02h:27m:14s:279ms,False,10000,0.3240,67,2,9995,0.0545,0.1015

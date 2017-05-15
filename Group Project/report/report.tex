@@ -12,6 +12,10 @@
 \usepackage[colorinlistoftodos,]{todonotes}
 \usepackage{cite}
 \usepackage[nottoc,numbib]{tocbibind}
+\usepackage{pdfpages}
+\usepackage{listingsutf8}
+
+
 
 \newcommand{\newpar}{\bigskip\noindent}
 \bibliographystyle{plain}
@@ -21,6 +25,7 @@
 \title{Shortest Path in Undirected Unweighted Graphs using Evolvable Neural Turing Machine}
 
 \begin{document}
+\includepdf{frontpage}
 \maketitle
 \tableofcontents
 \listoftodos
@@ -38,5 +43,12 @@
 \newpage
 
 \appendix
-\section{SharpNEAT Configuration File}
+\section{SharpNEAT Configuration Files}
+\label{appendix:sharpneat:configurations}
+\todo{Configuration files}
+\subsection{Configuration with memory}
+\lstinputlisting[numbers=left,breaklines=true,basicstyle=\footnotesize,stepnumber=1,frame=single]{../NeatBFS/src/NeatBFS/Config/SingleStepShortestPathTask/PathWithRandom/10vertices5edgesWithMemory.xml}
+
+\subsection{Configuration without memory}
+\lstinputlisting[numbers=left,breaklines=true,basicstyle=\footnotesize,stepnumber=1,frame=single]{../NeatBFS/src/NeatBFS/Config/SingleStepShortestPathTask/PathWithRandom/10vertices5edgesWithoutMemory.xml}
 \end{document}
