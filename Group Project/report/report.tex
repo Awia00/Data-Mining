@@ -48,8 +48,14 @@ A \textit{one hot encoding} of a nominal data point, is a conversion of the data
 Evolutionary neural networks is a method of training and building neural networks based on evolutionary algorithms. These networks can be trained without having specific input and expected outputs but by specifying a fitness function which describes how well the network does in the specific instance. 
 
 \subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
+Whereas most other Evolutionary Neural Network algorithms, start from a randomly seeded network, NEAT evolves the topology from the minimal network, where no hidden neurons exist.
+
+NEAT also uses a technique called innovation numbering, in order to distinguish or compare genes between phenomes. The technique is used both when mating, that is, pairing two phenomes in order to produce new outspring, and when "clustering" the phenomes into species.
+
+The notion of species is used to protect innovative but untrained structures in a phenome. The idea is that, when a new structure has been evolved, it might not have good weights associated, which means that it will initially perform much worse than older and trained phenomes without this structure. Instead of making all phenomes compete against each other, the phenomes are divided into species, that can then compete against each other. This allows the innovative mutations to last a few generations, so they can prove (or disprove) their worth.
 
 \subsection{Evolvable Neural Turing Machine}
+
 
 \section{Experiment}
 Given an unweighted undirected graph $G$, a source vertex $s$, and a target vertex $t$, find the shortest path from $s$ to $t$ in $G$.
@@ -123,7 +129,7 @@ We have chosen to give the following scores for the output of each step on the s
 
 Furthermore, we give the score 0, if one step resulted in a move where no edge exists. Also the accumulated score is reset to 0, and no further steps are performed.
 
-The gist of these scores is that we want to reward neural networks that understand the underlying graph problem (or can at least guess them) more than a network that chooses arbitrarily.
+The idea behind these scores is that we want to reward neural networks that understand the underlying graph problem (or can at least guess them) more than a network that chooses arbitrarily.
 
 \subsection{The Experiments}
 To assess and measure how well the shortest path problem is solved, two times three experiments are performed. The first three experiments uses the NEAT framework to train and build the neural networks. The last three experiments uses the ENTM extension of the NEAT framework and can therefore in addition approximate Neural Turing machines. The memory is unlimited (within the bounds of the host machine), the write vector size is 4 and the default jump mechanism introduced in \todo{ref ENTM} is used. 
@@ -135,15 +141,19 @@ The results of the experiments can be seen on figure \ref{experiments:graph:1}. 
 
 \begin{figure}
 	\todo[inline]{TODO}
-	\caption{experiments:graph:1}
-	\label{Graph of the results}
+	\caption{Graph of the results}
+	\label{experiments:graph:1}
 \end{figure}
 
 
 
-\subsubsection{Analysis}
+\section{Analysis}
 
 
 
 \section{Conclusion}
+
+\newpage
+\appendix
+\section{SharpNEAT Configuration File}
 \end{document}
