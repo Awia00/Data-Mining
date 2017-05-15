@@ -37,5 +37,18 @@ Whereas most other Evolutionary Neural Network algorithms, start from a randomly
 
 \newpar Further details about the NEAT algorithm can be found in \cite{stanley2002evolving}.
 
-\subsection{Evolvable Neural Turing Machine}
-In \cite{greve2016evolving} Greve et. al. introduces the Evolvable Neural Turing Machine. A Neural Turing Machine is able to write and read of a non-fixed size memory bank like a regular turing machine. Greve et. al. shows that the evolvable neural turing machine are able to solve simple algorithm tasks such as the copy task, and the continuous T-maze task. 
+\subsection{Evolvable Neural Turing Machine (ENTM)}
+In \cite{greve2016evolving} Greve et. al. introduces the Evolvable Neural Turing Machine as an extension of the Neural Turing Machine (NTM, \cite{graves2014neural}), with the difference that the ENTM does not require the network to read through the entire memory bank at each timestep, as the NTM does. Furthermore the memory bank can be theoretically unlimited in the ENTM setup.
+
+\newpar With this change comes also a different way of addressing the memory bank. The Turing Machine part of ENTM has four operations that can be performed on the memory banks read/write-head:
+
+\begin{enumerate}
+	\item Write - Writes the content of the write vector to the current position in the memory bank.\footnote{This is a simplification. The content is interpolated with the existing vector.}
+	\item Content Jump - Moves the read/write head to the memory bank position that is most similar to the write vector.
+	\item Shift - The read/write head can be shifted one position to the left or right, or it can be kept at the current position.
+	\item Read - The content of the current position is used as input for the next artificial neural network in the next time-step.
+\end{enumerate}
+
+\newpar Furthermore the ENTM is trained and evolved using NEAT, whereas the NTM uses gradient descent. This enforces looser requirements to the structure and activation functions of the neural network.
+
+\newpar Greve et. al. shows that the ENTM is able to solve simple algorithm tasks such as the copy task, and the continuous T-maze task.
