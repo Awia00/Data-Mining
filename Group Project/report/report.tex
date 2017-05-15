@@ -20,7 +20,7 @@
 \tableofcontents
 \newpage
 \section{Introduction}
-Finding the shortest path in a graph is one of the most well studied algorithmic graph problems and solutions for the problem origin back to the late 1950's. Finding the shortest path has a long list of applications from transport and routing tables in networks to being an essential part of many more advanced graph algorithms. Most problems can be modelled as a shortest path problem on a large enough graph and as such it can be seen as a general problem solver(\todo{check liiiige om det her er bullshit}). In recent years neural networks has gained more and more traction in the artificial intelligence and machine learning areas. This change is both due to the more widespread adoption and advancement of graphical processing units but also due to theoretical breakthroughs. Neural networks are used for classification, finding heuristics and as the decision mechanism for artificial agents among others.
+Finding the shortest path in a graph is one of the most well studied algorithmic graph problems and solutions for the problem origin back to the late 1950's. Finding the shortest path has a long list of applications from transport and routing tables in networks to being an essential part of many more advanced graph algorithms. Most problems can be modelled as a shortest path problem on a large enough graph and as such it can be seen as a general problem solver(\todo{check liiiige om det her er bullshit}). In recent years neural networks has gained more and more traction in the artificial intelligence and machine learning fields. This change is both due to the more widespread adoption and advancement of graphical processing units but also due to theoretical breakthroughs. Neural networks are used for classification, finding heuristics and as the decision mechanism for artificial agents among others.
 
 \newpar One of the most often mentioned problems with neural networks and machine learning in general is that they are inherently single purpose and do not handle different problems and domains very well from what they are trained to do.
 
@@ -45,7 +45,7 @@ A \textit{neural network} is an approximation method for n dimensional functions
 \newpar A \textit{one hot encoding} of a nominal data point, is a conversion of the data point into a bit array $ A $ with the length of the range of possible nominal values. For a nominal value $ i $ only $ A[i] $ is $ 1 $.  
 
 \subsection{Evolutionary Neural Networks}
-Evolutionary neural networks is a method of training and building neural networks based on evolutionary algorithms. These networks can be trained without having specific input and expected outputs but by specifying a fitness function which describes how well the network does in the specific instance. 
+Evolutionary neural networks is a method of training and developing the topology of neural networks based on evolutionary algorithms. These networks can be trained without having specific input and expected outputs but by specifying a fitness function which describes how well the network does in the specific instance. 
 
 \subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
 Whereas most other Evolutionary Neural Network algorithms, start from a randomly seeded network, NEAT evolves the topology from the minimal network, where no hidden neurons exist.
@@ -55,7 +55,7 @@ Whereas most other Evolutionary Neural Network algorithms, start from a randomly
 \newpar The notion of species is used to protect innovative but untrained structures in a phenome. The idea is that, when a new structure has been evolved, it might not have good weights associated, which means that it will initially perform much worse than older and trained phenomes without this structure. Instead of making all phenomes compete against each other, the phenomes are divided into species, that can then compete against each other. This allows the innovative mutations to last a few generations, so they can prove (or disprove) their worth.
 
 \subsection{Evolvable Neural Turing Machine}
-
+In \todo{cite entm} Risi et. al. introduces the Evolvable Neural Turing Machine. A Neural Turing Machine is able to write and read weights of a non-fixed size memory tape like a regular turing machine. Risi. et. al. shows that the evolvable neural turing machine are able to solve simple algorithm tasks such as the copy task, and T-maze task. 
 
 \section{Experiment}
 Given an unweighted undirected graph $G$, a source vertex $s$, and a target vertex $t$, find the shortest path from $s$ to $t$ in $G$.
