@@ -2,3 +2,11 @@
 % !TeX spellcheck = en_GB
 
 \section{Analysis}
+From the results above it seems that the structure of our input does not allow for good results.
+
+\newpar Recurrent and acyclic neural networks as well as Turing enabled and disabled networks never (in 10.000 generations) achieve higher fitness than around 0.35.
+\todo{more comments on the actual experiment}
+
+\newpar One possible reason for this, might be that the encoding of the problem is not feasible for the ENTM. If we compare our encoding to that of the Copy Task from \cite{greve2016evolving}, they made sure to signal the network when starting a new assignment and when asking it to return the content back. Also, they supplied the input in multiple time-steps rather than giving the entire sequence all at once.
+
+\newpar The shortest path problem differ from the Copy task in that the memory bank should not only be used to store content as provided. It should be used to model some structure that would allow for the planning problem to be performed. Since we ask for output in every iteration (also the first), we don't allow the ENTM to preprocess anything. This might be another place to tweak the problem encoding. Further experiments might try to feed the graph in multiple steps and different encodings, and train the network to signal when it is ready to answer on the shortest path problem.
