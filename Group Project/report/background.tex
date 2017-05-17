@@ -17,38 +17,33 @@ A \textit{neural network} is an approximation method for $ n $ dimensional conti
 
 \newpar A \textit{one hot encoding} of a nominal data point, is a conversion of the data point into a bit array $A$ with the length $n$, where $n$ is the number of possible nominal values. Each of the nominal values are then assigned a label $i \in \{0 .. n-1\}$. For a nominal value with label $i$ only $ A[i] $ is $1$, all other elements in $A$ is $0$. This encoding is often used for neural networks, as each element of $A$ can be used as the input for a single neuron in the input layer.
 
-\subsection{Evolutionary Neural Networks}
-Evolutionary neural networks is a method of training the weights of a neural network based on evolutionary algorithms. These networks can be trained without using supervised learning but reward based learning where a fitness function describes how well the network does in the specific instance. The use of evolutionary algorithms means that high performing neural networks are the base for the next generations, rather than choosing arbitrary or completely random networks in each generation.
+\subsection{Neuroevolution}
+\textit{Neuroevolution} is a method for training the weights and in some cases the topology of a neural network based on evolutionary algorithms. Instead of using supervised learning, neuroevolution uses reward based learning where a fitness function describes how well the network does in a specific instance. 
+In contrast to gradient descent which minimizes errors, neuroevolution uses biologically inspired selection methods such as \textit{mutation} and \textit{reproduction} to optimize the fitness of a \textit{population} of networks. The best performing network in a population is declared the \textit{champion}.
 
 \subsubsection{NeuroEvolution of Augmenting Topologies (NEAT)}
-Whereas most other Evolutionary Neural Network algorithms, start from a randomly seeded network with a fixed topology, NEAT evolves the topology from the minimal network, where no hidden neurons exist.
+NEAT is introduced by Stanley and Miikkulainen in \cite{stanley2002evolving} as a new method for neuroevolution. In NEAT a neural network is called a \textit{phenotype}. NEAT uses the concept of \textit{genes} to both describe neurons, and connections between them. A \textit{genome} consists of genes where some of them might be deactivated. The active genes of a genome corresponds to a phenotype. 
 
-\newpar NEAT has a few main components, that is used to improve over previous neuroevolution algorithms:
+\newpar To improve over previous methods of neuroevolution NEAT uses: Innovation numbering, speciation, and incremental growth from minimal structure.
 
-\begin{itemize}
-	\item Innovation numbering
-	\item Speciation
-	\item Incremental growth from minimal structure
-\end{itemize}
+\newpar Innovation numbering uniquely labels a gene to distinguish or compare genes across genomes. The technique is used both in reproduction and when grouping the genomes into \textit{species}.
 
-\newpar NEAT uses a technique called innovation numbering, in order to distinguish or compare genes between genomes. The technique is used both when mating, that is, pairing two phenotypes in order to produce new out-spring, and when grouping the phenotypes into species.
-
-\newpar The notion of species is used to protect innovative but untrained structures in new genomes. The idea is that, when a new structure has been introduced, it might not have good weights associated, which means that it will initially perform worse than older and trained genomes without this structure. Instead of having all genomes compete against each other, the genomes are divided into species, where the genomes inside a specie compete against each other. This allows the innovative mutations to last some generations, so they can prove, or disprove, their worth.
-
-\newpar Further details about the NEAT algorithm can be found in \cite{stanley2002evolving}.
+\newpar The notion of species is used to protect innovative but unoptimized structures in new genomes. The phenotype of a genome with a newly introduced gene, might perform worse due to unoptimized weights, even if the new gene is useful for further optimization. Instead of having all genomes compete against each other, they are divided into species, where only genomes inside a specie compete against each other. This allows the innovative mutations to last some generations, so they can prove, or disprove, their worth.
 
 \subsection{Evolvable Neural Turing Machine (ENTM)}
-In \cite{greve2016evolving} Greve et. al. introduces the Evolvable Neural Turing Machine as an extension of the Neural Turing Machine (NTM, \cite{graves2014neural}), with the difference that the ENTM does not require the network to read through the entire memory bank at each time-step, as the NTM does. Furthermore the memory bank can be theoretically unlimited in the ENTM setup.
+The \textit{Neural Turing Machine} (NTM, \cite{graves2014neural}) introduces a fixed size memory bank which allows the network to store and recall information in each activation. This allows the network to describe variables and therefore to approximate algorithms.
 
-\newpar With this change comes also a different way of addressing the memory bank. The Turing Machine part of ENTM has four operations that can be performed on the memory banks read/write-head:
+\newpar In \cite{greve2016evolving} Greve et. al. introduce the \textit{Evolvable Neural Turing Machine} as an extension of the NTM with two main differences. 
+
+First of all ENTM does not require the network to read through the entire memory bank at each time-step which entails that the memory bank can be theoretically unlimited. Second, ENTM uses NEAT to optimize fitness where the NTM uses gradient descent.
+
+\newpar The ENTM addresses the memory with the following four instructions:
 
 \begin{enumerate}
-	\item Write - Writes the content of the write vector to the current position in the memory bank.\footnote{This is a simplification. The content is interpolated with the existing vector.}
+	\item Write - Writes the content of the write vector to the current position in the memory bank.
 	\item Content Jump - Moves the read/write head to the memory bank position that is most similar to the write vector.
 	\item Shift - The read/write head can be shifted one position to the left or right, or it can be kept at the current position.
 	\item Read - The content of the current position is used as input for the next artificial neural network in the next time-step.
 \end{enumerate}
 
-\newpar Furthermore the ENTM is trained and evolved using NEAT, whereas the NTM uses gradient descent. This enforces looser requirements to the structure and activation functions of the neural network.
-
-\newpar Greve et. al. shows that the ENTM is able to solve simple algorithm tasks such as the copy task, and the continuous T-maze task.
+\newpar Greve et. al. show that the ENTM is able to solve simple algorithmic tasks such as the copy task, and the continuous T-maze task.
