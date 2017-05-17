@@ -2,12 +2,13 @@
 % !TeX spellcheck = en_GB
 
 \section{Experiment}
-Given an unweighted undirected graph $G$, a source vertex $s$, and a target vertex $t$, find the shortest path from $s$ to $t$ in $G$.
+The problem definition is as follows: 
+Given a graph $G$, a source vertex $s$, and a goal vertex $t$, find the shortest path from $s$ to $t$ in $G$.
 
 \newpar We have restricted the problem to instances where a path between $s$ and $t$ exists.
 
 \subsection{Instance encoding}
-In order to feed the instance into the network, we use a one hot encoding of the adjacency matrix of the graph and each of the source and target vertices. See \autoref{fig:input:encoding} for an example.
+In order to feed the instance into the network, we use an encoding of the adjacency matrix of the graph, where each edge has the value 1, and each non-edge has the value 0. The source and target vertices are one-hot encoded. See \autoref{fig:input:encoding} for an example.
 
 \begin{figure}[ht]
 	\centering
@@ -42,9 +43,9 @@ In order to feed the instance into the network, we use a one hot encoding of the
 	\label{fig:input:encoding}
 \end{figure}
 
-\noindent When the neural network using the turing machine returns output, this is a one-hot encoding of the next vertex on the path to the target. Furthermore, for simplicity we choose the first node with maximal weight.
+\noindent When the neural network using the Turing machine returns output, this is interpreted as a one-hot encoding of the next vertex on the path to the target. Furthermore, for simplicity we choose the first node with maximal weight.
 
-\newpar This means that we can run the graph through the neural network multiple times, and each time, the neural network will tell us which vertex to move to, which we can give it back as the new source vertex to move from.
+\newpar With these encodings for input and output, we can supply the same graph and goal, multiple times, while only changing the current source vertex. The neural network will then return its answer to the next vertex on the path, that can then be used as a new source vertex.
 
 \subsection{Instance generation}
 Each experiment has a few settings that can be chosen between.
@@ -58,7 +59,7 @@ A number of these settings are related to instance generation.
 	\item The number of vertices of the graph
 	\item The length of the path that should be found in the graph
 	\item The seed of the random number generator that is used to produce instances
-	\item Whether or not the same graph should be used in symmetric instances, that is, one instance with a source and goal and another where they have been switched.
+	\item Whether or not the same graph should be used in symmetric instances, that is, one instance where $s$ is the source and and $t$ is the goal and another where $t$ is the source and $s$ is the goal.
 \end{itemize}
 
 \noindent The factory then chooses a source and a goal, and builds a path of the specified length between them.
