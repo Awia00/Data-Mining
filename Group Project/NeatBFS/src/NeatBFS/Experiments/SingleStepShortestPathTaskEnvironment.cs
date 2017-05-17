@@ -15,9 +15,9 @@ namespace NeatBFS.Experiments
         public override int OutputCount => Graph.NumberOfVertices * Graph.NumberOfVertices + 2 * Graph.NumberOfVertices;
         public override double[] InitialObservation => GetOutput(_startVertex);
         private double _currentScore;
-        public override double CurrentScore => _currentScore;
+        public override double CurrentScore => _tookNonEdge ? 0d : 1d/(DistanceToArray[CurrentVertex]+1d);
 
-        public override double MaxScore => DistanceToArray[_startVertex]*4;
+        public override double MaxScore => 1;
 
         public override double NormalizedScore => CurrentScore / MaxScore;
         public override bool IsTerminated => DistanceToArray[CurrentVertex] == 0 || _step >= TotalTimeSteps;
@@ -49,23 +49,30 @@ namespace NeatBFS.Experiments
             ResetAll();
         }
 
+        private bool _tookNonEdge = false;
         public override double[] PerformAction(double[] action)
         {
             if (CurrentVertex == Goal) throw new Exception("Goal reached before step");
             var next = GetMaxIndex(action);
             var observation = GetOutput(next);
-            var thisScore = Evaluate(CurrentVertex, next, action);
+            if (!Graph.HasEdge(CurrentVertex, next))
+            {
+                _tookNonEdge = true;
+                _step = TotalTimeSteps;
+               return observation;
+            }
+            //var thisScore = Evaluate(CurrentVertex, next, action);
             //var thisScore = FuzzyEvaluate(CurrentVertex, action);
 
-            _currentScore += thisScore;
+            //_currentScore += thisScore;
 
-            if (RecordTimeSteps)
-            {
-                PrevTimeStep = new EnvironmentTimeStep(action, observation, thisScore);
-            }
+            //if (RecordTimeSteps)
+            //{
+            //    PrevTimeStep = new EnvironmentTimeStep(action, observation, thisScore);
+            //}
             CurrentVertex = next;
             _step++;
-            return GetOutput(next);
+            return observation;
         }
         
         protected virtual double Evaluate(int current, int next, double[] action)
@@ -153,6 +160,7 @@ namespace NeatBFS.Experiments
             _startVertex = Current.Source;
 
             CurrentVertex = _startVertex;
+            _tookNonEdge = false;
             _currentScore = 0;
             _step = 0;
         }
