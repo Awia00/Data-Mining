@@ -2,7 +2,7 @@
 % !TeX spellcheck = en_GB
 
 \section{Conclusion}
-We were unsuccessful in training an evolutionary neural turing machine to be able to find the shortest path in a undirected unweighted graph. Only a fitness value of $\approx0.35 $ was achieved which outperforms the a strategy which randomly picks moves. The network was not able to fully learn how to recognize edges in the graph but indicated higher values for the correct move than the average case. 
+We were unsuccessful in training an evolutionary neural turing machine to be able to find the shortest path in a undirected unweighted graph. On graphs with 10 vertices and 9 edges, where the shortest path between the source and target has a length of 5, only a fitness value of $\approx0.35 $ was achieved, which outperforms the a strategy which randomly picks moves. The network was not able to fully learn how to recognize edges in the graph but indicated higher values for the correct move than the average case. 
 The difference between the neural turing machines and the regular neural networks was insignificant and in average the networks without memory achieved a higher fitness. 
 
-\newpar There is a lot of possible extensions and areas left unexplored which could provide more interesting results. Allowing the network to multiple times read and write to memory in one activation or changing the structure of experiments might allow the networks to better plan ahead. 
+\newpar There is a lot of possible extensions and areas left unexplored which could provide more interesting results. Allowing the network to read and write memory multiple times in one activation or changing the structure of experiments might allow the networks to better plan ahead. Also, the ENTM might need a few intermediate activations in order to update the memory bank, before it is possible for it to give the correct result in subsequent time-steps.
