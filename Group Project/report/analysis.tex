@@ -26,8 +26,12 @@ Recurrent and acyclic neural networks as well as Turing enabled and disabled net
 	\label{table:analysis:1}
 \end{table}
 
+\newpar The champions seem to be able to handle some of the graphs better than others. In a lot of instances the network picks non edges while in others the network gains a very high fitness. This results in a comparatively high fitness in average, but indicates that the ENTM has not been able to generalize and might be over fitted on some of the graphs. To overcome this problem training the networks with more than 25 instances would be beneficial.
+
 \newpar One possible reason for the bad results, might be that the encoding of the problem is not feasible for the ENTM. If we compare our encoding to that of the Copy Task from \cite{greve2016evolving}, they made sure to signal the network when starting a new assignment and when asking it to return the content back. Also, they supplied the input in multiple time-steps rather than giving the entire sequence all at once. Preliminary experiments on this however have not indicated substantial improvements over the current configuration, but further research has to be done to conclude anything on the subject.
 
 \newpar The shortest path problem differ from the Copy task in that the memory bank should not only be used to store content as provided. It should be used to model some structure that would allow for the planning problem to be performed. Since this task has to be learned by a part of the neural network, it seems to be far more advanced, compared to the copy task.
 Because every iteration requires an output of the network, the ENTM is not allowed to process the input more than once. Since the memory bank is only read from at the beginning of a step and written to at the end of a step, the network cannot use the memory for preliminary results. 
 Further experiments might try to feed the input in multiple steps, and train the network to signal when it is ready to answer on the shortest path problem. Another experiment could change the ENTM implementation to allow the network to write and read memory multiple times during a step.
+
+\clearpage
