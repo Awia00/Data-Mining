@@ -39,14 +39,14 @@ In order to feed the instance into the network, we use an encoding of the adjace
 			\subcaption{}
 		\end{subfigure}
 	\end{adjustbox}
-	\caption{(a) Shows a simple graph, (b) its adjacency matrix and (c) an encoding of the entire instance where $s=1$ and $t=4$. The three structures are the flattened adjacency table, the one-hot encoding of $s$, and the one-hot encoding of $t$}
+	\caption{(a) Shows a simple graph, (b) its adjacency matrix and (c) an encoding of the entire instance where $s=1$ and $t=4$. The array contains the flattened adjacency table, the one-hot encoding of $s$, and the one-hot encoding of $t$}
 	\label{fig:input:encoding}
 \end{figure}
 
 \newpar The instances are generated in a manner which tries to avoid over fitting and support general solutions. This is done by using randomly generated graphs with certain restrictions. The graph must contain a path of a given length to ensure a certain level of complexity. This level of complexity filters out optimal strategies on non general case graphs such as graphs with paths of length 1 where the optimal solution is outputting the goal vertex. Generating these graphs is done by picking two random vertices $ s $ and $ t $ and randomly pick vertices that forms a path from $ s $ to $ t $. The remaining vertices are then connected to the set of explored vertices randomly. This ensures that the ENTM cannot just follow edges but need to explore branches of the graph. The generated graphs are of fixed size to ensure neural network compatibility.
 
 \subsection{Fitness}
-The fitness function is defined as a summation of scores for the output of each step on the shortest path. A function $ DistTo(u) $ returns the distance from vertex $ u $ to the goal vertex. The vertex $ current $ describes the vertex which was given to the network and $ next $ denotes the networks choice of next vertex. The following scores are given in each step:
+The fitness function is defined as a summation of scores for the output of each step on the shortest path. The function $ DistTo(u) $ is defined to return the shortest distance from vertex $ u $ to the goal vertex. The vertex $ current $ describes the vertex which was given to the network and $ next $ denotes the network's choice of the next vertex along the path to the goal. The following scores are given in each step:
 
 \begin{itemize}
 	\item[] 1 point: if $ DistTo(next) > DistTo(current) $
@@ -54,13 +54,15 @@ The fitness function is defined as a summation of scores for the output of each 
 	\item[] 4 points: if $ DistTo(next) < DistTo(current) $
 \end{itemize}
 
-\noindent In the case that one step resulted in a move where no edge exists the overall score is set to 0. No further steps are performed.
+\noindent In the case that one step resulted in a move where no edge exists the overall score is set to 0, and no further steps are performed. 
 
-\newpar The motivation these scores is to reward neural networks that understand the underlying graph problem more than a network that chooses arbitrarily.
+Note that the instance generation defined above does not create any cycles and therefore the score 2 will never be given.
 
-\newpar The final score is normalized by the following formula $ \frac{score}{DistTo(source)*4} $ where the denominator is the  maximum score.
+\newpar The motivation for these scores is to reward neural networks that understand the underlying graph problem more than a network that chooses arbitrarily.
+
+\newpar The final score is normalized by the following formula $ \frac{score}{DistTo(source)*4} $ where the denominator is the  maximum score. Note that $ DistTo(source) $ is the maximum number of moves allowed.
 
 \subsection{The Experiments}
-To assess and measure how well the shortest path problem is solved, four different types of experiments are performed. The first experiment uses the NEAT framework to train and build neural networks with recurrent connections. The next experiment uses the ENTM extension of the NEAT framework. These experiments are still using recurrent neural networks. The memory is unlimited (within the bounds of the host machine), the write vector size is 10 and the default jump mechanism introduced in \cite{luders2017continual} is used. The two experiments are repeated on acyclic topologies.
+To assess and measure how well the shortest path problem is solved, four different types of experiments are performed. The first experiment uses the NEAT framework to train and build neural networks with recurrent connections. The next experiment uses the ENTM extension of the NEAT framework using recurrent neural networks. The memory is unlimited (within the bounds of the host machine), the write vector size is 10 and the default jump mechanism introduced in \cite{luders2017continual} is used. The two experiments are repeated on acyclic topologies.
 
-\newpar All experiments uses the exact same configuration for NEAT and runs on the same instances to make it easier to compare them. Each configuration uses a population of 500 divided into 30 species. Each phenotype is tested on 25 unique graphs per generation. All graphs have 10 vertices and 9 edges, of which 5 are on the path between the source and the goal. An example configuration can be seen in \autoref{appendix:sharpneat:configurations}. The appendix also contains the changes between the different experiments.
+\newpar All experiments uses the exact same configuration for NEAT and runs on the same instances to make them comparable. Each configuration uses a population of 500 divided into 30 species. Each phenotype is tested on 25 unique graphs per generation. All graphs have 10 vertices and 9 edges, of which 5 are on the path between the source and the goal. An example configuration can be seen in \autoref{appendix:sharpneat:configurations}. The appendix also contains the changes between the different experiments.
